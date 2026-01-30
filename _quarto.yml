@@ -1,0 +1,35 @@
+project:
+  type: default
+  output-dir: _output
+
+book:
+  title: "Proposal Skripsi"
+  author: "Your Name"
+  chapters:
+    - index.qmd
+
+bibliography: references.bib
+csl: https://www.zotero.org/styles/ieee
+format:
+  html:
+    css: styles.css
+    toc: true
+    number-sections: true
+    mainfont: "Times New Roman"
+    mermaid:
+      theme: neutral
+    fig-format: svg
+  pdf:
+    toc: false
+    number-sections: true
+    papersize: a4
+    geometry:
+      - top=25mm
+      - left=35mm
+      - right=25mm
+      - bottom=25mm
+    mainfont: "Times New Roman"
+    mermaid:
+      theme: neutral
+    fontsize: 12pt
+    linestretch: 1.5
