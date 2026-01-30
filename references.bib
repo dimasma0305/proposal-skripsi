@@ -1,3 +1,19 @@
+@INPROCEEDINGS {Browser_Fingerprinting,
+author = { Lin, Xu and Araujo, Frederico and Taylor, Teryl and Jang, Jiyong and Polakis, Jason },
+booktitle = { 2023 IEEE Symposium on Security and Privacy (SP) },
+title = {{ Fashion Faux Pas: Implicit Stylistic Fingerprints for Bypassing Browsers' Anti-Fingerprinting Defenses }},
+year = {2023},
+volume = {},
+ISSN = {},
+pages = {987-1004},
+abstract = { Browser fingerprinting remains a topic of particular interest for both the research community and the browser ecosystem, and various anti-fingerprinting countermeasures have been proposed by prior work or deployed by browsers. While preventing fingerprinting presents a challenging task, modern fingerprinting techniques heavily rely on JavaScript APIs, which creates a choke point that can be targeted by countermeasures. In this paper, we explore how browser fingerprints can be generated without using any JavaScript APIs. To that end we develop StylisticFP, a novel fingerprinting system that relies exclusively on CSS features and implicitly infers system characteristics, including advanced fingerprinting attributes like the list of supported fonts, through carefully constructed and arranged HTML elements. We empirically demonstrate our system's effectiveness against privacy-focused browsers (e.g., Safari, Firefox, Brave, Tor) and popular privacy-preserving extensions. We also conduct a pilot study in a research organization and find that our system is comparable to a state-of-the-art JavaScript-based fingerprinting library at distinguishing devices, while outperforming it against browsers with anti-fingerprinting defenses. Our work highlights an additional dimension of the significant challenge posed by browser fingerprinting, and reaffirms the need for more robust detection systems and countermeasures. },
+keywords = {Privacy;Ecosystems;Organizations;Fingerprint recognition;Libraries;Browsers;Security},
+doi = {10.1109/SP46215.2023.10179437},
+url = {https://doi.ieeecomputersociety.org/10.1109/SP46215.2023.10179437},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month =May}
+
 
 @misc{Microsoft_SignalR_Overview,
   title = "Overview of ASP.NET Core SignalR | Microsoft Learn",
@@ -49,13 +65,13 @@
 }
 
 @misc{CSharpCorner_CustomMiddleware,
-  title = "Creating Custom Middleware in ASP.NET Core – The Complete Guide with Real Examples",
+  title = "Creating Custom Middleware in ASP.NET Core - The Complete Guide with Real Examples",
   url = "https://www.c-sharpcorner.com/article/creating-custom-middleware-in-asp-net-core-the-complete-guide-with-real-exa/",
   note = {Accessed: 2026-01-29}
 }
 
 @misc{SemanticScholar_ChatGPT_CTF,
-  title = "Friend or Foe – The Impact of ChatGPT on Capture the Flag Competitions",
+  title = "Friend or Foe - The Impact of ChatGPT on Capture the Flag Competitions",
   url = "https://pdfs.semanticscholar.org/029d/4c781cf834c0f0cae882a82abea4f6689dba.pdf",
   note = {Accessed: 2026-01-29}
 }
@@ -158,5 +174,35 @@
 @misc{GeeksforGeeks_LCS,
   title = "Longest Common Subsequence (LCS) - GeeksforGeeks",
   url = "https://www.geeksforgeeks.org/dsa/longest-common-subsequence-dp-4/",
+  note = {Accessed: 2026-01-30}
+}
+
+@misc{GitHub_WebFingerprinting,
+  title = "web fingerprinting research",
+  author = "abrahamjuliot",
+  url = "https://github.com/abrahamjuliot/web-fingerprinting",
+  note = {Accessed: 2026-01-30}
+}
+
+@misc{GitHub_CreepJS,
+  title = "Creepy device and browser fingerprinting",
+  author = "abrahamjuliot",
+  url = "https://github.com/abrahamjuliot/creepjs",
+  note = {Accessed: 2026-01-30}
+}
+
+@misc{travieso2024analyticalapproachjaccardsimilarity,
+      title={An Analytical Approach to the Jaccard Similarity Index}, 
+      author={Gonzalo Travieso and Alexandre Benatti and Luciano da F. Costa},
+      year={2024},
+      eprint={2410.16436},
+      archivePrefix={arXiv},
+      primaryClass={physics.data-an},
+      url={https://arxiv.org/abs/2410.16436}, 
+}
+
+@misc{GeeksforGeeks_Jaccard,
+  title = {Jaccard Similarity - GeeksforGeeks},
+  url = {https://www.geeksforgeeks.org/jaccard-similarity-in-python/},
   note = {Accessed: 2026-01-30}
 }

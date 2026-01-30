@@ -1,2 +1,8 @@
 /.quarto
 /_output
+
+/.quarto/
+**/*.quarto_ipynb
+/index_files/*
+
+/cheat_detection.txt
