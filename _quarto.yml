@@ -3,8 +3,8 @@ project:
   output-dir: _output
 
 book:
-  title: "Proposal Skripsi"
-  author: "Your Name"
+  title: "Perancangan Sistem Deteksi Kecurangan pada Platform GZCTF Menggunakan Algoritma Two-Stage Similarity Analysis dan Weighted Risk Scoring"
+  author: "Dimas Maulana"
   chapters:
     - index.qmd
 
@@ -12,6 +12,7 @@ bibliography: references.bib
 csl: https://www.zotero.org/styles/ieee
 format:
   html:
+    css: styles.css
     toc: true
     number-sections: true
     papersize: a4
@@ -39,3 +40,5 @@ format:
       theme: neutral
     fontsize: 12pt
     linestretch: 1.5
+  docx:
+    toc: false
