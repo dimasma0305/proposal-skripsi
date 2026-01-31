@@ -11,20 +11,20 @@ book:
 bibliography: references.bib
 csl: https://www.zotero.org/styles/ieee
 format:
-  docx:
-    toc: false
-    number-sections: true
-    papersize: a4
-    geometry:
-      - top=25mm
-      - left=35mm
-      - right=25mm
-      - bottom=25mm
-    mainfont: "Times New Roman"
-    mermaid:
-      theme: neutral
-    fontsize: 12pt
-    linestretch: 1.5
+  # docx:
+  #   toc: false
+  #   number-sections: true
+  #   papersize: a4
+  #   geometry:
+  #     - top=25mm
+  #     - left=35mm
+  #     - right=25mm
+  #     - bottom=25mm
+  #   mainfont: "Times New Roman"
+  #   mermaid:
+  #     theme: neutral
+  #   fontsize: 12pt
+  #   linestretch: 1.5
   html:
     toc: true
     number-sections: true
