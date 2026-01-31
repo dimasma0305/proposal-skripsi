@@ -36,7 +36,9 @@ Penelitian ini dibatasi oleh ruang lingkup sebagai berikut guna menjaga kedalama
     - **Deteksi Kolusi**: Penerapan algoritma *Hybrid Relative Sequence Index* (RSI) yang menggabungkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] (70%) dan *Longest Common Subsequence* (30%) serta metode *Confidence Screening Detector* (CSD) untuk klastering kelompok kolusi.
 3. Parameter data yang dianalisis bersumber dari log *database* PostgreSQL GZCTF, meliputi alamat IP, *Browser Fingerprint*, waktu *submission*, dan metadata interaksi tantangan (waktu *download/container start*) [@GitHub_GZCTF].
 4. Implementasi sistem dibangun sepenuhnya menggunakan bahasa pemrograman C# (.NET) untuk menjamin performa dan kompatibilitas dengan arsitektur *backend* GZCTF.
-5. Pengujian usability dan fungsionalitas dilakukan dengan melibatkan minimal lima responden yang berperan sebagai penyelenggara kompetisi untuk memvalidasi *dashboard* monitoring kecurangan.
+5. Modul admin yang dibangun dilengkapi dengan fitur manajemen data (CRUD) yang kompleks, memungkinkan administrator untuk memblokir tim (*banned*), memvalidasi peserta, dan mengonfigurasi aturan deteksi secara dinamis.
+6. Middleware dirancang dengan mekanisme sanitasi input yang ketat untuk mencegah serangan injeksi seperti XSS (mitigasi CVE-2024-34699), meningkatkan aspek keamanan sistem.
+7. Pengujian usability dan fungsionalitas dilakukan dengan melibatkan minimal lima responden yang berperan sebagai penyelenggara kompetisi untuk memvalidasi *dashboard* monitoring kecurangan.
 
 ### **Tujuan Penelitian**
 
@@ -55,6 +57,26 @@ Luaran dari penelitian ini diharapkan dapat memberikan kontribusi nyata bagi ber
 2. **Bagi Penyelenggara CTF**: Mengurangi beban pengawasan manual melalui sistem peringatan dini otomatis yang efisien.
 3. **Bagi Komunitas Pengembang**: Menyediakan referensi teknis terkait integrasi *middleware* deteksi kecurangan pada platform berbasis .NET Core dan pengembangan algoritma deteksi.
 4. **Bagi Mahasiswa**: Memberikan wawasan mendalam mengenai penerapan rekayasa perangkat lunak dalam konteks keamanan informasi dan integritas sistem.
+
+
+### **Sistematika Penulisan**
+
+Untuk memberikan gambaran yang menyeluruh mengenai penyusunan laporan skripsi ini, sistematika penulisan disusun sebagai berikut:
+
+1.  **BAB I PENDAHULUAN**
+    Bab ini menguraikan latar belakang masalah, perumusan masalah, batasan masalah, tujuan penelitian, manfaat penelitian, serta sistematika penulisan laporan.
+
+2.  **BAB II TINJAUAN PUSTAKA**
+    Bab ini memaparkan landasan teori yang mendukung penelitian, tinjauan terhadap penelitian-penelitian terdahulu yang relevan, serta kerangka pemikiran yang mendasari solusi yang diusulkan.
+
+3.  **BAB III METODE PENELITIAN**
+    Bab ini menjelaskan tahapan penelitian yang dilakukan, mulai dari analisis kebutuhan, metode pengembangan sistem, perancangan arsitektur dan algoritma (*middleware* & *scoring*), hingga skenario pengujian yang akan dijalankan.
+
+4.  **BAB IV HASIL DAN PEMBAHASAN**
+    Bab ini akan memaparkan hasil implementasi sistem deteksi kecurangan pada platform GZCTF, analisis terhadap data hasil pengujian (*similarity* & *behavioral analysis*), serta pembahasannya untuk menjawab rumusan masalah.
+
+5.  **BAB V PENUTUP**
+    Bab ini berisi kesimpulan yang diperoleh dari hasil penelitian serta saran-saran untuk pengembangan sistem lebih lanjut di masa mendatang.
 
 ## **TINJAUAN PUSTAKA**
 
@@ -135,7 +157,7 @@ Penelitian ini berfokus pada pengembangan modul keamanan tambahan untuk platform
 Model pengembangan sistem yang diadopsi adalah **Waterfall**. Model ini dipilih karena cocok dengan karakteristik penelitian skripsi yang membutuhkan dokumentasi terstruktur dan spesifikasi kebutuhan yang stabil sejak awal. Adapun tahapan yang dilakukan meliputi:
 
 1. **Analisis Kebutuhan**: Mengidentifikasi fitur dan celah keamanan GZCTF melalui studi literatur dan observasi langsung.
-2. **Perancangan Sistem**: Merancang arsitektur *middleware*, algoritma similaritas, dan skema penilaian risiko menggunakan pemodelan UML dan ERD.
+2. **Perancangan Sistem**: Merancang arsitektur *middleware*, algoritma similaritas, dan skema penilaian risiko menggunakan pemodelan UML lengkap (**Use Case, Activity, Sequence, dan Class Diagram**) serta ERD.
 3. **Implementasi**: Membangun sistem dengan C# (.NET 8.0) dan Python, lalu mengintegrasikannya ke dalam *pipeline* GZCTF.
 4. **Pengujian**: Melakukan uji fungsionalitas (*Black Box*) dan uji akurasi algoritma menggunakan skenario simulasi kecurangan.
 5. **Evaluasi**: Mengumpulkan umpan balik pengguna (admin) melalui *User Acceptance Test* (UAT) untuk menilai efektivitas sistem.
@@ -158,7 +180,7 @@ Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan fungsional m
     - **Behavior Analysis**: Mendeteksi anomali seperti *Fast Solve*, *Burst Solving*, dan *No Container/Download*.
     - **Plagiarism Detection**: Menggunakan algoritma LCS [@LCS_Greenberg] untuk kesamaan urutan (*Sequence Similarity*) dan *Confidence Screening Detector* (CSD) yang memanfaatkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk deteksi kolusi.
 1. **Weighted Scoring Processor**: Mesin pengolah yang menghitung total risiko tim berdasarkan bobot variabel yang ditentukan (ISI, SV, UAC) dan menyimpannya ke dalam tabel CheatRisk [@SemanticScholar_ChatGPT_CTF].
-2. **Admin Risk Dashboard**: Antarmuka web yang menyajikan visualisasi tingkat risiko setiap tim, statistik anomali, dan rincian bukti kecurangan yang ditemukan.
+2. **Admin Risk Dashboard**: Antarmuka web yang wajib menyajikan **visualisasi data** interaktif, seperti **grafik *heatmap* sharing IP** dan *timeline* aktivitas, serta fitur manajemen status kepesertaan.
 3. **Automated Alerting**: Memberikan notifikasi instan kepada admin melalui dashboard jika ada tim yang skor risikonya melonjak secara drastis dalam waktu singkat.
 
 ### **Kebutuhan Non-Fungsional**
@@ -179,7 +201,7 @@ Berikut adalah urutan pipa permintaan yang dirancang:
 1. **ExceptionHandler**: Menangani kesalahan sistem secara global [@Microsoft_BestPractices].
 2. **Routing**: Menentukan tujuan permintaan [@Microsoft_Middleware].
 3. **Authentication & Authorization**: Memastikan pengirim adalah peserta yang valid [@Microsoft_Middleware].
-4. **Anti-Cheat Middleware (Sistem Baru)**: Tahap di mana data submission ditangkap, dianalisis risikonya, dan dicatat anomali-nya sebelum flag divalidasi oleh GZCTF [@Arxiv_TrainTestOverlap].
+4. **Anti-Cheat Middleware (Sistem Baru)**: Tahap di mana data submission ditangkap, dianalisis risikonya, dan dicatat anomali-nya sebelum flag divalidasi oleh GZCTF.
 5. **GZCTF Submission Handler**: Logika inti validasi flag dan pemberian poin.
  
  **Visualisasi Sequence Diagram**
@@ -233,7 +255,7 @@ flowchart TD
 | **Aktor Utama** | Administrator Kompetisi |
 | **Tujuan** | Memungkinkan admin untuk melihat peringkat tim berdasarkan potensi kecurangan secara real-time. |
 | **Prasyarat** | Admin telah login dan memiliki hak akses level 3 (Superadmin/Peneliti) [@GitHub_GZCTF]. |
-| **Alur Utama** | 1. Admin membuka dashboard. 2. Sistem menarik data dari tabel CheatRisk. 3. Sistem merender grafik heatmap IP sharing dan daftar tim berisiko tinggi. 4. Admin meninjau rincian bukti teks yang mirip. |
+| **Alur Utama** | 1. Admin membuka dashboard. 2. Sistem menarik data dan merender grafik *heatmap* risiko. 3. Admin meninjau bukti kecurangan. 4. Admin mengambil tindakan tegas (misal: **memblokir/suspend tim**) atau memperbarui status peserta secara langsung dari sistem. |
 
 ### **Activity Diagram (Alur Deteksi Kecurangan)**
  
@@ -298,14 +320,15 @@ Tabel berikut merinci bobot penalti eksperimental yang diusulkan untuk setiap pa
 | Rule Code | Bobot | Deskripsi |
 | :--- | :--- | :--- |
 | **StolenFlag** | 100 | Flag milik tim lain disubmit (Pelanggaran Kritis). |
-| **NoContainer** | 60 | Menyelesaikan soal tanpa menjalankan container instance. |
-| **TokenAbuse** | 60 | Penggunaan token unduhan yang sama oleh user/tim berbeda. |
-| **NoDownload** | 60 | Menyelesaikan soal attachment tanpa mengunduh file. |
+| **NoContainer** | 80 | Menyelesaikan soal tanpa menjalankan container instance. |
+| **TokenAbuse** | 80 | Penggunaan token unduhan yang sama oleh user/tim berbeda. |
+| **NoDownload** | 80 | Menyelesaikan soal attachment tanpa mengunduh file. |
+| **SharedFingerprint** | 60 | Beberapa tim menggunakan lingkungan browser yang sama. |
 | **FastSolve** | 50 | Menyelesaikan soal dalam waktu < 2 menit (tidak wajar). |
-| **CrossTeamIP** | 40 | IP Address digunakan oleh anggota dari tim yang berbeda. |
-| **Burst** | 40 | Menyelesaikan banyak soal (>3) dalam waktu singkat (<60s). |
-| **SequenceSimilarity**| 40 | Kemiripan urutan pengerjaan soal dengan tim lain. |
+| **CollusionGroup**| 40 | Kemiripan urutan pengerjaan soal dengan tim lain (RSI). |
+| **Burst** | 30 | Menyelesaikan banyak soal (>3) dalam waktu singkat. |
 | **Hoarding** | 30 | Menahan flag lama setelah container dimatikan. |
+| **CrossTeamIP** | 20 | IP Address digunakan oleh anggota dari tim yang berbeda. |
 | **SharedIP** | 10 | Anggota satu tim menggunakan alamat IP yang sama (indikasi joki). |
 | **UnknownIP** | 10 | Aktivitas dari IP yang belum pernah tercatat sebelumnya. |
 
@@ -386,7 +409,8 @@ Proses pembangunan aplikasi mengikuti urutan logis rekayasa perangkat lunak:
 
 Sistem akan diuji secara komprehensif melalui tiga fase pengujian:
 
-1. **Pengujian Fungsional (Black Box)**: Menguji setiap fitur utama sistem, seperti keberhasilan intersepsi data oleh middleware, akurasi perhitungan skor risiko, dan fungsi notifikasi dashboard [@LCS_Greenberg].
+1. **Pengujian Fungsional (Black Box)**: Menguji fitur utama sistem dari perspektif pengguna (admin) untuk memastikan fungsionalitas berjalan sesuai spesifikasi.
+2. **Pengujian White Box (Unit Testing)**: Melakukan pengujian terisolasi pada unit kode algoritma deteksi (*LCS, Jaccard, CSD*) untuk memvalidasi logika internal, efisiensi eksekusi, dan penanganan kasus tepi (*edge cases*).
 2. **Pengujian Performa**: Menggunakan alat bantu seperti JMeter untuk mengukur dampak penggunaan middleware terhadap waktu respons platform di bawah beban 50 hingga 100 permintaan per detik.
 3. **Pengujian Usability (System Usability Scale - SUS)**: Memberikan kuesioner kepada minimal lima pengguna (dosen/admin kompetisi) untuk menilai efektivitas dashboard dalam membantu mereka mengidentifikasi kecurangan.
 
@@ -403,7 +427,7 @@ Sistem deteksi kecurangan ini diharapkan dapat memberikan hasil konkret berupa:
 
 Penelitian ini direncanakan berlangsung selama enam bulan, dengan rincian jadwal sebagai berikut:
 
-| **No** | **Kegiatan** | **Bulan 1** | **Bulan 2** | **Bulan 3** | **Bulan 4** | **Bulan 5** | **Bulan 6** |
+| **No** | **Kegiatan** | **Feb 2026** | **Mar 2026** | **Apr 2026** | **Mei 2026** | **Jun 2026** | **Jul 2026** |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Studi Literatur & Analisis Kebutuhan | XXX |  |  |  |  |  |
 | 2 | Perancangan Arsitektur & UML |  | XXX |  |  |  |  |
