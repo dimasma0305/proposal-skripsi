@@ -27,6 +27,7 @@ format:
     fontsize: 12pt
     linestretch: 1.5
   pdf:
+    include-before-body: cover.tex
     toc: false
     number-sections: true
     papersize: a4
