@@ -1,0 +1,7 @@
+- pengujian, penerapan, metode
+- tambahkan teori tentang analisis jaringan, perilaku, dan deteksi
+- tambahkan flowcart untuk Weight Risk Scoring, CSD, LCS, and jacob
+- tambahkan teori confussion matrix beserta rumus
+- buat flowchart metodologi penelitian
+- bagaimana mendeteksi keakuratan dari deteksi kecurangan
+- tambahkan alur manual alur existing saat ini bagaimana user melakukan lomba, contoh soal dan jawaban apakah berupa pilihan ganda, text atau seperti apa
