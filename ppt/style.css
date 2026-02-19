@@ -1,0 +1,110 @@
+/* Define local fonts or imports */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap');
+
+:root {
+  --slidev-theme-primary: #0d9488;
+  /* Teal 600 */
+  --slidev-theme-secondary: #2563eb;
+  /* Blue 600 */
+  --slidev-code-font-family: 'JetBrains Mono', monospace;
+}
+
+/* Global Font Apply */
+.slidev-layout {
+  font-family: 'Outfit', sans-serif !important;
+  color: #1f2937 !important;
+  /* Force dark text (gray-800) for white background */
+  background-image: url('/background.jpg') !important;
+  background-size: 100% 100% !important;
+  /* Ensure it stretches exactly to the slide bounds */
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  padding-top: 120px !important;
+  padding-bottom: 80px !important;
+  box-sizing: border-box !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #111827 !important;
+  /* Force darker headings (gray-900) */
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.85);
+  /* Increased opacity slightly */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #cbd5e1;
+  /* Darker border (slate-300) for visibility */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border-radius: 0.75rem;
+}
+
+.glass-card-hover {
+  transition: all 0.3s ease;
+}
+
+.glass-card-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Gradient Text Utility */
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  background-image: linear-gradient(to right, #0d9488, #2563eb);
+  /* teal-600 to blue-600 */
+}
+
+/* Custom Scrollbar (if needed) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Table Styling */
+.premium-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.premium-table th {
+  background-color: #f9fafb;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.premium-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.15s ease;
+}
+
+.premium-table tr:hover td {
+  background-color: #f9fafb;
+}
+
+/* Utility to center content by removing default layout padding */
+.no-padding {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}

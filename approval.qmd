@@ -1,0 +1,83 @@
+::: {.content-visible when-format="html"}
+<br><br><br>
+
+::: {style="text-align: center"}
+
+**HALAMAN PERSETUJUAN**
+
+<br>
+
+**PROPOSAL SKRIPSI**
+
+<br>
+
+**PERANCANGAN SISTEM PENDETEKSI KECURANGAN PADA PLATFORM GZCTF MENGGUNAKAN ALGORITMA TWO-STAGE SIMILARITY ANALYSIS DAN WEIGHTED RISK SCORING**
+
+<br><br>
+
+Diajukan oleh:
+
+**Dimas Maulana**
+
+**NIM: 2215354026**
+
+<br><br><br>
+
+Telah diperiksa dan disetujui untuk diujikan
+
+<br>
+
+Jimbaran, .................. 2026
+
+<br><br><br>
+
+:::
+
+::: {style="display: flex; justify-content: space-around; text-align: center;"}
+
+::: {style="width: 45%;"}
+
+**Dosen Pembimbing I**
+
+<br><br><br><br>
+
+(....................................)
+
+NIP. ...............................
+
+:::
+
+::: {style="width: 45%;"}
+
+**Dosen Pembimbing II**
+
+<br><br><br><br>
+
+(....................................)
+
+NIP. ...............................
+
+:::
+
+:::
+
+<br><br><br>
+
+::: {style="text-align: center"}
+
+**Mengetahui,**
+
+**Koordinator Program Studi Sarjana Terapan**
+
+**Teknologi Rekayasa Perangkat Lunak**
+
+<br><br><br><br>
+
+**Ni Gusti Ayu Putu Harry Saptarini, S.Kom., M.Cs.**
+
+NIP. 197609042006042001
+
+:::
+
+{{< pagebreak >}}
+:::

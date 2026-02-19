@@ -1,6 +1,6 @@
 {{< include cover.qmd >}}
 
-{{< pagebreak >}}
+{{< include approval.qmd >}}
 
 # **PENDAHULUAN**
 
