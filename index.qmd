@@ -94,7 +94,7 @@ Sementara LCS berfokus pada aspek sekuensial, penelitian terbaru oleh Travieso e
 
 Penggunaan metode deteksi tunggal seringkali memiliki celah yang dapat dimanfaatkan oleh peserta, semisal mengacak urutan tantangan yang diselesaikan. Oleh karena itu, penelitian ini menggabungkan analisis *Jaccard Similarity* dan *LCS* dalam kerangka kerja *Confidence Screening Detector* (CSD) untuk mendeteksi pola kolaborasi ilegal (*collusion*) secara lebih akurat [@PMC_CSD_Collusion].
 
-Di sisi lain, untuk memverifikasi identitas aktor di balik layar, teknologi *web fingerprinting* menjadi komponen vital. Penelitian komprehensif mengumpulkan berbagai metode pemanfaatan fitur *Browser* (Canvas, WebGL, AudioContext) untuk membuat tanda tangan unik perangkat tanpa bergantung pada *cookies*, yang memungkinkan sistem mendeteksi manipulasi identitas jaringan oleh peserta [@Browser_Fingerprinting; @Inria_BrowserFingerprinting; @GitHub_WebFingerprinting; @GitHub_CreepJS].
+Di sisi lain, untuk memverifikasi identitas aktor di balik layar, teknologi *web fingerprinting* menjadi komponen pelengkap yang vital. Meskipun browser dengan fitur privasi (seperti Brave) sering memunculkan profil identik (*Fingerprint Uniformity*), pengumpulan fitur *Browser* (Canvas, WebGL, AudioContext) tetap berguna sebagai sinyal sekunder untuk memperkuat dugaan kolusi jika dikombinasikan dengan anomali lain [@Browser_Fingerprinting; @Inria_BrowserFingerprinting; @GitHub_WebFingerprinting; @GitHub_CreepJS].
 
 Seluruh indikator tersebut—baik dari analisis kesamaan solusi maupun jejak perangkat—kemudian diintegrasikan menggunakan model *Weighted Risk Scoring*. Konsep ini memungkinkan penggabungan parameter yang heterogen (seperti *flag sharing*, kesamaan IP, dan nilai *similarity*) menjadi satu metrik risiko terpadu yang dinamis. Dengan pendekatan ini, bobot pelanggaran dapat disesuaikan (misal: *Stolen Flag* lebih berat daripada *Unknown IP*), menghasilkan deteksi yang objektif dan mengurangi ketergantungan pada inspeksi manual.
 
@@ -157,9 +157,9 @@ Deteksi kolaborasi antar tim dilakukan dengan menganalisis pola urutan penyelesa
 
 $$S_{seq} = \frac{|LCS(Seq_A, Seq_B)|}{\min(|Seq_A|, |Seq_B|)}$$
 
-### **Jaccard Similarity (sering disebut Jacob)**
+### **Jaccard Similarity (Jaccard Index)**
 
-Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial.
+Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial. Untuk menghindari *false positive* pada tim ahli (seperti *Top 3 Teams* yang men-*solve* 100% soal), sistem mengimplementasikan mekanisme pemutihan (*filtering*) pada soal-soal tingkat mudah, serta memberikan nilai tingkat kejanggalan (`doubt`) yang lebih eksponensial pada kesamaan penyelesaian di tantangan tersulit (*low solve rate*).
 
 $$J(A,B) = \frac{|Solved_A \cap Solved_B|}{|Solved_A \cup Solved_B|}$$
 
@@ -302,11 +302,12 @@ Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan fungsional m
 
 1. **Middleware Interceptor**: Sistem wajib memiliki komponen middleware yang mampu mengintersepsi setiap permintaan POST ke endpoint submission flag untuk menangkap data payload, alamat IP, dan metadata browser.
 2. **Two-Stage Analysis Engine**:
-- **Real-Time Protection**: Mencegah *Stolen Flag* (flag milik orang lain) dengan memvalidasi kepemilikan flag terhadap instance container aktif secara langsung saat submission.
-- **Post-Game Analysis Engine**:
+- **Real-Time Extraction**: Middleware memantau dan mencatat IP serta metadata esensial secara sinkron tanpa mengeksekusi validasi flag berat ke database, mencegah *overhead* sehingga kinerja GZCTF tetap optimal (< 300 ms latensi).
+- **Asynchronous Analysis Engine**:
+    - **Stolen Flag Detection**: Secara asinkron menganalisis *submission log* tim untuk mencatat pelanggaran bila mereka mencoba mengirimkan flag dinamis milik *instance* tim lain (+100 Risk).
     - **IP & Network Analysis**: Mendeteksi *Cross-Team IP*, *Token Abuse*, "Browser Fingerprinting", dan *Shared IP*.
     - **Behavior Analysis**: Mendeteksi anomali seperti *Fast Solve*, *Burst Solving*, dan *No Container/Download*.
-    - **Plagiarism Detection**: Menggunakan algoritma LCS [@LCS_Greenberg] untuk kesamaan urutan (*Sequence Similarity*) dan *Confidence Screening Detector* (CSD) yang memanfaatkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk deteksi kolusi pada *submission* tantangan yang dikerjakan.
+    - **Plagiarism Detection**: Menggunakan algoritma LCS [@LCS_Greenberg] untuk kesamaan urutan (*Sequence Similarity*) dan *Confidence Screening Detector* (CSD) yang memanfaatkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk deteksi kolusi.
 3. **Weighted Scoring Processor**: Mesin pengolah yang menghitung total risiko tim berdasarkan bobot variabel yang ditentukan dan menyimpannya ke dalam tabel CheatRisk [@SemanticScholar_ChatGPT_CTF].
 4. **Admin Risk Dashboard**: Antarmuka web yang wajib menyajikan **visualisasi data** interaktif, seperti **grafik *heatmap* sharing IP** dan *timeline* aktivitas, serta fitur manajemen status kepesertaan.
 
@@ -400,8 +401,8 @@ flowchart TD
 | **Deskripsi** | Sistem secara otomatis menganalisis setiap submission flag untuk mendeteksi anomali. |
 | **Pre-Kondisi** | 1. Peserta terautentikasi.<br>2. Kompetisi sedang berlangsung.<br>3. Konfigurasi aturan deteksi telah dimuat. |
 | **Post-Kondisi** | Data submission tersimpan dan log kecurangan (jika ada) tercatat di tabel `SuspicionEvent`. |
-| **Alur Utama** | 1. Peserta mengirimkan flag (`POST /submit`).<br>2. Middleware menangkap request.<br>3. Sistem memvalidasi kepemilikan flag (Anti-Stolen Flag).<br>4. Sistem menghitung skor risiko perilaku (WRS).<br>5. Sistem menyimpan log deteksi ke database secara asinkron.<br>6. Request diteruskan ke *Core Logic* GZCTF. |
-| **Alur Alternatif** | **A1. Stolen Flag Terdeteksi:**<br>3a. Sistem mendeteksi flag milik tim lain.<br>3b. Sistem menolak request (403 Forbidden).<br>3c. Sistem mencatat pelanggaran kritis (+100 Risk).<br>3d. Use case selesai (Request tidak diteruskan). |
+| **Alur Utama** | 1. Peserta mengirimkan flag (`POST /submit`).<br>2. Middleware secara pasif menangkap request dan mengekstraksi metadata.<br>3. Request diteruskan ke *Core Logic* GZCTF untuk validasi jawaban.<br>4. Proses asinkron mengevaluasi status flag, anomali waktu, dan similaritas kelak.<br>5. Log risiko disimpan secara paralel tanpa memblokir request. |
+| **Alur Alternatif** | **A1. Stolen Flag Terdeteksi:**<br>4a. GZCTF Core merespons log flag salah.<br>4b. Analyzer mendeteksi bahwa flag tersebut sejatinya valid dengan milik tim lain.<br>4c. Sistem asinkron mencatat pelanggaran kritis (+100 Risk) untuk tim pengirim atas nama pencurian identitas flag. |
 | **Kebutuhan Non-Fungsional** | Latensi pemrosesan middleware maksimal 300ms. |
 
 : Tabel Spesifikasi Use Case Deteksi Kecurangan Real-time {#tbl-uc-spec}
@@ -415,15 +416,15 @@ Alur aktivitas deteksi kecurangan dijelaskan sebagai berikut:
 %%| fig-width: 6.5
 %%| label: fig-activity
 flowchart TD
-    subgraph RealTime [Real-Time Protection]
-        Submit[Submission Flag] --> CheckStolen{Owner Valid?}
-        CheckStolen -- Tidak --> Reject[Reject: Stolen Flag]
-        Reject --> LogStolen[Log Violation & +100 Risk]
-        CheckStolen -- Ya --> Logic[Validasi Jawaban GZCTF]
+    subgraph RealTime [Real-Time Extraction Pipeline]
+        Submit[Submission Flag POST] --> Middleware[Middleware: Capture Metadata. Eg: IP, Fingerprint]
+        Middleware --> Logic[Validasi Jawaban GZCTF Core]
     end
 
-    subgraph PostGame [Post-Game / Async Analysis]
-        Logs[Log Database] --> Analyzer[Cheat Report Engine]
+    subgraph AsyncEngine [Asynchronous Cheat Engine]
+        Logs[Log Database] --> Analyzer[Cheat Report Engine Task]
+        Analyzer --> CheckStolen[Deteksi Stolen Flag]
+        CheckStolen -.->|Detected| Violations[Log Violation & +100 Risk]
         Analyzer --> Network[IP & Network Analysis]
         Analyzer --> Behavior[Submission Behavior]
         Analyzer --> Plagiarism[Similarity & CSD Screening]
@@ -431,6 +432,7 @@ flowchart TD
         Network --> Events[Generate SuspicionEvents]
         Behavior --> Events
         Plagiarism --> Events
+        Violations --> Events
         
         Events --> RiskCalc[Agregasi Total Risk Score]
         RiskCalc --> Dashboard[Update Admin Dashboard]
@@ -467,7 +469,7 @@ flowchart TD
     F --> G[Simpan skor pasangan tim]
 ```
 
-**Flowchart Jaccard Similarity (sering disebut Jacob)**
+**Flowchart Jaccard Similarity (Jaccard Index)**
 
 ```{mermaid}
 %%| fig-cap: "Flowchart Perhitungan Jaccard Similarity"
@@ -528,17 +530,17 @@ $$R_{total} = \sum_{i=1}^{n} Weight(Event_i)$$
 
 Untuk kebutuhan dashboard, skor dapat dinormalisasi:
 
-$$R_{norm} = \min\left(100, \frac{R_{total}}{R_{max}} \times 100\right)$$
+$$R_{norm} = \min(100, R_{total})$$
 
 Tabel berikut merinci bobot penalti eksperimental yang diusulkan. Nilai bobot ditentukan secara heuristik dan akan diuji validitasnya pada tahap pengujian parameter:
 
 | Rule Code | Bobot | Deskripsi |
 | :--- | :--- | :--- |
 | **StolenFlag** | 100 | Flag milik tim lain disubmit (Pelanggaran Kritis). |
-| **NoContainer** | 80 | Menyelesaikan soal tanpa menjalankan container instance. |
-| **TokenAbuse** | 80 | Penggunaan token unduhan yang sama oleh user/tim berbeda. |
-| **NoDownload** | 80 | Menyelesaikan soal attachment tanpa mengunduh file. |
-| **SharedFingerprint** | 60 | Beberapa tim menggunakan lingkungan browser yang sama. |
+| **NoContainer** | 80 | Tim menyelesaikan soal tanpa satupun anggotanya menjalankan container instance. |
+| **TokenAbuse** | 80 | Tim menggunakan token unduhan yang sama dengan tim yang berbeda. |
+| **NoDownload** | 80 | Tim menyelesaikan soal attachment tanpa satupun anggotanya mengunduh file. |
+| **SharedFingerprint** | 30 | Beberapa tim memiliki parameter browser identik (hanya menjadi sinyal sekunder berkat fitur Browser *Uniformity*). |
 | **FastSolve** | 50 | Menyelesaikan soal dalam waktu < 2 menit (tidak wajar). |
 | **CollusionGroup**| 40 | Kemiripan urutan pengerjaan soal dengan tim lain (RSI). |
 | **Burst** | 30 | Menyelesaikan banyak soal (>3) dalam waktu singkat. |
@@ -653,18 +655,18 @@ Kriteria minimal yang ditargetkan pada penelitian ini adalah `Recall >= 0.90`, `
 
 | ID Uji | Fitur | Skenario / Dataset | Hasil yang Diharapkan |
 | :--- | :--- | :--- | :--- |
-| **TA-01** | Stolen Flag | User A submit flag milik User B | Sistem menolak (403) dan log `StolenFlag` (+100 risk) |
+| **TA-01** | Stolen Flag | User A submit flag dinamis milik instansi tim lain (Tim B) | Sistem core merespons salah (bukan instance-nya), Tracker mendeteksi dan trigger log `StolenFlag` (+100 risk) |
 | **TA-02** | Flag Sharing | Dataset simulasi: 2 tim dengan 90% kesamaan urutan soal | Skor Similarity > 85%, terdeteksi sebagai `CollusionGroup` |
 | **TA-03** | IP Hopping | User login dengan 3 IP berbeda dalam 10 menit | Log `CrossTeamIP` atau `SharedIP` terpicu sesuai aturan |
 | **TA-04** | Burst Solve | Submit 5 flag dalam 10 detik | Log `Burst` (+30 risk) terpicu |
 | **TA-05** | Hoarding | User A menahan flag lama setelah container dimatikan | Log `Hoarding` (+30 risk) terpicu |
-| **TA-06** | Shared IP | User A dan User B menggunakan IP yang sama | Log `SharedIP` (+10 risk) terpicu |
+| **TA-06** | Shared IP | User A dan B (berada dalam tim yang sama) menggunakan alamat IP yang identik | Log `SharedIP` (+10 risk) terpicu, indikasi joki internal |
 | **TA-07** | Unknown IP | User A menggunakan IP yang belum pernah tercatat sebelumnya | Log `UnknownIP` (+10 risk) terpicu |
-| **TA-08** | Token Abuse | User A menggunakan token unduhan yang sama oleh user/tim berbeda | Log `TokenAbuse` (+80 risk) terpicu |
-| **TA-09** | No Container | User A menyelesaikan soal tanpa menjalankan container instance | Log `NoContainer` (+80 risk) terpicu |
-| **TA-10** | No Download | User A menyelesaikan soal attachment tanpa mengunduh file | Log `NoDownload` (+80 risk) terpicu |
+| **TA-08** | Token Abuse | Tim A menggunakan token unduhan/file yang disadap dari Tim B | Log `TokenAbuse` (+80 risk) terpicu |
+| **TA-09** | No Container | Tim A menyelesaikan soal eksploitasi tanpa satupun anggota yang membangkitkan instance container | Log `NoContainer` (+80 risk) terpicu |
+| **TA-10** | No Download | Tim A berhasil menebak file challenge (attachment) tanpa ada history unduhan | Log `NoDownload` (+80 risk) terpicu |
 | **TA-11** | Fast Solve | User A menyelesaikan soal dalam waktu < 2 menit (tidak wajar) | Log `FastSolve` (+50 risk) terpicu |
-| **TA-12** | Shared Fingerprint | Beberapa tim menggunakan lingkungan browser yang sama | Log `SharedFingerprint` (+60 risk) terpicu |
+| **TA-12** | Shared Fingerprint | Beberapa tim memiliki parameter karakteristik browser (canvas) identik kebetulan | Log `SharedFingerprint` (+30 risk) terpicu sebagai data sekunder |
 | **TA-13** | Collusion Group | Dua atau lebih tim memiliki nilai RSI tinggi (LCS + Jaccard) dan lolos skrining CSD | Log `CollusionGroup` (+40 risk) terpicu |
 
 : Skenario Pengujian Akurasi & Fungsional {#tbl-test-accuracy}
