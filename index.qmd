@@ -151,26 +151,26 @@ $$SV_{\Delta t} = \frac{N_{solve}(\Delta t)}{\Delta t}$$
 
 Dengan $ISI_i$ sebagai *inter-submit interval* dan $SV$ sebagai *solving velocity*. Nilai $ISI$ yang sangat kecil berulang kali, atau $SV$ sangat tinggi dalam jendela waktu sempit, menjadi sinyal anomali perilaku yang perlu diverifikasi.
 
-### **Algoritma Sequence Similarity dan Confidence Screening Detector (CSD)**
+### **Longest Common Subsequence (LCS)**
 
-Deteksi kolaborasi antar tim dilakukan dengan menganalisis pola urutan penyelesaian soal (*Sequence of Solves*). Pendekatan ini lebih efektif dibandingkan analisis teks konten karena urutan penyelesaian sulit dimanipulasi secara kebetulan, terutama pada kompetisi dengan jumlah soal yang banyak.
-
-**Longest Common Subsequence (LCS)**
-LCS digunakan untuk mencari urutan terpanjang dari ID tantangan yang diselesaikan secara bersamaan oleh dua tim [@LCS_Greenberg]. Jika Tim A menyelesaikan soal {1, 3, 5, 7} dan Tim B menyelesaikan {1, 2, 3, 5, 7}, maka LCS mereka adalah {1, 3, 5, 7} dengan panjang 4. Skor kesamaan ($S_{seq}$) dihitung sebagai:
+Deteksi kolaborasi antar tim dilakukan dengan menganalisis pola urutan penyelesaian soal (*Sequence of Solves*). LCS digunakan untuk mencari urutan terpanjang dari ID tantangan yang diselesaikan secara bersamaan oleh dua tim [@LCS_Greenberg]. Jika Tim A menyelesaikan soal {1, 3, 5, 7} dan Tim B menyelesaikan {1, 2, 3, 5, 7}, maka LCS mereka adalah {1, 3, 5, 7} dengan panjang 4. Skor kesamaan ($S_{seq}$) dihitung sebagai:
 
 $$S_{seq} = \frac{|LCS(Seq_A, Seq_B)|}{\min(|Seq_A|, |Seq_B|)}$$
 
-**Jaccard Similarity (sering disebut Jacob)**
+### **Jaccard Similarity (sering disebut Jacob)**
+
 Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial.
 
 $$J(A,B) = \frac{|Solved_A \cap Solved_B|}{|Solved_A \cup Solved_B|}$$
 
-**Relative Sequence Index (RSI)**
+### **Relative Sequence Index (RSI)**
+
 Untuk menyeimbangkan analisis urutan (LCS) dan himpunan (Jaccard), penelitian ini menggunakan RSI sebagai rata-rata harmonik:
 
 $$RSI = \frac{2 \cdot J \cdot S_{seq}}{J + S_{seq}}$$
 
-**Confidence Screening Detector (CSD)**
+### **Confidence Screening Detector (CSD)**
+
 Metode CSD digunakan untuk mengelompokkan tim yang dicurigai melakukan kolaborasi (*collusion groups*) berdasarkan tingkat kepercayaan atau *confidence* [@EDM_Collusion_Detection; @EDM_Clustering_Collusion]. Algoritma ini menggunakan metrik "Doubt" ($doubt_e$) untuk mengukur kemungkinan peserta bukan bagian dari kolusi. Nilai *doubt* dihitung berdasarkan akumulasi RSI (*Relative Sequence Index*):
 
 $$doubt_e = \frac{\sum_{s \in S} (RSI_{es} + RSI_{se})}{2 \cdot \#(S)}$$
