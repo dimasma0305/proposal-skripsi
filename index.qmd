@@ -135,7 +135,14 @@ Analisis jaringan berfokus pada hubungan antar entitas teknis, terutama alamat I
 
 Secara umum, kesamaan jejak jaringan dua tim dapat dihitung dengan pendekatan himpunan:
 
-$$J_{IP}(A,B) = \frac{|IP_A \cap IP_B|}{|IP_A \cup IP_B|}$$
+$$
+J_{IP}(A,B) = \frac{|IP_A \cap IP_B|}{|IP_A \cup IP_B|}
+$$ {#eq-jaccard-ip}
+
+Dimana:\
+$J_{IP}(A,B)$ = Skor Jaccard Similarity untuk kesamaan IP antara kelompok Tim A dan Tim B.\
+$|IP_A \cap IP_B|$ = Jumlah entitas alamat IP yang sama-sama tersimpan/digunakan oleh Tim A dan Tim B.\
+$|IP_A \cup IP_B|$ = Total keseluruhan alamat IP unik yang digunakan oleh gabungan Tim A dan Tim B.
 
 Nilai $J_{IP}$ yang tinggi menunjukkan tumpang tindih infrastruktur jaringan antar tim. Untuk mengurangi *false positive* pada jaringan bersama (misalnya lab kampus/NAT), indikator ini harus dikombinasikan dengan fingerprint perangkat dan kedekatan waktu submission.
 
@@ -145,43 +152,91 @@ Analisis perilaku memeriksa dinamika aksi peserta selama kompetisi, bukan hanya 
 
 Dua metrik dasar yang digunakan adalah:
 
-$$ISI_i = t_i - t_{i-1}$$
+$$
+ISI_i = t_i - t_{i-1}
+$$ {#eq-isi}
 
-$$SV_{\Delta t} = \frac{N_{solve}(\Delta t)}{\Delta t}$$
+$$
+SV_{\Delta t} = \frac{N_{solve}(\Delta t)}{\Delta t}
+$$ {#eq-sv}
 
-Dengan $ISI_i$ sebagai *inter-submit interval* dan $SV$ sebagai *solving velocity*. Nilai $ISI$ yang sangat kecil berulang kali, atau $SV$ sangat tinggi dalam jendela waktu sempit, menjadi sinyal anomali perilaku yang perlu diverifikasi.
+Dimana:\
+$ISI_i$ = Menunjukkan rentang *Inter-Submit Interval* untuk penyerahan atau *submission* ke-$i$.\
+$t_i$ = Waktu (timestamp) ketika proses submission ke-$i$ berhasil terekam.\
+$SV_{\Delta t}$ = *Solving Velocity* atau laju kecepatan penyelesaian soal (*submission* berhasil) pada suatu jeda waktu pengamatan.\
+$N_{solve}$ = Jumlah banyaknya soal yang dapat diselesaikan oleh tim.\
+$\Delta t$ = Interval jendela pengamatan atau durasi *window time* yang diukur.
+
+Nilai $ISI$ yang sangat kecil berulang kali, atau $SV$ sangat tinggi dalam jendela waktu sempit, menjadi sinyal anomali perilaku yang perlu diverifikasi.
 
 ### **Longest Common Subsequence (LCS)**
 
 Deteksi kolaborasi antar tim dilakukan dengan menganalisis pola urutan penyelesaian soal (*Sequence of Solves*). LCS digunakan untuk mencari urutan terpanjang dari ID tantangan yang diselesaikan secara bersamaan oleh dua tim [@LCS_Greenberg]. Jika Tim A menyelesaikan soal {1, 3, 5, 7} dan Tim B menyelesaikan {1, 2, 3, 5, 7}, maka LCS mereka adalah {1, 3, 5, 7} dengan panjang 4. Skor kesamaan ($S_{seq}$) dihitung sebagai:
 
-$$S_{seq} = \frac{|LCS(Seq_A, Seq_B)|}{\min(|Seq_A|, |Seq_B|)}$$
+$$
+S_{seq} = \frac{|LCS(Seq_A, Seq_B)|}{\min(|Seq_A|, |Seq_B|)}
+$$ {#eq-sseq}
+
+Dimana:\
+$S_{seq}$ = Metrik skor sekuensial yang melambangkan kemiripan urutan panjang dari penyelesaian tugas dua belah pihak.\
+$LCS(Seq_A, Seq_B)$ = *Longest Common Subsequence*, representasi fungsi yang mengembalikan deret terpanjang dari sekuens yang sinkron berturut-turut pada urutan aksi Tim A dan Tim B.\
+$\min(|Seq_A|, |Seq_B|)$ = Dimensi/besaran dari sekuens terpendek yang ada antara Tim A maupun Tim B, ini berperan sebagai pilar ukuran normalisasi.
 
 ### **Jaccard Similarity (Jaccard Index)**
 
 Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial. Untuk menghindari *false positive* pada tim ahli (seperti *Top 3 Teams* yang men-*solve* 100% soal), sistem mengimplementasikan mekanisme pemutihan (*filtering*) pada soal-soal tingkat mudah, serta memberikan nilai tingkat kejanggalan (`doubt`) yang lebih eksponensial pada kesamaan penyelesaian di tantangan tersulit (*low solve rate*).
 
-$$J(A,B) = \frac{|Solved_A \cap Solved_B|}{|Solved_A \cup Solved_B|}$$
+$$
+J(A,B) = \frac{|Solved_A \cap Solved_B|}{|Solved_A \cup Solved_B|}
+$$ {#eq-jaccard-sim}
+
+Dimana:\
+$J(A,B)$ = Rasio *Jaccard Similarity Index* sebagai probabilitas kesamaan soal yang terpecahkan oleh tim A dan tim B.\
+$|Solved_A \cap Solved_B|$ = Total seluruh kasus di mana Tim A dan Tim B terbukti memecahkan soal/tantangan CTF (Capture the Flag) yang persis sama.\
+$|Solved_A \cup Solved_B|$ = Agregasi atau kesatuan murni dari himpunan id soal yang bisa ditaklukkan secara individu oleh kedua tim tersebut secara digabungkan.
 
 ### **Relative Sequence Index (RSI)**
 
 Untuk menyeimbangkan analisis urutan (LCS) dan himpunan (Jaccard), penelitian ini menggunakan RSI sebagai rata-rata harmonik:
 
-$$RSI = \frac{2 \cdot J \cdot S_{seq}}{J + S_{seq}}$$
+$$
+RSI = \frac{2 \cdot J \cdot S_{seq}}{J + S_{seq}}
+$$ {#eq-rsi}
+
+Dimana:\
+$RSI$ = *Relative Sequence Index* (nilai paduan koherensi dan sinkronisasi antara dua grup pengguna).\
+$J$ = Parameter skor komputasi dari metode *Jaccard Similarity*.\
+$S_{seq}$ = Skor kemiripan yang diinterpolasi dari metode kalkulasi *Longest Common Subsequence* (LCS).
 
 ### **Confidence Screening Detector (CSD)**
 
 Metode CSD digunakan untuk mengelompokkan tim yang dicurigai melakukan kolaborasi (*collusion groups*) berdasarkan tingkat kepercayaan atau *confidence* [@EDM_Collusion_Detection; @EDM_Clustering_Collusion]. Algoritma ini menggunakan metrik "Doubt" ($doubt_e$) untuk mengukur kemungkinan peserta bukan bagian dari kolusi. Nilai *doubt* dihitung berdasarkan akumulasi RSI (*Relative Sequence Index*):
 
-$$doubt_e = \frac{\sum_{s \in S} (RSI_{es} + RSI_{se})}{2 \cdot \#(S)}$$
+$$
+doubt_e = \frac{\sum_{s \in S} (RSI_{es} + RSI_{se})}{2 \cdot \#(S)}
+$$ {#eq-doubt}
 
-Di mana $RSI$ adalah kombinasi rata-rata harmonik antara *Jaccard Similarity* dan LCS. Proses skrining dilakukan secara iteratif untuk menemukan batas cutoff optimal [@PMC_CSD_Collusion].
+Dimana:\
+$doubt_e$ = Metrik untuk mengukur skor kejanggalan atau potensi deviasi peserta $e$, yang mengukur kemungkinan peserta bukan bagian dari grup kecurangan $S$.\
+$RSI_{es}$ = Besaran metrik interkorelasi (*Relative Sequence Index*) satu sisi yang terpancar dari arah peserta $e$ menuju peserta klaster kecurangan terindikasi ($s$).\
+$RSI_{se}$ = Besaran relasi asimetris indeks (*RSI*) sebaliknya dari kandidat $s$ terhadap peseta $e$.\
+$\#(S)$ = Densitas relasi, diukur dari keseluruhan banyak elemen anggota dalam formasi *collusion* terobservasi $S$.\
+$\sum_{s \in S}$ = Sigma akumulasi relasi berpasangan antara subyek uji $e$ dengan para kandidat komplotan $s$.
+
+Proses skrining skrining kepercayaan (`confidence`) dilakukan secara iteratif untuk menemukan batas cutoff optimal yang dapat merampingkan tingkat keyakinan terhadap formasi jaringan anggota *collusion* (kolusi) secara mumpuni [@PMC_CSD_Collusion].
 
 ### **Konsep Weighted Risk Scoring**
 
 *Weighted Risk Scoring* (WRS) adalah metode heuristik untuk mengukur tingkat kecurigaan. Sistem ini menugaskan bobot numerik (*weight*) pada setiap anomali. Total skor risiko ($R_{total}$) dihitung dengan menjumlahkan seluruh bobot anomali yang dipicu oleh sebuah tim:
 
-$$R_{total} = \sum_{i=1}^{n} Weight(Event_i)$$
+$$
+R_{total} = \sum_{i=1}^{n} Weight(Event_i)
+$$ {#eq-rtotal}
+
+Dimana:\
+$R_{total}$ = Jumlah total bobot akumulasi skor perisikoan dari hasil observasi seluruh log kegiatan/events yang memicu pelanggaran oleh sistem CSD.\
+$n$ = Jumlah frekuensi/kuantitas deteksi peristiwa penyimpangan (anomali kecurangan) per peserta yang berhasil dicatatkan sistem.\
+$Weight(Event_i)$ = Bobot penalti (Risk Value) terikat bagi suatu kelas dari pelanggaran/anomali $Event_i$. Setiap jenis insiden (contohnya Stolen Flag, Fast Solve, dll) memiliki ketetapan spesifik, yakni fungsi komputasi numeriknya secara internal.
 
 Pendekatan ini memungkinkan penggabungan berbagai indikator teknis yang heterogen—seperti kesamaan IP, anomali waktu, dan pola *Browser Fingerprint*—menjadi satu metrik tunggal.
 
@@ -198,17 +253,41 @@ Untuk mengukur keakuratan model deteksi kecurangan, hasil sistem dibandingkan de
 
 Rumus metrik evaluasi:
 
-$$Accuracy = \frac{TP + TN}{TP + TN + FP + FN}$$
+$$
+Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
+$$ {#eq-accuracy}
 
-$$Precision = \frac{TP}{TP + FP}$$
+$$
+Precision = \frac{TP}{TP + FP}
+$$ {#eq-precision}
 
-$$Recall = \frac{TP}{TP + FN}$$
+$$
+Recall = \frac{TP}{TP + FN}
+$$ {#eq-recall}
 
-$$F1 = \frac{2 \cdot Precision \cdot Recall}{Precision + Recall}$$
+$$
+F1 = \frac{2 \cdot Precision \cdot Recall}{Precision + Recall}
+$$ {#eq-f1}
 
-$$Specificity = \frac{TN}{TN + FP}$$
+$$
+Specificity = \frac{TN}{TN + FP}
+$$ {#eq-specificity}
 
-$$False\ Positive\ Rate\ (FPR) = \frac{FP}{FP + TN}$$
+$$
+False\ Positive\ Rate\ (FPR) = \frac{FP}{FP + TN}
+$$ {#eq-fpr}
+
+Dimana:\
+$TP$ = True Positive\
+$TN$ = True Negative\
+$FP$ = False Positive\
+$FN$ = False Negative\
+$Accuracy$ = Akurasi/Derajat Ketepatan total prediksi sistem per metrik total insiden pengujian, baik untuk kasus terkonfirmasi curang maupun hasil negatif yang tergolong murni valid.\
+$Precision$ = Validitas model untuk memperkirakan kasus kecurangan nyata dari total jumlah yang ditangkap. \
+$Recall$ = Sensitivitas jangkauan *tracker* kita untuk secara riil merangkul seluruh entitas kecurangan yang membaur di lingkungan perlombaan.\
+$F1$ = Titik rataan fungsi performa untuk mewakili kebulatan seimbang presisi dan sensitivitas.\
+$Specificity$ = Akurasi ekskulsif otomatis spesifik deteksi model sistem terhadap tim yang wajar.\
+$FPR$ = Menghitung laju kejadian pengguna valid namun dicap positif (False Positive Rate).
 
 Dalam konteks anti-cheat, fokus evaluasi utama adalah menekan *false positive* (agar tim jujur tidak dirugikan) sambil menjaga *recall* tetap tinggi agar kasus curang tidak banyak lolos.
 
@@ -239,8 +318,9 @@ Model pengembangan sistem yang diadopsi adalah **Waterfall**. Model ini dipilih 
 ```{mermaid}
 %%| fig-cap: "Flowchart Metodologi Penelitian"
 %%| label: fig-metodologi
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[Mulai Penelitian] --> B[Studi Literatur dan Rumusan Masalah]
+    A([Mulai Penelitian]) --> B[Studi Literatur dan Rumusan Masalah]
     B --> C[Pengumpulan Data Log GZCTF]
     C --> D[Analisis Kebutuhan Sistem]
     D --> E[Perancangan Arsitektur dan UML]
@@ -251,7 +331,7 @@ flowchart TD
     I -- Tidak --> J[Perbaikan Bobot dan Threshold]
     J --> F
     I -- Ya --> K[Penyusunan Kesimpulan dan Laporan]
-    K --> L[Selesai]
+    K --> L([Selesai])
 ```
 
 ## **Analisis Kondisi Eksisting dan Kebutuhan Sistem**
@@ -267,22 +347,25 @@ Pada kondisi existing, alur kerja peserta saat lomba umumnya masih linier: pilih
 ```{mermaid}
 %%| fig-cap: "Flowchart Alur Existing User Saat Mengikuti Lomba CTF"
 %%| label: fig-existing-user-flow
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[User Login dan Join Tim] --> B[Buka Daftar Challenge]
+    Start([Mulai]) --> A[User Login dan Join Tim]
+    A --> B[Buka Daftar Challenge]
     B --> C[Pilih Challenge]
     C --> D{Tipe Challenge?}
-    D -- Attachment --> E[Download File Soal]
+    D -- Attachment --> E[/Unduh File Soal/]
     D -- Container --> F[Start Container Instance]
     D -- Static --> G[Langsung Analisis Soal]
     E --> H[Analisis dan Eksploitasi]
     F --> H
     G --> H
-    H --> I[Submit Flag via Form Teks]
+    H --> I[/Submit Flag via Form Teks/]
     I --> J{Flag Benar?}
     J -- Ya --> K[Skor Bertambah di Scoreboard]
     J -- Tidak --> L[Coba Lagi]
     L --> H
     K --> M[Admin Monitoring Log Secara Manual]
+    M --> End([Selesai])
 ```
 
 **Contoh Format Soal dan Jawaban pada GZCTF (Existing)**
@@ -369,15 +452,28 @@ Perancangan use case difokuskan pada interaksi pengguna dengan fitur-fitur keama
  
 ```{mermaid}
 %%| fig-cap: "Use Case Diagram Arsitektur Middleware"
-flowchart TD
-    Admin["Administrator Kompetisi"]
-    UC1(["Visualisasi Laporan Risiko"])
-    UC2(["Melihat Peringkat Tim"])
-    UC3(["Review Bukti Teks"])
+%%{init: {"theme": "default"}}%%
+flowchart LR
+    %% Actor
+    Admin(["👤<br/>Administrator<br/>Kompetisi"]):::actor
+
+    %% System Boundary
+    subgraph SystemBoundary ["Sistem Deteksi Kecurangan GZCTF"]
+        direction TB
+        UC1(["Visualisasi Laporan Risiko"])
+        UC2(["Melihat Peringkat Tim"])
+        UC3(["Review Bukti Teks"])
+    end
     
-    Admin --> UC1
+    %% Relationships
+    Admin --- UC1
     UC1 -.->|"&lt;&lt;include&gt;&gt;"| UC2
     UC1 -.->|"&lt;&lt;include&gt;&gt;"| UC3
+
+    %% Styling
+    classDef actor fill:none,stroke:none,color:#000
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:1px;
+    style SystemBoundary fill:none,stroke:#333,stroke-dasharray: 5 5,stroke-width:2px;
 ```
  
 **Tabel Deskripsi Use Case**
@@ -415,30 +511,46 @@ Alur aktivitas deteksi kecurangan dijelaskan sebagai berikut:
 %%| fig-cap: "Activity Diagram Alur Deteksi Kecurangan"
 %%| fig-width: 6.5
 %%| label: fig-activity
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    subgraph RealTime [Real-Time Extraction Pipeline]
-        Submit[Submission Flag POST] --> Middleware[Middleware: Capture Metadata. Eg: IP, Fingerprint]
-        Middleware --> Logic[Validasi Jawaban GZCTF Core]
-    end
-
-    subgraph AsyncEngine [Asynchronous Cheat Engine]
-        Logs[Log Database] --> Analyzer[Cheat Report Engine Task]
-        Analyzer --> CheckStolen[Deteksi Stolen Flag]
-        CheckStolen -.->|Detected| Violations[Log Violation & +100 Risk]
-        Analyzer --> Network[IP & Network Analysis]
-        Analyzer --> Behavior[Submission Behavior]
-        Analyzer --> Plagiarism[Similarity & CSD Screening]
-        
-        Network --> Events[Generate SuspicionEvents]
-        Behavior --> Events
-        Plagiarism --> Events
-        Violations --> Events
-        
-        Events --> RiskCalc[Agregasi Total Risk Score]
-        RiskCalc --> Dashboard[Update Admin Dashboard]
+    classDef startEnd fill:#000,stroke:#333,color:#fff,shape:circle;
+    classDef final fill:#fff,stroke:#000,stroke-width:3px;
+    
+    Start(( )):::startEnd
+    End((( ))):::final
+    
+    subgraph Peserta
+        Start --> Submit(Kirim Flag via POST)
     end
     
-    Logic -.-> Logs
+    subgraph Middleware["Middleware (Anti-Cheat)"]
+        Submit --> Intercept(Tangkap Request & Ekstrak Metadata)
+        Intercept --> AsyncAnalyze(Jalankan Asynchronous Analyzer)
+        Intercept --> Forward(Teruskan Request ke GZCTF Core)
+        
+        AsyncAnalyze --> CekStolen(Deteksi Stolen Flag)
+        AsyncAnalyze --> CekNetwork(Analisis Jaringan & IP)
+        AsyncAnalyze --> CekBehavior(Analisis Perilaku Submission)
+        AsyncAnalyze --> CekPlagiasi(Analisis Plagiarisme LCS & Jaccard)
+        
+        CekStolen --> Agregasi(Agregasi Skor Risiko WRS)
+        CekNetwork --> Agregasi
+        CekBehavior --> Agregasi
+        CekPlagiasi --> Agregasi
+        
+        Agregasi --> Trans(Bangkitkan SuspicionEvents)
+        Trans --> KalkTotal(Hitung Total Risk Score)
+        KalkTotal --> Dashboard(Update Admin Dashboard)
+        Dashboard --> SimpanDB[(Simpan Log Kecurangan di DB)]
+    end
+    
+    subgraph GZCTFCore["GZCTF Core Engine"]
+        Forward --> Validasi(Validasi Jawaban GZCTF Core)
+        Validasi --> Logs[(Tulis Record validasi ke Log Database)]
+    end
+    
+    SimpanDB --> End
+    Logs --> End
 ```
  
 Penjelasan Alur:
@@ -460,13 +572,16 @@ Implementasi deteksi kolusi disusun sebagai pipeline berlapis: LCS (urutan), Jac
 ```{mermaid}
 %%| fig-cap: "Flowchart Perhitungan LCS"
 %%| label: fig-flow-lcs
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[Input Seq A dan Seq B] --> B[Bentuk matriks DP]
+    Start([Mulai]) --> A[/Input Seq A dan Seq B/]
+    A --> B[Bentuk matriks DP]
     B --> C[Isi matriks berdasarkan aturan LCS]
     C --> D[Traceback untuk ambil urutan LCS]
     D --> E[Hitung panjang LCS]
     E --> F[Normalisasi jadi S_seq]
-    F --> G[Simpan skor pasangan tim]
+    F --> G[(Simpan skor pasangan tim)]
+    G --> End([Selesai])
 ```
 
 **Flowchart Jaccard Similarity (Jaccard Index)**
@@ -474,13 +589,17 @@ flowchart TD
 ```{mermaid}
 %%| fig-cap: "Flowchart Perhitungan Jaccard Similarity"
 %%| label: fig-flow-jaccard
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[Input Solved Set Tim A dan Tim B] --> B[Hitung irisan]
+    Start([Mulai]) --> A[/Input Solved Set Tim A dan Tim B/]
+    A --> B[Hitung irisan]
     B --> C[Hitung gabungan]
     C --> D[Hitung J = irisan/gabungan]
     D --> E{J >= Threshold?}
     E -- Ya --> F[Tandai pasangan mirip]
     E -- Tidak --> G[Tandai pasangan normal]
+    F --> H([Selesai])
+    G --> H
 ```
 
 **Flowchart Confidence Screening Detector (CSD)**
@@ -488,8 +607,10 @@ flowchart TD
 ```{mermaid}
 %%| fig-cap: "Flowchart Confidence Screening Detector (CSD)"
 %%| label: fig-flow-csd
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[Input matriks RSI antar tim] --> B[Bentuk kandidat grup S]
+    Start([Mulai]) --> A[/Input matriks RSI antar tim/]
+    A --> B[Bentuk kandidat grup S]
     B --> C[Hitung doubt tiap anggota]
     C --> D{doubt <= cutoff?}
     D -- Ya --> E[Pertahankan anggota]
@@ -497,7 +618,8 @@ flowchart TD
     E --> G{Ada perubahan grup?}
     F --> G
     G -- Ya --> C
-    G -- Tidak --> H[Output collusion group final]
+    G -- Tidak --> H[/Output collusion group final/]
+    H --> End([Selesai])
 ```
 
 **Flowchart Weighted Risk Scoring (WRS)**
@@ -505,8 +627,10 @@ flowchart TD
 ```{mermaid}
 %%| fig-cap: "Flowchart Weighted Risk Scoring"
 %%| label: fig-flow-wrs
+%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    A[Input Suspicion Events] --> B[Map event ke bobot rule]
+    Start([Mulai]) --> A[/Input Suspicion Events/]
+    A --> B[Map event ke bobot rule]
     B --> C[Agregasi total skor risiko]
     C --> D[Normalisasi skor 0-100]
     D --> E{Skor >= threshold?}
@@ -514,6 +638,7 @@ flowchart TD
     E -- Tidak --> G[Status Normal]
     F --> H[Simpan log dan notifikasi admin]
     G --> H
+    H --> End([Selesai])
 ```
 
 **Logika Komputasi Similarity**
@@ -526,11 +651,21 @@ flowchart TD
 
 Penentuan skor risiko total dilakukan menggunakan formula sumasi bobot:
 
-$$R_{total} = \sum_{i=1}^{n} Weight(Event_i)$$
+$$
+R_{total} = \sum_{i=1}^{n} Weight(Event_i)
+$$ {#eq-rtotal-ch3}
 
 Untuk kebutuhan dashboard, skor dapat dinormalisasi:
 
-$$R_{norm} = \min(100, R_{total})$$
+$$
+R_{norm} = \min(100, R_{total})
+$$ {#eq-rnorm-ch3}
+
+Dimana:\
+$R_{total}$ = Jumlah total bobot kumulatif/akumluasi (*Risk Score*) dari log kegiatan/events curang sistem oleh satu entitas tim.\
+$n$ = Merupakan lambang kuantitas jumlah/frekuensi riwayat aktivitas mencurigakan yang diverifikasi sistem (*Suspicion Events*).\
+$Weight(Event_i)$ = Fungsi yang mereturn nilai besaran bobot penalti mutlak (*Risk Severity Value*) statis berdasarkan tipe jenis/id *Event* ke-$i$.\
+$R_{norm}$ = Skor hasil pelurusan komputasi di batasan kuadran tertinggi senilai seratus, sebagai angka agregat persentase (`0 - 100%`) akhir yang ditampilkan secara interaktif pada antarmuka *Dashboard* Admin.
 
 Tabel berikut merinci bobot penalti eksperimental yang diusulkan. Nilai bobot ditentukan secara heuristik dan akan diuji validitasnya pada tahap pengujian parameter:
 

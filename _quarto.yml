@@ -24,6 +24,8 @@ format:
     mainfont: "Times New Roman"
     mermaid:
       theme: neutral
+      flowchart:
+        curve: stepBefore
     fontsize: 12pt
     linestretch: 1.5
   pdf:
@@ -41,6 +43,8 @@ format:
     mainfont: "Times New Roman"
     mermaid:
       theme: neutral
+      flowchart:
+        curve: stepBefore
     fontsize: 12pt
     linestretch: 1.5
   docx:
