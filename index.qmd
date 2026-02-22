@@ -511,57 +511,88 @@ Alur aktivitas deteksi kecurangan dijelaskan sebagai berikut:
 %%| fig-cap: "Activity Diagram Alur Deteksi Kecurangan"
 %%| fig-width: 6.5
 %%| label: fig-activity
-%%{init: {"flowchart": {"curve": "stepBefore"}}}%%
+%%{init: {"flowchart": {"curve": "stepBefore", "nodeSpacing": 35, "rankSpacing": 65}}}%%
 flowchart TD
-    classDef startEnd fill:#000,stroke:#333,color:#fff,shape:circle;
-    classDef final fill:#fff,stroke:#000,stroke-width:3px;
-    
-    Start(( )):::startEnd
+    classDef initial fill:#000,stroke:#000,color:#000;
+    classDef final fill:#fff,stroke:#000,stroke-width:3px,color:#000;
+    classDef action fill:#fff,stroke:#000,stroke-width:1.2px,color:#000;
+    classDef decision fill:#fff,stroke:#000,stroke-width:1.2px,color:#000;
+    classDef db fill:#fff,stroke:#000,stroke-width:1.2px,color:#000;
+    classDef forkjoin fill:#000,stroke:#000,color:#000,stroke-width:2px;
+
+    Start(( )):::initial
     End((( ))):::final
-    
-    subgraph Peserta
-        Start --> Submit(Kirim Flag via POST)
+
+    subgraph Peserta["Peserta"]
+        Submit(Kirim flag via POST /submit):::action
     end
-    
-    subgraph Middleware["Middleware (Anti-Cheat)"]
-        Submit --> Intercept(Tangkap Request & Ekstrak Metadata)
-        Intercept --> AsyncAnalyze(Jalankan Asynchronous Analyzer)
-        Intercept --> Forward(Teruskan Request ke GZCTF Core)
-        
-        AsyncAnalyze --> CekStolen(Deteksi Stolen Flag)
-        AsyncAnalyze --> CekNetwork(Analisis Jaringan & IP)
-        AsyncAnalyze --> CekBehavior(Analisis Perilaku Submission)
-        AsyncAnalyze --> CekPlagiasi(Analisis Plagiarisme LCS & Jaccard)
-        
-        CekStolen --> Agregasi(Agregasi Skor Risiko WRS)
-        CekNetwork --> Agregasi
-        CekBehavior --> Agregasi
-        CekPlagiasi --> Agregasi
-        
-        Agregasi --> Trans(Bangkitkan SuspicionEvents)
-        Trans --> KalkTotal(Hitung Total Risk Score)
-        KalkTotal --> Dashboard(Update Admin Dashboard)
-        Dashboard --> SimpanDB[(Simpan Log Kecurangan di DB)]
+
+    subgraph Middleware["Middleware (Anti-Cheat)<br/><br/>"]
+        direction TB
+        AuthCheck{Peserta terautentikasi?}:::decision
+        Reject(Kembalikan 401 Unauthorized):::action
+        Intercept(Tangkap request & ekstrak metadata):::action
+        Fork1["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]:::forkjoin
+        AsyncAnalyze(Jalankan asynchronous analyzer):::action
+        Forward(Teruskan request ke GZCTF Core):::action
+
+        Fork2["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]:::forkjoin
+        CekStolen(Stolen flag detection):::action
+        CekNetwork(IP & network analysis):::action
+        CekBehavior(Behavior analysis):::action
+        CekPlagiasi(LCS + Jaccard + CSD):::action
+        Join2["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]:::forkjoin
+
+        Agregasi(Agregasi Weighted Risk Scoring):::action
+        RiskGate{Risk >= threshold?}:::decision
+        Trans(Bangkitkan SuspicionEvent):::action
+        SimpanDB(Simpan CheatRisk/SuspicionEvent ke DB):::db
+        Dashboard(Perbarui dashboard admin):::action
+        Join1["&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"]:::forkjoin
     end
-    
+
     subgraph GZCTFCore["GZCTF Core Engine"]
-        Forward --> Validasi(Validasi Jawaban GZCTF Core)
-        Validasi --> Logs[(Tulis Record validasi ke Log Database)]
+        Validasi(Validasi jawaban):::action
+        Logs(Tulis log validasi ke DB):::db
     end
-    
-    SimpanDB --> End
-    Logs --> End
+
+    Start --> Submit --> AuthCheck
+    AuthCheck -- Tidak --> Reject --> End
+    AuthCheck -- Ya --> Intercept --> Fork1
+
+    Fork1 --> AsyncAnalyze
+    Fork1 --> Forward
+
+    Forward --> Validasi --> Logs --> Join1
+
+    AsyncAnalyze --> Fork2
+    Fork2 --> CekStolen
+    Fork2 --> CekNetwork
+    Fork2 --> CekBehavior
+    Fork2 --> CekPlagiasi
+    CekStolen --> Join2
+    CekNetwork --> Join2
+    CekBehavior --> Join2
+    CekPlagiasi --> Join2
+
+    Join2 --> Agregasi --> RiskGate
+    RiskGate -- Ya --> Trans --> SimpanDB --> Dashboard --> Join1
+    RiskGate -- Tidak --> Dashboard --> Join1
+    Join1 --> End
 ```
  
 Penjelasan Alur:
  
-1. Sistem menerima payload submission (Flag/Write-up).
-2. **Metadata Extraction**: Mengambil Alamat IP, User-Agent, dan Timestamp.
-3. **Behavioral Analysis**: Menghitung ISI dan SV serta mengevaluasi konsistensi alur aktivitas peserta. Skor ini dimasukkan ke dalam mesin *Weighted Scoring*.
-4. **Sequence Analysis**: Membandingkan urutan penyelesaian soal dengan tim lain menggunakan LCS [@LCS_Greenberg].
-5. **CSD Screening**: Menggunakan CSD untuk mengelompokkan tim dengan pola urutan yang sangat mirip ke dalam *collusion groups*.
-6. **Score Aggregation**: Menggabungkan skor perilaku dan skor similaritas menjadi skor risiko final (0-100).
-7. **Logging & Notification**: Menyimpan hasil ke tabel CheatLogs dan memperbarui dashboard SignalR [@Microsoft_SignalR_Overview].
+1. Peserta mengirimkan *submission* `POST /submit`, lalu sistem memeriksa status autentikasi.
+2. Jika tidak valid, alur dihentikan dengan respons `401 Unauthorized`; jika valid, *request* masuk ke middleware anti-cheat.
+3. Middleware mengekstrak metadata (IP, *User-Agent*, *timestamp*) lalu melakukan *fork* menjadi dua jalur paralel:
+   - jalur validasi jawaban oleh *core* GZCTF;
+   - jalur analisis asinkron untuk deteksi kecurangan.
+4. Pada jalur analisis asinkron, sistem menjalankan empat proses: *stolen flag detection*, analisis IP/jaringan, analisis perilaku, serta analisis similaritas (LCS + Jaccard + CSD).
+5. Hasil analisis digabungkan oleh mesin *Weighted Risk Scoring* untuk memperoleh total skor risiko.
+6. Sistem melakukan keputusan (*decision node*) `Risk >= threshold?`; jika terpenuhi maka dibuat `SuspicionEvent` dan disimpan ke basis data.
+7. Dashboard admin tetap diperbarui pada kedua kondisi (melewati maupun tidak melewati *threshold*) agar monitoring berjalan *real-time* [@Microsoft_SignalR_Overview].
+8. Alur berakhir setelah sinkronisasi (*join*) antara jalur validasi GZCTF dan jalur logging risiko selesai.
 
 ### **Perancangan Algoritma Similarity dan Risk Scoring**
 
