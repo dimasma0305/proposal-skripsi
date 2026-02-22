@@ -345,27 +345,35 @@ Observasi terhadap arsitektur GZCTF menunjukkan bahwa fitur pemantauan yang ada 
 Pada kondisi existing, alur kerja peserta saat lomba umumnya masih linier: pilih soal, kerjakan, lalu submit flag dalam bentuk teks. Validasi anti-cheat kompleks belum berjalan otomatis, sehingga penilaian dugaan kecurangan banyak dilakukan manual oleh admin.
 
 ```{mermaid}
-%%| fig-cap: "Flowchart Alur Existing User Saat Mengikuti Lomba CTF"
+%%| fig-cap: "Activity Diagram Alur Manual Eksisting Peserta Saat Kompetisi"
 %%| label: fig-existing-user-flow
 %%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
-    Start([Mulai]) --> A[User Login dan Join Tim]
-    A --> B[Buka Daftar Challenge]
-    B --> C[Pilih Challenge]
-    C --> D{Tipe Challenge?}
-    D -- Attachment --> E[/Unduh File Soal/]
-    D -- Container --> F[Start Container Instance]
-    D -- Static --> G[Langsung Analisis Soal]
-    E --> H[Analisis dan Eksploitasi]
+    classDef initial fill:#000,stroke:#000,color:#000;
+    classDef final fill:#fff,stroke:#000,stroke-width:3px,color:#000;
+    classDef action fill:#fff,stroke:#000,stroke-width:1.2px,color:#000;
+    classDef decision fill:#fff,stroke:#000,stroke-width:1.2px,color:#000;
+
+    Start(( )):::initial
+    End((( ))):::final
+
+    Start --> A[User login dan join tim]:::action
+    A --> B[Buka daftar challenge]:::action
+    B --> C[Pilih challenge]:::action
+    C --> D{Tipe challenge?}:::decision
+    D -- Attachment --> E[Unduh file soal]:::action
+    D -- Container --> F[Start container instance]:::action
+    D -- Static --> G[Langsung analisis soal]:::action
+    E --> H[Analisis dan eksploitasi]:::action
     F --> H
     G --> H
-    H --> I[/Submit Flag via Form Teks/]
-    I --> J{Flag Benar?}
-    J -- Ya --> K[Skor Bertambah di Scoreboard]
-    J -- Tidak --> L[Coba Lagi]
+    H --> I[Submit flag via form teks]:::action
+    I --> J{Flag benar?}:::decision
+    J -- Ya --> K[Skor bertambah di scoreboard]:::action
+    J -- Tidak --> L[Coba lagi]:::action
     L --> H
-    K --> M[Admin Monitoring Log Secara Manual]
-    M --> End([Selesai])
+    K --> M[Admin monitoring log secara manual]:::action
+    M --> End
 ```
 
 **Contoh Format Soal dan Jawaban pada GZCTF (Existing)**
