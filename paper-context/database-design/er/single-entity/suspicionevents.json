@@ -1,0 +1,57 @@
+{
+  "diagramType": "single_entity",
+  "title": "SuspicionEventE-R图",
+  "entity": {
+    "name": "SuspicionEvent",
+    "attributes": [
+      {
+        "name": "Primary key",
+        "key": true,
+        "field": "Id",
+        "type": "int"
+      },
+      {
+        "name": "FK ke Participation",
+        "key": false,
+        "field": "ParticipationId",
+        "type": "int"
+      },
+      {
+        "name": "Kode aturan (StolenFlag, dst.)",
+        "key": false,
+        "field": "Type",
+        "type": "string"
+      },
+      {
+        "name": "Bobot yang ditambahkan",
+        "key": false,
+        "field": "ScoreDelta",
+        "type": "int"
+      },
+      {
+        "name": "Deskripsi bukti",
+        "key": false,
+        "field": "Details",
+        "type": "string"
+      },
+      {
+        "name": "Waktu kejadian",
+        "key": false,
+        "field": "TimeUtc",
+        "type": "DateTimeOffset"
+      },
+      {
+        "name": "FK ke Game",
+        "key": false,
+        "field": "GameId",
+        "type": "int"
+      },
+      {
+        "name": "Partisipasi terkait (opsional)",
+        "key": false,
+        "field": "RelatedParticipationId",
+        "type": "int"
+      }
+    ]
+  }
+}

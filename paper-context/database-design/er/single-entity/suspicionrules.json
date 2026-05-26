@@ -1,0 +1,27 @@
+{
+  "diagramType": "single_entity",
+  "title": "SuspicionRuleE-R图",
+  "entity": {
+    "name": "SuspicionRule",
+    "attributes": [
+      {
+        "name": "Kode aturan unik",
+        "key": true,
+        "field": "RuleCode",
+        "type": "string"
+      },
+      {
+        "name": "Bobot risiko",
+        "key": false,
+        "field": "Weight",
+        "type": "int"
+      },
+      {
+        "name": "Keterangan aturan",
+        "key": false,
+        "field": "Description",
+        "type": "string"
+      }
+    ]
+  }
+}

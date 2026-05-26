@@ -1,0 +1,28 @@
+# ABSTRACT {.unnumbered}
+
+::: {style="text-align: center"}
+**DESIGN OF A CHEATING DETECTION SYSTEM FOR THE GZCTF PLATFORM USING TWO-STAGE SIMILARITY ANALYSIS AND WEIGHTED RISK SCORING ALGORITHMS**
+
+Dimas Maulana
+:::
+
+Capture The Flag (CTF) competitions have become a widely adopted method for cybersecurity
+education, yet their integrity is threatened by cheating practices such as flag sharing and
+illegal collaboration between teams. The GZCTF platform only provides reactive log monitoring,
+leaving cheat detection dependent on manual inspection that is inefficient and prone to human
+error. This research aims to design and build a cheating detection system embedded as middleware
+within the GZCTF ASP.NET Core architecture. The system is developed using the Waterfall model
+with a Two-Stage Analysis approach: the first stage records request metadata synchronously, while
+the second stage analyzes it asynchronously. Collusion detection is performed through Sequence
+Similarity Analysis, combining the Longest Common Subsequence (LCS) and Jaccard Similarity into a
+Relative Sequence Index (RSI), validated by a Confidence Screening Detector (CSD) to form collusion
+groups. All anomaly indicators are quantified through Weighted Risk Scoring (WRS) into a cumulative
+risk score per team. The system is evaluated using functional (black box) testing, accuracy testing
+based on a confusion matrix, performance testing, and usability testing with the System Usability
+Scale (SUS). The testing results show [hasil pengujian], targeting recall of at least 0.90, precision
+of at least 0.85, and a false positive rate of at most 0.10. The developed system is expected to
+improve monitoring efficiency and preserve academic integrity in CTF competitions.
+
+**Keywords:** GZCTF, cheat detection, Sequence Similarity Analysis, Weighted Risk Scoring, academic integrity
+
+{{< pagebreak >}}

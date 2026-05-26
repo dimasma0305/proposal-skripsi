@@ -1,0 +1,175 @@
+schema_version: '1.0'
+template_rule_overrides:
+  source_docx: /root/app/kuliah/proposal-skripsi/Template Skripsi Software Engineering.docx
+  toc:
+    detected: true
+    policy: update_in_word_before_final_pdf_if_present
+  section_roles:
+  - section_index: 1
+    role_guess: body_or_unknown
+    reason: no stable role marker detected
+    orientation: portrait
+    page_size_cm:
+      width: 21.0
+      height: 29.7
+    header_preview: []
+    footer_preview:
+    - '2'
+  - section_index: 2
+    role_guess: body_or_back_matter
+    reason: last section may be body continuation or appendix
+    orientation: portrait
+    page_size_cm:
+      width: 21.0
+      height: 29.7
+    header_preview: []
+    footer_preview:
+    - '2'
+  heading_style_map:
+  - style_id: Heading1
+    style_name: heading 1
+    usage_count: 18
+    likely_level: heading_level_1_or_chapter
+    reason: style name is Heading 1 but sample text is not conclusive
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: null
+    alignment: null
+    spacing_before_pt: 18.0
+    spacing_after_pt: 4.0
+    line_spacing_pt: null
+    line_spacing_rule: null
+    first_line_indent_cm: null
+    sample_texts:
+    - HALAMAN SAMPUL
+    - LEMBAR PERSETUJUAN UJIAN SKRIPSI
+    - LEMBAR PENGESAHAN SKRIPSI
+    - HALAMAN PERNYATAAN KEASLIAN KARYA SKRIPSI
+    - ABSTRAK
+  - style_id: Heading2
+    style_name: heading 2
+    usage_count: 17
+    likely_level: heading_level_2
+    reason: style name is Heading 2
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: null
+    alignment: null
+    spacing_before_pt: 8.0
+    spacing_after_pt: 4.0
+    line_spacing_pt: null
+    line_spacing_rule: null
+    first_line_indent_cm: null
+    sample_texts:
+    - Latar Belakang
+    - Perumusan Masalah
+    - Batasan Masalah
+    - Tujuan Penelitian
+    - Manfaat Penelitian
+  - style_id: Heading3
+    style_name: heading 3
+    usage_count: 7
+    likely_level: heading_level_3
+    reason: style name is Heading 3
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: null
+    alignment: null
+    spacing_before_pt: 8.0
+    spacing_after_pt: 4.0
+    line_spacing_pt: null
+    line_spacing_rule: null
+    first_line_indent_cm: null
+    sample_texts:
+    - Pendekatan dan Metode Pengembangan Sistem
+    - Perancangan Arsitektur Sistem
+    - Desain Fungsional dan Nonfungsional
+    - Desain Sistem (UML dan Basis Data)
+    - Teknologi tambahan yang digunakan
+  body_style_candidates:
+  - style_id: Normal
+    style_name: Normal
+    usage_count: 158
+    font_ascii: Times New Roman
+    font_east_asia: null
+    font_size_pt: null
+    alignment: both
+    spacing_before_pt: null
+    spacing_after_pt: null
+    line_spacing_pt: 18.0
+    line_spacing_rule: auto
+    first_line_indent_cm: null
+    sample_text: SKRIPSI
+  - style_id: TableofFigures
+    style_name: table of figures
+    usage_count: 4
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: null
+    alignment: null
+    spacing_before_pt: null
+    spacing_after_pt: 0.0
+    line_spacing_pt: null
+    line_spacing_rule: null
+    first_line_indent_cm: null
+    sample_text: Tabel 4.1 Skenario Pengujian UAT 10
+  - style_id: Caption
+    style_name: caption
+    usage_count: 4
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: 9.0
+    alignment: null
+    spacing_before_pt: null
+    spacing_after_pt: 10.0
+    line_spacing_pt: 12.0
+    line_spacing_rule: auto
+    first_line_indent_cm: null
+    sample_text: Gambar 3. 1 Arsitektur Aplikasi Web
+  reference_style_candidates: []
+  caption_style_candidates:
+  - style_id: Caption
+    style_name: caption
+    caption_kind: generic_caption
+    usage_count: 4
+    font_ascii: null
+    font_east_asia: null
+    font_size_pt: 9.0
+    alignment: null
+    spacing_before_pt: null
+    spacing_after_pt: 10.0
+    line_spacing_pt: 12.0
+    line_spacing_rule: auto
+    first_line_indent_cm: null
+    sample_text: Gambar 3. 1 Arsitektur Aplikasi Web
+  body_layout_hints:
+    paper_size_guess: 21.0x29.7cm
+    multi_section_template: true
+    first_section_role_requires_review: true
+  section_header_footer_rules:
+  - section_index: 1
+    different_first_page: true
+    header_types: []
+    footer_types:
+    - default
+    page_number_start: null
+    page_number_format: lowerRoman
+  - section_index: 2
+    different_first_page: false
+    header_types: []
+    footer_types:
+    - default
+    page_number_start: 1
+    page_number_format: null
+  body_start_section_index: 1
+  toc_section_indices: []
+  back_matter_start_section_index: null
+  caption_position_rules:
+    figure_caption_position: unknown
+    table_caption_position: unknown
+  manual_review_required:
+  - cover/front-matter role confirmation
+  - TOC field update in Word if TOC exists
+  - page number field continuity
+  - heading level mapping beyond samples
+  - reference-format details not inferable from style extraction alone

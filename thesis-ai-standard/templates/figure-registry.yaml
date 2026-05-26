@@ -1,0 +1,251 @@
+schema_version: "2.0"
+language: "id-ID"
+encoding: "utf-8"
+
+rules:
+  caption:
+    figure: "Judul gambar di bawah gambar, contoh: Gambar 4.1 Arsitektur Sistem"
+    table: "Judul tabel di atas tabel, contoh: Tabel 4.1 Skenario Pengujian"
+    equation: "Persamaan satu baris, bernomor per bab, contoh: (3.1)"
+  numbering:
+    mode: "per bab (crossref: chapters: true)"
+    figure_pattern: "Gambar {chapter}.{index}"
+    table_pattern: "Tabel {chapter}.{index}"
+    equation_pattern: "({chapter}.{index})"
+    continuous_check_required: true
+  source_policy:
+    editable_source_required: ["architecture", "flowchart", "use_case", "er_diagram", "sequence"]
+    screenshot_allowed: ["ui_screenshot", "experiment_screenshot", "test_report"]
+    table_source_allowed: ["manual_summary", "database_schema", "test_case", "experiment_result"]
+  validation:
+    - "Gambar/tabel diinsert setelah disebut pertama kali di teks"
+    - "Penomoran per bab berurutan"
+    - "Istilah judul konsisten dengan teks"
+    - "Setiap ekspor menyimpan sumber (mermaid di index.qmd / file gambar)"
+    - "Tangkapan layar tanpa info pribadi / data kotor"
+
+# ---- Diagram yang sudah ada (mermaid di index.qmd, ter-render) ----
+figures:
+  - id: "Gambar 3.1"
+    title: "Flowchart Metodologi Penelitian"
+    chapter: "3"
+    type: "flowchart"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-metodologi)"
+    evidence: ["Bab III 3.1"]
+    first_mentioned_in: "BAB III 3.1"
+    status: "inserted"
+    risk_notes: ""
+  - id: "Gambar 3.2"
+    title: "Activity Diagram Alur Manual Eksisting Peserta"
+    chapter: "3"
+    type: "flowchart"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-existing-user-flow)"
+    evidence: ["Observasi alur GZCTF eksisting"]
+    first_mentioned_in: "BAB III 3.2.2"
+    status: "inserted"
+    risk_notes: ""
+  - id: "Gambar 3.3"
+    title: "Sequence Diagram Arsitektur Middleware"
+    chapter: "3"
+    type: "sequence"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-sequence)"
+    evidence: ["ASP.NET Core pipeline; CheatReportController"]
+    first_mentioned_in: "BAB III 3.3.2"
+    status: "inserted"
+    risk_notes: ""
+  - id: "Gambar 3.x-usecase"
+    title: "Use Case Diagram Arsitektur Middleware"
+    chapter: "3"
+    type: "use_case"
+    source_kind: "mermaid"
+    source_file: "index.qmd (caption only, belum ada label crossref)"
+    evidence: ["Interaksi admin/monitor"]
+    first_mentioned_in: "BAB III 3.3.4"
+    status: "inserted"
+    risk_notes: "Tambahkan {#fig-...} label agar bisa di-cross-reference"
+  - id: "Gambar 3.x-activity"
+    title: "Activity Diagram Alur Deteksi Kecurangan"
+    chapter: "3"
+    type: "flowchart"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-activity)"
+    evidence: ["Alur Stage 1/Stage 2"]
+    first_mentioned_in: "BAB III 3.3.4"
+    status: "inserted"
+    risk_notes: ""
+  - id: "Gambar 3.x-lcs/jaccard/csd/wrs"
+    title: "Flowchart LCS, Jaccard, CSD, dan Weighted Risk Scoring"
+    chapter: "3"
+    type: "flowchart"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-flow-lcs, #fig-flow-jaccard, #fig-flow-csd, #fig-flow-wrs)"
+    evidence: ["CheatReportController.cs (algoritma)"]
+    first_mentioned_in: "BAB III 3.3.5"
+    status: "inserted"
+    risk_notes: "Flowchart CSD & WRS sudah diselaraskan dengan kode (conf>0.75, skor mentah)"
+  - id: "Gambar 3.x-erd"
+    title: "Entity Relationship Diagram (ERD)"
+    chapter: "3"
+    type: "er_diagram"
+    source_kind: "mermaid"
+    source_file: "index.qmd (#fig-erd)"
+    evidence: ["Models/Data/*.cs; Migrations"]
+    first_mentioned_in: "BAB III 3.3.6"
+    status: "inserted"
+    risk_notes: ""
+
+  # ---- Tangkapan layar yang MASIH HARUS DIAMBIL (placeholder [image:] di BAB IV) ----
+  - id: "Gambar 4.1 (screenshot)"
+    title: "Log aktivitas GZCTF: kolom IP dan Browser Fingerprint terekam"
+    chapter: "4"
+    type: "ui_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["AccountController logging"]
+    first_mentioned_in: "BAB IV 4.1.1"
+    status: "planned"
+    risk_notes: "GAP: perlu tangkapan layar; saat ini placeholder [image: ...]"
+  - id: "Gambar 4.2 (screenshot)"
+    title: "Hasil deteksi collusion group pada dashboard"
+    chapter: "4"
+    type: "ui_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["CheatReportController collusion output"]
+    first_mentioned_in: "BAB IV 4.1.2"
+    status: "planned"
+    risk_notes: "GAP: placeholder [image: ...]"
+  - id: "Gambar 4.3 (screenshot)"
+    title: "Dashboard admin: daftar tim terurut skor + ring gauge"
+    chapter: "4"
+    type: "ui_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["CheatInfo.tsx RingProgress"]
+    first_mentioned_in: "BAB IV 4.1.4"
+    status: "planned"
+    risk_notes: "GAP: placeholder [image: ...]"
+  - id: "Gambar 4.4 (screenshot)"
+    title: "Panel detail cheat report (rincian suspicion event)"
+    chapter: "4"
+    type: "ui_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["CheatInfo.tsx suspicion detail modal"]
+    first_mentioned_in: "BAB IV 4.1.4"
+    status: "planned"
+    risk_notes: "GAP: placeholder [image: ...]"
+  - id: "Gambar 4.5 (screenshot)"
+    title: "Fitur collusion compare (lini masa dua tim)"
+    chapter: "4"
+    type: "ui_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["CheatReportController /compare"]
+    first_mentioned_in: "BAB IV 4.1.4"
+    status: "planned"
+    risk_notes: "GAP: placeholder [image: ...]"
+  - id: "Gambar 4.6 (screenshot)"
+    title: "Bukti pemicuan log salah satu skenario (mis. StolenFlag)"
+    chapter: "4"
+    type: "experiment_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["Eksekusi skenario TA-xx"]
+    first_mentioned_in: "BAB IV 4.2.1"
+    status: "planned"
+    risk_notes: "GAP: placeholder [image: ...]"
+  - id: "Gambar 4.7 (screenshot)"
+    title: "Rekap/grafik hasil kuesioner SUS"
+    chapter: "4"
+    type: "experiment_screenshot"
+    source_kind: "screenshot"
+    source_file: "BELUM ADA"
+    evidence: ["Kuesioner SUS >= 5 responden"]
+    first_mentioned_in: "BAB IV 4.2.5"
+    status: "planned"
+    risk_notes: "GAP: butuh >=5 responden + rekap skor"
+
+tables:
+  - id: "Tabel 2.x-weights"
+    title: "Tabel Bobot Penalti Risk Scoring"
+    chapter: "2/3"
+    type: "comparison"
+    source_file: "SuspicionType.cs (Defaults)"
+    columns: ["Rule Code", "Bobot", "Deskripsi"]
+    evidence: ["GZCTF SuspicionType.Defaults"]
+    first_mentioned_in: "BAB II 2.2.8 / BAB III 3.3.5 (#tbl-risk-weights)"
+    status: "inserted"
+    risk_notes: "Sudah diselaraskan dengan kode (SharedFingerprint 60, CollusionGroup 10, SequenceSimilarity 40)"
+  - id: "Tabel 3.x-testacc"
+    title: "Skenario Pengujian Akurasi & Fungsional (TA-01..TA-13)"
+    chapter: "3"
+    type: "test_case"
+    source_file: "index.qmd (#tbl-test-accuracy)"
+    columns: ["ID Uji", "Fitur", "Skenario", "Hasil Diharapkan"]
+    evidence: ["Rancangan pengujian"]
+    first_mentioned_in: "BAB III 3.4.2"
+    status: "inserted"
+    risk_notes: ""
+  - id: "Tabel 4.1-bbresult"
+    title: "Rekapitulasi Hasil Pengujian Fungsional (Black Box)"
+    chapter: "4"
+    type: "experiment_result"
+    source_file: "index.qmd (#tbl-bb-result)"
+    columns: ["ID Uji", "Fitur", "Hasil Diharapkan", "Hasil Aktual", "Status"]
+    evidence: ["Eksekusi TA-01..TA-13"]
+    first_mentioned_in: "BAB IV 4.2.1"
+    status: "planned"
+    risk_notes: "GAP: kolom Hasil Aktual & Status = [hasil pengujian]"
+  - id: "Tabel 4.x-results"
+    title: "Confusion matrix, metrik akurasi, sensitivity, performa, SUS"
+    chapter: "4"
+    type: "experiment_result"
+    source_file: "index.qmd (#tbl-cm-result, #tbl-acc-result, #tbl-sens-result, #tbl-perf-result, #tbl-sus-result)"
+    columns: ["bervariasi"]
+    evidence: ["Pengujian belum dijalankan"]
+    first_mentioned_in: "BAB IV 4.2.2 - 4.2.5"
+    status: "planned"
+    risk_notes: "GAP: seluruh angka = [hasil pengujian]/[hasil pengukuran]"
+
+equations:
+  - id: "(2.6)"
+    title: "Relative Sequence Index (RSI)"
+    chapter: "2"
+    expression_source: "RSI = 0.7*J + 0.3*S_seq (CheatReportController.cs:1207)"
+    variables:
+      - { symbol: "J", meaning: "Jaccard Similarity (himpunan)", unit: "none" }
+      - { symbol: "S_seq", meaning: "skor LCS ternormalisasi (urutan)", unit: "none" }
+    first_mentioned_in: "BAB II 2.2.6 (#eq-rsi)"
+    status: "inserted"
+    risk_notes: "Sudah diselaraskan: rata-rata berbobot, bukan harmonik"
+  - id: "(2.7)"
+    title: "Confidence kohesi CSD"
+    chapter: "2"
+    expression_source: "conf_e = sum(RSI_es)/|S| (klastering aglomeratif, seed 0.5, cutoff 0.75)"
+    variables:
+      - { symbol: "RSI_es", meaning: "RSI kandidat e terhadap anggota s", unit: "none" }
+      - { symbol: "|S|", meaning: "jumlah anggota grup", unit: "none" }
+    first_mentioned_in: "BAB II 2.2.7 (#eq-doubt)"
+    status: "inserted"
+    risk_notes: "Sudah diselaraskan dengan implementasi simetris"
+  - id: "(2.8)"
+    title: "Weighted Risk Scoring total"
+    chapter: "2"
+    expression_source: "R_total = sum(Weight(Event_i)) (SuspicionService.cs:54)"
+    variables:
+      - { symbol: "Weight(Event_i)", meaning: "bobot penalti anomali ke-i", unit: "none" }
+    first_mentioned_in: "BAB II 2.2.8 (#eq-rtotal)"
+    status: "inserted"
+    risk_notes: "Skor mentah kumulatif, tanpa normalisasi"
+
+screenshot_checklist:
+  required:
+    - "Resolusi cukup, tetap jelas saat dimasukkan ke Word"
+    - "Potong bilah alamat/desktop/notifikasi yang tidak relevan"
+    - "Data pada tangkapan layar konsisten dengan teks"
+    - "Nama akun, IP nyata, token sudah disamarkan bila perlu"
+    - "Nama berkas tangkapan layar sesuai nomor gambar"

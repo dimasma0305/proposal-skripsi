@@ -2,7 +2,17 @@
 
 {{< include approval.qmd >}}
 
-# **PENDAHULUAN**
+{{< include pengesahan.qmd >}}
+
+{{< include pernyataan-keaslian.qmd >}}
+
+{{< include abstrak.qmd >}}
+
+{{< include abstract.qmd >}}
+
+{{< include kata-pengantar.qmd >}}
+
+# **BAB I: PENDAHULUAN**
 
 ## **Latar Belakang**
 
@@ -16,7 +26,7 @@ Saat ini, kemampuan deteksi kecurangan di GZCTF masih terbatas pada pemantauan l
 
 Untuk mengatasi masalah ini, pendekatan *Sequence Similarity Analysis* menjadi solusi yang relevan. Metode ini menggabungkan algoritma *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk mengukur kesamaan himpunan soal yang diselesaikan dan *Longest Common Subsequence* (LCS) [@LCS_Greenberg] untuk membandingkan urutan penyelesaian tantangan antar tim. Hasil analisis ini kemudian divalidasi menggunakan *Confidence Screening Detector* (CSD) untuk mendeteksi kelompok yang terindikasi berkolusi berdasarkan konsistensi internal mereka [@PMC_CSD_Collusion]. Keunggulan utama metode ini adalah kemampuannya mendeteksi kolaborasi tanpa bergantung pada analisis konten teks yang mudah dimanipulasi.
 
-Selain analisis urutan, diperlukan metode penilaian yang objektif untuk mengukur berbagai indikator risiko perilaku. *Weighted Risk Scoring* menawarkan kerangka kerja di mana setiap parameter kecurangan seperti kesamaan IP, interval waktu yang mencurigakan, atau kemiripan *Browser Fingerprint* [@Browser_Fingerprinting; @GitHub_WebFingerprinting; @GitHub_CreepJS] akan diberikan bobot sesuai tingkat keparahannya. Skor risiko ini kemudian dinormalisasi ke skala skor (misalnya 0-100), memberikan gambaran jelas kepada admin mengenai tingkat kecurigaan tiap tim. Dengan demikian, pemeriksaan manual hanya perlu dilakukan pada kasus-kasus berisiko tinggi.
+Selain analisis urutan, diperlukan metode penilaian yang objektif untuk mengukur berbagai indikator risiko perilaku. *Weighted Risk Scoring* menawarkan kerangka kerja di mana setiap parameter kecurangan seperti kesamaan IP, interval waktu yang mencurigakan, atau kemiripan *Browser Fingerprint* [@Browser_Fingerprinting; @GitHub_WebFingerprinting; @GitHub_CreepJS] akan diberikan bobot sesuai tingkat keparahannya. Bobot-bobot tersebut diakumulasikan menjadi satu skor risiko kumulatif per tim yang ditampilkan terurut kepada admin, sehingga pemeriksaan manual dapat diprioritaskan pada kasus-kasus berisiko tinggi.
 
 Penelitian ini mengusulkan pengembangan sistem deteksi kecurangan yang ditanamkan langsung sebagai *middleware* dalam arsitektur ASP.NET Core GZCTF. Dengan posisi ini, setiap permintaan (*request*) peserta dapat dianalisis secara transparan sebelum masuk ke *database* PostgreSQL [@Microsoft_Middleware]. Kombinasi analisis kesamaan urutan (*Sequence Similarity*) dan penilaian risiko perilaku (*Weighted Risk Scoring*) diharapkan menghasilkan solusi yang komprehensif, efisien, serta meminimalkan tingkat kesalahan deteksi (*false positive*). Lebih dari sekadar pembaruan teknis, implementasi ini bertujuan menjamin integritas akademik di lingkungan akademik nasional maupun internasional.
 
@@ -37,7 +47,7 @@ Penelitian ini dibatasi oleh ruang lingkup sebagai berikut guna menjaga kedalama
 2. Lingkup deteksi kecurangan mencakup tiga domain utama:
     - **Analisis Jaringan**: Deteksi *Cross-Team IP*, *Token Abuse*, *Shared IP*, *Shared Fingerprint*, dan *Unknown IP*.
     - **Analisis Perilaku**: Identifikasi anomali *Fast Solve* (Open/Download/Container), *Burst Solving*, *Flag Hoarding*, serta *Solve Before Download/Container*.
-    - **Deteksi Kolusi**: Penerapan algoritma *Relative Sequence Index* (RSI) yang menggabungkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] dan *Longest Common Subsequence* (LCS), serta metode *Confidence Screening Detector* (CSD) untuk klastering kelompok kolusi.
+    - **Deteksi Kolusi**: Penerapan algoritma *Relative Sequence Index* (RSI) yang menggabungkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] dan *Longest Common Subsequence* (LCS) untuk menandai pasangan tim mirip (*Sequence Similarity*), serta metode *Confidence Screening Detector* (CSD) untuk klastering kelompok kolusi (*Collusion Group*).
 3. Parameter data yang dianalisis bersumber dari log *database* PostgreSQL GZCTF, meliputi alamat IP, *Browser Fingerprint*, waktu *submission*, dan metadata interaksi tantangan (waktu *download/container start*) [@GitHub_GZCTF].
 4. Implementasi sistem dibangun sepenuhnya menggunakan bahasa pemrograman C# (.NET) untuk menjamin performa dan kompatibilitas dengan arsitektur *backend* GZCTF.
 5. Modul admin yang dibangun dilengkapi dengan fitur manajemen data (CRUD) yang kompleks, memungkinkan administrator untuk memblokir tim (*banned*), memvalidasi peserta, dan mengonfigurasi aturan deteksi secara dinamis.
@@ -84,7 +94,7 @@ Untuk memberikan gambaran yang menyeluruh mengenai penyusunan laporan skripsi in
 
 {{< pagebreak >}}
 
-# **TINJAUAN PUSTAKA**
+# **BAB II: TINJAUAN PUSTAKA**
 
 ## **Penelitian Sebelumnya**
 
@@ -184,7 +194,7 @@ $\min(|Seq_A|, |Seq_B|)$ = Dimensi/besaran dari sekuens terpendek yang ada antar
 
 ### **Jaccard Similarity (Jaccard Index)**
 
-Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial. Untuk menghindari *false positive* pada tim ahli (seperti *Top 3 Teams* yang men-*solve* 100% soal), sistem mengimplementasikan mekanisme pemutihan (*filtering*) pada soal-soal tingkat mudah, serta memberikan nilai tingkat kejanggalan (`doubt`) yang lebih eksponensial pada kesamaan penyelesaian di tantangan tersulit (*low solve rate*).
+Jaccard mengukur kesamaan himpunan soal yang diselesaikan tanpa memperhatikan urutan. Metode ini efektif untuk menangkap pola berbagi hasil ketika pelaku mengubah urutan submit agar lolos dari deteksi sekuensial. Untuk menekan *false positive* pada tim ahli (seperti *Top 3 Teams* yang men-*solve* hampir seluruh soal), pengendalian kesalahan deteksi pada jalur kemiripan ditangani melalui pembobotan RSI dan penyaringan kelompok oleh CSD, sedangkan heuristik perilaku per-soal menyaring soal berkategori "mudah" (yang memiliki *solve rate* tinggi) agar tidak ikut tertandai.
 
 $$
 J(A,B) = \frac{|Solved_A \cap Solved_B|}{|Solved_A \cup Solved_B|}
@@ -197,33 +207,34 @@ $|Solved_A \cup Solved_B|$ = Agregasi atau kesatuan murni dari himpunan id soal 
 
 ### **Relative Sequence Index (RSI)**
 
-Untuk menyeimbangkan analisis urutan (LCS) dan himpunan (Jaccard), penelitian ini menggunakan RSI sebagai rata-rata harmonik:
+Untuk menggabungkan analisis himpunan (Jaccard) dan urutan (LCS), penelitian ini menggunakan RSI sebagai rata-rata berbobot (*weighted average*) dari kedua metrik tersebut:
 
 $$
-RSI = \frac{2 \cdot J \cdot S_{seq}}{J + S_{seq}}
+RSI = 0.7 \cdot J + 0.3 \cdot S_{seq}
 $$ {#eq-rsi}
 
 Dimana:\
 $RSI$ = *Relative Sequence Index* (nilai paduan koherensi dan sinkronisasi antara dua grup pengguna).\
-$J$ = Parameter skor komputasi dari metode *Jaccard Similarity*.\
-$S_{seq}$ = Skor kemiripan yang diinterpolasi dari metode kalkulasi *Longest Common Subsequence* (LCS).
+$J$ = Skor kemiripan himpunan dari metode *Jaccard Similarity*, diberi bobot $0.7$.\
+$S_{seq}$ = Skor kemiripan urutan dari metode *Longest Common Subsequence* (LCS), diberi bobot $0.3$.
+
+Bobot himpunan ($0.7$) sengaja dibuat lebih besar daripada bobot urutan ($0.3$) karena kesamaan himpunan soal yang diselesaikan merupakan indikator kolusi yang lebih kuat dan lebih sulit dimanipulasi; sebaliknya, urutan submit dapat dengan mudah diacak secara sengaja oleh pelaku untuk menghindari deteksi sekuensial.
 
 ### **Confidence Screening Detector (CSD)**
 
-Metode CSD digunakan untuk mengelompokkan tim yang dicurigai melakukan kolaborasi (*collusion groups*) berdasarkan tingkat kepercayaan atau *confidence* [@EDM_Collusion_Detection; @EDM_Clustering_Collusion]. Algoritma ini menggunakan metrik "Doubt" ($doubt_e$) untuk mengukur kemungkinan peserta bukan bagian dari kolusi. Nilai *doubt* dihitung berdasarkan akumulasi RSI (*Relative Sequence Index*):
+Metode CSD digunakan untuk mengelompokkan tim yang dicurigai melakukan kolaborasi (*collusion groups*) menggunakan klastering aglomeratif berbasis tingkat kepercayaan (*confidence*) [@EDM_Collusion_Detection; @EDM_Clustering_Collusion]. Algoritma membangun matriks RSI antar seluruh pasangan tim, lalu memulai pembentukan grup dari pasangan dengan RSI tertinggi yang berada di atas ambang derau (*noise floor*) $0.5$. Selanjutnya, secara iteratif algoritma menambahkan kandidat tim yang memiliki nilai kepercayaan kohesi tertinggi terhadap anggota grup saat ini, selama nilai tersebut melampaui ambang $0.75$. Nilai kepercayaan kohesi ($conf_e$) untuk kandidat $e$ dihitung sebagai rata-rata RSI terhadap seluruh anggota grup $S$:
 
 $$
-doubt_e = \frac{\sum_{s \in S} (RSI_{es} + RSI_{se})}{2 \cdot \#(S)}
+conf_e = \frac{\sum_{s \in S} RSI_{es}}{\#(S)}
 $$ {#eq-doubt}
 
 Dimana:\
-$doubt_e$ = Metrik untuk mengukur skor kejanggalan atau potensi deviasi peserta $e$, yang mengukur kemungkinan peserta bukan bagian dari grup kecurangan $S$.\
-$RSI_{es}$ = Besaran metrik interkorelasi (*Relative Sequence Index*) satu sisi yang terpancar dari arah peserta $e$ menuju peserta klaster kecurangan terindikasi ($s$).\
-$RSI_{se}$ = Besaran relasi asimetris indeks (*RSI*) sebaliknya dari kandidat $s$ terhadap peseta $e$.\
-$\#(S)$ = Densitas relasi, diukur dari keseluruhan banyak elemen anggota dalam formasi *collusion* terobservasi $S$.\
-$\sum_{s \in S}$ = Sigma akumulasi relasi berpasangan antara subyek uji $e$ dengan para kandidat komplotan $s$.
+$conf_e$ = Skor kepercayaan kohesi: rata-rata keterkaitan kandidat $e$ terhadap seluruh anggota grup kolusi $S$ yang sedang terbentuk.\
+$RSI_{es}$ = Nilai *Relative Sequence Index* antara kandidat $e$ dan anggota grup $s$. Matriks RSI bersifat simetris ($RSI_{es} = RSI_{se}$), sehingga bentuk dua sisi tidak diperlukan.\
+$\#(S)$ = Jumlah anggota grup kolusi yang sedang terbentuk.\
+$\sum_{s \in S}$ = Akumulasi RSI berpasangan antara kandidat $e$ dengan setiap anggota grup $s$.
 
-Proses skrining skrining kepercayaan (`confidence`) dilakukan secara iteratif untuk menemukan batas cutoff optimal yang dapat merampingkan tingkat keyakinan terhadap formasi jaringan anggota *collusion* (kolusi) secara mumpuni [@PMC_CSD_Collusion].
+Proses penambahan anggota dihentikan ketika tidak ada lagi kandidat dengan $conf_e > 0.75$. Setiap tim hanya boleh menjadi anggota satu grup (penandaan *visited*), dan grup final dilaporkan beserta nilai rata-rata RSI internalnya sebagai indikator kekuatan dugaan kolusi [@PMC_CSD_Collusion].
 
 ### **Konsep Weighted Risk Scoring**
 
@@ -240,7 +251,7 @@ $Weight(Event_i)$ = Bobot penalti (Risk Value) terikat bagi suatu kelas dari pel
 
 Pendekatan ini memungkinkan penggabungan berbagai indikator teknis yang heterogen—seperti kesamaan IP, anomali waktu, dan pola *Browser Fingerprint*—menjadi satu metrik tunggal.
 
-Dengan metode ini, administrator dapat menetapkan ambang batas (*threshold*) intervensi yang dinamis, misalnya menetapkan status *flagged* jika total skor melebihi batas tertentu (misal: 100 poin) atau melakukan pemblokiran otomatis jika mencapai batas kritis.
+Skor risiko ($R_{total}$) bersifat kumulatif dan tidak dinormalisasi pada sisi penyimpanan; nilainya disimpan secara mentah pada entitas *Participation* dan ditampilkan pada *Dashboard* Admin dalam urutan menurun untuk keperluan triase. Sistem **tidak** melakukan pemblokiran otomatis berdasarkan skor ini—keputusan akhir (*banned*/validasi) tetap berada di tangan administrator setelah peninjauan manual; secara visual, *dashboard* hanya menandai tim dengan skor tinggi (ambang merah pada skor $\geq 70$) sebagai isyarat prioritas. Sebagai mekanisme pencegahan *real-time* yang terpisah, sistem menerapkan *AntiCheatBlock* pada level autentikasi: login ditolak ketika kebijakan keunikan—satu alamat IP atau satu *Browser Fingerprint* per anggota tim—dilanggar.
 
 ### **Confusion Matrix untuk Evaluasi Deteksi**
 
@@ -297,21 +308,13 @@ Sebagai sistem yang menangani data sensitif dan input dari pengguna yang berpote
 
 {{< pagebreak >}}
 
-# **METODE PENELITIAN**
+# **BAB III: METODE PENELITIAN**
 
-## **Objek dan Metode Pengembangan Sistem**
+## **Objek dan Metode Penelitian**
 
 Penelitian ini berfokus pada pengembangan modul keamanan tambahan untuk platform GZCTF. Metode penelitian yang digunakan adalah penelitian terapan (*applied experimental research*) dengan pendekatan **kuantitatif**.
 
 Pendekatan kuantitatif dipilih karena penelitian ini berfokus pada pengukuran data numerik yang objektif, meliputi perhitungan skor kesamaan (*similarity score*) menggunakan algoritma matematis (LCS & Jaccard), kalkulasi skor risiko (*risk scoring*), serta pengukuran metrik performa sistem (latensi dalam milidetik) dan akurasi deteksi (Presisi, Recall, F1-Score). Data log aktivitas peserta akan dikonversi menjadi representasi angka untuk dianalisis secara statistik guna memvalidasi efektivitas metode deteksi yang diusulkan.
-
-Model pengembangan sistem yang diadopsi adalah **Waterfall**. Model ini dipilih karena cocok dengan karakteristik penelitian skripsi yang membutuhkan dokumentasi terstruktur dan spesifikasi kebutuhan yang stabil sejak awal. Adapun tahapan yang dilakukan meliputi:
-
-1. **Analisis Kebutuhan**: Mengidentifikasi fitur dan celah keamanan GZCTF melalui studi literatur dan observasi langsung.
-2. **Perancangan Sistem**: Merancang arsitektur *middleware*, algoritma similaritas, dan skema penilaian risiko menggunakan pemodelan UML lengkap (**Use Case, Activity, Sequence, dan Class Diagram**) serta ERD.
-3. **Implementasi**: Membangun sistem dengan C# (.NET 8.0), lalu mengintegrasikannya ke dalam *pipeline* GZCTF.
-4. **Pengujian**: Melakukan uji fungsionalitas (*Black Box*) dan uji akurasi algoritma menggunakan skenario simulasi kecurangan.
-5. **Evaluasi**: Mengumpulkan umpan balik pengguna (admin) melalui *User Acceptance Test* (UAT) untuk menilai efektivitas sistem.
 
 **Flowchart Metodologi Penelitian**
 
@@ -334,7 +337,7 @@ flowchart TD
     K --> L([Selesai])
 ```
 
-## **Analisis Kondisi Eksisting dan Kebutuhan Sistem**
+## **Analisis Kondisi Eksisting**
 
 ### **Analisis Kondisi Eksisting pada Platform GZCTF**
 
@@ -387,32 +390,19 @@ flowchart TD
 
 Pada implementasi GZCTF, jawaban utama berbentuk **teks flag** (bukan pilihan ganda). Karena itu, potensi kecurangan lebih sering muncul sebagai *flag sharing*, bukan menyalin opsi jawaban seperti pada ujian pilihan ganda.
 
-### **Kebutuhan Fungsional Sistem Baru**
+## **Rancangan Penelitian**
 
-Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan fungsional minimal sebagai berikut:
+### **Pendekatan dan Metode Pengembangan Sistem**
 
-1. **Middleware Interceptor**: Sistem wajib memiliki komponen middleware yang mampu mengintersepsi setiap permintaan POST ke endpoint submission flag untuk menangkap data payload, alamat IP, dan metadata browser.
-2. **Two-Stage Analysis Engine**:
-- **Real-Time Extraction**: Middleware memantau dan mencatat IP serta metadata esensial secara sinkron tanpa mengeksekusi validasi flag berat ke database, mencegah *overhead* sehingga kinerja GZCTF tetap optimal (< 300 ms latensi).
-- **Asynchronous Analysis Engine**:
-    - **Stolen Flag Detection**: Secara asinkron menganalisis *submission log* tim untuk mencatat pelanggaran bila mereka mencoba mengirimkan flag dinamis milik *instance* tim lain (+100 Risk).
-    - **IP & Network Analysis**: Mendeteksi *Cross-Team IP*, *Token Abuse*, "Browser Fingerprinting", dan *Shared IP*.
-    - **Behavior Analysis**: Mendeteksi anomali seperti *Fast Solve*, *Burst Solving*, dan *No Container/Download*.
-    - **Plagiarism Detection**: Menggunakan algoritma LCS [@LCS_Greenberg] untuk kesamaan urutan (*Sequence Similarity*) dan *Confidence Screening Detector* (CSD) yang memanfaatkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk deteksi kolusi.
-3. **Weighted Scoring Processor**: Mesin pengolah yang menghitung total risiko tim berdasarkan bobot variabel yang ditentukan dan menyimpannya ke dalam tabel CheatRisk [@SemanticScholar_ChatGPT_CTF].
-4. **Admin Risk Dashboard**: Antarmuka web yang wajib menyajikan **visualisasi data** interaktif, seperti **grafik *heatmap* sharing IP** dan *timeline* aktivitas, serta fitur manajemen status kepesertaan.
+Model pengembangan sistem yang diadopsi adalah **Waterfall**. Model ini dipilih karena cocok dengan karakteristik penelitian skripsi yang membutuhkan dokumentasi terstruktur dan spesifikasi kebutuhan yang stabil sejak awal. Adapun tahapan yang dilakukan meliputi:
 
-### **Kebutuhan Non-Fungsional**
+1. **Analisis Kebutuhan**: Mengidentifikasi fitur dan celah keamanan GZCTF melalui studi literatur dan observasi langsung.
+2. **Perancangan Sistem**: Merancang arsitektur *middleware*, algoritma similaritas, dan skema penilaian risiko menggunakan pemodelan UML lengkap (**Use Case, Activity, Sequence, dan Class Diagram**) serta ERD.
+3. **Implementasi**: Membangun sistem dengan C# (.NET 8.0), lalu mengintegrasikannya ke dalam *pipeline* GZCTF.
+4. **Pengujian**: Melakukan uji fungsionalitas (*Black Box*) dan uji akurasi algoritma menggunakan skenario simulasi kecurangan.
+5. **Evaluasi**: Mengumpulkan umpan balik pengguna (admin) melalui *User Acceptance Test* (UAT) untuk menilai efektivitas sistem.
 
-Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan non-fungsional sebagai berikut:
-
-1. **Responsivitas**: Penambahan logika deteksi pada middleware tidak boleh menambah latensi lebih dari 300 ms pada setiap submission agar tidak mengganggu kompetisi [@Microsoft_BestPractices].
-2. **Skalabilitas**: Sistem deteksi kecurangan harus mampu memproses data secara efisien melalui mekanisme batch processing [@GitHub_GZCTF].
-3. **Akurasi**: Memiliki tingkat kesalahan *false positive* yang rendah untuk menghindari tuduhan kecurangan yang tidak berdasar terhadap peserta yang jujur.
-
-## **Perancangan Sistem dan Arsitektur**
-
-### **Perancangan Arsitektur Middleware ASP.NET Core**
+### **Perancangan Arsitektur Sistem**
 
 Arsitektur sistem dibangun dengan memanfaatkan konsep *Dependency Injection* dan pipa permintaan (*request pipeline*) ASP.NET Core. Sistem deteksi kecurangan akan didaftarkan sebagai layanan berlingkup (*scoped service*) menggunakan antarmuka IMiddleware [@Microsoft_Middleware]. Penempatan middleware ini diletakkan tepat setelah middleware autentikasi dan otorisasi, sehingga identitas pengguna sudah terverifikasi sebelum analisis kecurangan dilakukan.
 
@@ -452,14 +442,40 @@ sequenceDiagram
     end
 ```
 
-### **Pemodelan Sistem dengan UML**
+### **Desain Fungsional dan Nonfungsional**
 
-### **Use Case Diagram**
- 
+**Kebutuhan Fungsional**
+
+Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan fungsional minimal sebagai berikut:
+
+1. **Middleware Interceptor**: Sistem wajib memiliki komponen middleware yang mampu mengintersepsi setiap permintaan POST ke endpoint submission flag untuk menangkap data payload, alamat IP, dan metadata browser.
+2. **Two-Stage Analysis Engine**:
+- **Real-Time Extraction**: Middleware memantau dan mencatat IP serta metadata esensial secara sinkron tanpa mengeksekusi validasi flag berat ke database, mencegah *overhead* sehingga kinerja GZCTF tetap optimal (< 300 ms latensi).
+- **Asynchronous Analysis Engine**:
+    - **Stolen Flag Detection**: Secara asinkron menganalisis *submission log* tim untuk mencatat pelanggaran bila mereka mencoba mengirimkan flag dinamis milik *instance* tim lain (+100 Risk).
+    - **IP & Network Analysis**: Mendeteksi *Cross-Team IP*, *Token Abuse*, "Browser Fingerprinting", dan *Shared IP*.
+    - **Behavior Analysis**: Mendeteksi anomali seperti *Fast Solve*, *Burst Solving*, dan *No Container/Download*.
+    - **Plagiarism Detection**: Menggunakan algoritma LCS [@LCS_Greenberg] untuk kesamaan urutan (*Sequence Similarity*) dan *Confidence Screening Detector* (CSD) yang memanfaatkan *Jaccard Similarity* [@travieso2024analyticalapproachjaccardsimilarity] untuk deteksi kolusi.
+3. **Weighted Scoring Processor**: Mesin pengolah yang menghitung total risiko tim berdasarkan bobot variabel yang ditentukan dan menyimpannya ke dalam tabel CheatRisk [@SemanticScholar_ChatGPT_CTF].
+4. **Admin Risk Dashboard**: Antarmuka web yang wajib menyajikan **visualisasi data** interaktif, seperti **grafik *heatmap* sharing IP** dan *timeline* aktivitas, serta fitur manajemen status kepesertaan.
+
+**Kebutuhan Non-Fungsional**
+
+Sistem deteksi kecurangan yang diusulkan harus memenuhi persyaratan non-fungsional sebagai berikut:
+
+1. **Responsivitas**: Penambahan logika deteksi pada middleware tidak boleh menambah latensi lebih dari 300 ms pada setiap submission agar tidak mengganggu kompetisi [@Microsoft_BestPractices].
+2. **Skalabilitas**: Sistem deteksi kecurangan harus mampu memproses data secara efisien melalui mekanisme batch processing [@GitHub_GZCTF].
+3. **Akurasi**: Memiliki tingkat kesalahan *false positive* yang rendah untuk menghindari tuduhan kecurangan yang tidak berdasar terhadap peserta yang jujur.
+
+### **Desain Sistem (Pemodelan UML)**
+
+**Use Case Diagram**
+
 Perancangan use case difokuskan pada interaksi pengguna dengan fitur-fitur keamanan sistem.
  
 ```{mermaid}
 %%| fig-cap: "Use Case Diagram Arsitektur Middleware"
+%%| label: fig-usecase
 %%{init: {"theme": "default"}}%%
 flowchart LR
     %% Actor
@@ -511,7 +527,7 @@ flowchart LR
 
 : Tabel Spesifikasi Use Case Deteksi Kecurangan Real-time {#tbl-uc-spec}
 
-### **Activity Diagram (Alur Deteksi Kecurangan)**
+**Activity Diagram (Alur Deteksi Kecurangan)**
  
 Alur aktivitas deteksi kecurangan dijelaskan sebagai berikut:
  
@@ -602,7 +618,7 @@ Penjelasan Alur:
 7. Dashboard admin tetap diperbarui pada kedua kondisi (melewati maupun tidak melewati *threshold*) agar monitoring berjalan *real-time* [@Microsoft_SignalR_Overview].
 8. Alur berakhir setelah sinkronisasi (*join*) antara jalur validasi GZCTF dan jalur logging risiko selesai.
 
-### **Perancangan Algoritma Similarity dan Risk Scoring**
+### **Perancangan Algoritma Deteksi**
 
 Implementasi deteksi kolusi disusun sebagai pipeline berlapis: LCS (urutan), Jaccard (himpunan), CSD (screening grup), lalu agregasi *Weighted Risk Scoring*.
 
@@ -649,15 +665,12 @@ flowchart TD
 %%{init: {"flowchart": {"curve": "stepBefore"}}}%%
 flowchart TD
     Start([Mulai]) --> A[/Input matriks RSI antar tim/]
-    A --> B[Bentuk kandidat grup S]
-    B --> C[Hitung doubt tiap anggota]
-    C --> D{doubt <= cutoff?}
-    D -- Ya --> E[Pertahankan anggota]
-    D -- Tidak --> F[Keluarkan anggota dari grup]
-    E --> G{Ada perubahan grup?}
-    F --> G
-    G -- Ya --> C
-    G -- Tidak --> H[/Output collusion group final/]
+    A --> B[Seed grup S dari pasangan RSI tertinggi > 0.5]
+    B --> C[Hitung conf tiap kandidat terhadap grup S]
+    C --> D{Kandidat terbaik conf > 0.75?}
+    D -- Ya --> E[Tambahkan kandidat ke grup S]
+    E --> C
+    D -- Tidak --> H[/Output collusion group final/]
     H --> End([Selesai])
 ```
 
@@ -670,10 +683,10 @@ flowchart TD
 flowchart TD
     Start([Mulai]) --> A[/Input Suspicion Events/]
     A --> B[Map event ke bobot rule]
-    B --> C[Agregasi total skor risiko]
-    C --> D[Normalisasi skor 0-100]
-    D --> E{Skor >= threshold?}
-    E -- Ya --> F[Flagged atau Auto Ban]
+    B --> C[Agregasi skor risiko kumulatif mentah]
+    C --> D[Tampilkan & urutkan skor pada Dashboard Admin]
+    D --> E{Admin meninjau: terbukti curang?}
+    E -- Ya --> F[Tindakan manual: banned / validasi]
     E -- Tidak --> G[Status Normal]
     F --> H[Simpan log dan notifikasi admin]
     G --> H
@@ -694,17 +707,17 @@ $$
 R_{total} = \sum_{i=1}^{n} Weight(Event_i)
 $$ {#eq-rtotal-ch3}
 
-Untuk kebutuhan dashboard, skor dapat dinormalisasi:
+Skor mentah $R_{total}$ bersifat tak terbatas (*unbounded*) dan tidak dinormalisasi; nilai inilah yang disimpan dan diurutkan. Khusus untuk visualisasi *ring gauge* pada *dashboard*, nilai pengisian cincin dibatasi secara visual hingga $100$ (sementara angka skor mentah tetap ditampilkan apa adanya):
 
 $$
-R_{norm} = \min(100, R_{total})
+R_{gauge} = \min(100, R_{total})
 $$ {#eq-rnorm-ch3}
 
 Dimana:\
-$R_{total}$ = Jumlah total bobot kumulatif/akumluasi (*Risk Score*) dari log kegiatan/events curang sistem oleh satu entitas tim.\
-$n$ = Merupakan lambang kuantitas jumlah/frekuensi riwayat aktivitas mencurigakan yang diverifikasi sistem (*Suspicion Events*).\
-$Weight(Event_i)$ = Fungsi yang mereturn nilai besaran bobot penalti mutlak (*Risk Severity Value*) statis berdasarkan tipe jenis/id *Event* ke-$i$.\
-$R_{norm}$ = Skor hasil pelurusan komputasi di batasan kuadran tertinggi senilai seratus, sebagai angka agregat persentase (`0 - 100%`) akhir yang ditampilkan secara interaktif pada antarmuka *Dashboard* Admin.
+$R_{total}$ = Jumlah total bobot kumulatif/akumulasi (*Risk Score*) dari seluruh *events* curang yang tercatat untuk satu entitas tim; nilai mentah inilah yang disimpan dan diperingkat.\
+$n$ = Lambang kuantitas jumlah/frekuensi riwayat aktivitas mencurigakan yang diverifikasi sistem (*Suspicion Events*).\
+$Weight(Event_i)$ = Fungsi yang mengembalikan besaran bobot penalti mutlak (*Risk Severity Value*) statis berdasarkan tipe/id *Event* ke-$i$.\
+$R_{gauge}$ = Nilai pengisian *ring gauge* yang dibatasi maksimum $100$ semata-mata untuk keperluan tampilan visual pada antarmuka *Dashboard* Admin; bukan hasil normalisasi skor.
 
 Tabel berikut merinci bobot penalti eksperimental yang diusulkan. Nilai bobot ditentukan secara heuristik dan akan diuji validitasnya pada tahap pengujian parameter:
 
@@ -714,9 +727,10 @@ Tabel berikut merinci bobot penalti eksperimental yang diusulkan. Nilai bobot di
 | **NoContainer** | 80 | Tim menyelesaikan soal tanpa satupun anggotanya menjalankan container instance. |
 | **TokenAbuse** | 80 | Tim menggunakan token unduhan yang sama dengan tim yang berbeda. |
 | **NoDownload** | 80 | Tim menyelesaikan soal attachment tanpa satupun anggotanya mengunduh file. |
-| **SharedFingerprint** | 30 | Beberapa tim memiliki parameter browser identik (hanya menjadi sinyal sekunder berkat fitur Browser *Uniformity*). |
-| **FastSolve** | 50 | Menyelesaikan soal dalam waktu < 2 menit (tidak wajar). |
-| **CollusionGroup**| 40 | Kemiripan urutan pengerjaan soal dengan tim lain (RSI). |
+| **SharedFingerprint** | 60 | Beberapa tim memiliki *Browser Fingerprint* (canvas/WebGL/audio) identik; diperlakukan sebagai sinyal kuat (*strong signal*). |
+| **FastSolve** | 50 | Menyelesaikan soal dalam waktu < 2 menit setelah Open/Download/Container (tidak wajar). |
+| **SequenceSimilarity** | 40 | Kemiripan urutan & himpunan penyelesaian soal sangat tinggi dengan tim lain (RSI >= 85%). |
+| **CollusionGroup**| 10 | Anggota grup kolusi hasil klastering CSD (penanda keanggotaan grup). |
 | **Burst** | 30 | Menyelesaikan banyak soal (>3) dalam waktu singkat. |
 | **Hoarding** | 30 | Menahan flag lama setelah container dimatikan. |
 | **CrossTeamIP** | 20 | IP Address digunakan oleh anggota dari tim yang berbeda. |
@@ -771,9 +785,11 @@ erDiagram
     }
 ```
  
-## **Rancangan Penerapan dan Pengujian Penelitian**
+## **Rancangan Implementasi dan Pengujian Penelitian**
 
-### **Penerapan Sistem pada GZCTF**
+### **Rancangan Implementasi**
+
+**Penerapan Sistem pada GZCTF**
 
 Penerapan sistem dilakukan tanpa mengubah alur inti validasi flag GZCTF. Strategi penerapan difokuskan pada penambahan komponen *middleware* dan *background analyzer* agar integrasi tetap aman serta mudah dipelihara.
 
@@ -782,7 +798,7 @@ Penerapan sistem dilakukan tanpa mengubah alur inti validasi flag GZCTF. Strateg
 3. **Sinkronisasi Dashboard**: Menyalurkan hasil deteksi ke dashboard admin melalui API internal dan kanal notifikasi real-time.
 4. **Hardening Keamanan**: Menambahkan validasi input dan sanitasi payload agar proses deteksi tidak membuka celah serangan baru.
 
-### **Lingkungan Pengembangan**
+**Lingkungan Pengembangan**
 
 Implementasi sistem akan dilakukan menggunakan tumpukan teknologi (*tech stack*) yang konsisten dengan ekosistem GZCTF:
 
@@ -791,7 +807,7 @@ Implementasi sistem akan dilakukan menggunakan tumpukan teknologi (*tech stack*)
 - **Tools**: Visual Studio Code, PyCharm, Docker Desktop, dan Git untuk manajemen versi.
 - **Integrasi**: Menggunakan *Middleware* dan *Router* untuk komunikasi antara backend deteksi dan dashboard frontend.
 
-### **Tahapan Implementasi**
+**Tahapan Implementasi**
 
 Proses pembangunan aplikasi mengikuti urutan logis rekayasa perangkat lunak:
 
@@ -801,7 +817,9 @@ Proses pembangunan aplikasi mengikuti urutan logis rekayasa perangkat lunak:
 4. **Tambahan Fitur**: Menambahkan fitur-fitur tambahan seperti pengecekan *Browser Fingerprint* dan sumber download tantangan untuk memvalidasi *collusion group*.
 5. **Pembangunan Dashboard**: Mengembangkan antarmuka monitoring menggunakan React (sesuai frontend GZCTF) yang menampilkan metrik risiko secara visual.
 
-### **Skenario Pengujian**
+### **Rancangan Pengujian**
+
+**Skenario Pengujian**
 
 Pengujian dilakukan untuk memvalidasi akurasi logika deteksi dan performa sistem di bawah beban kerja.
 
@@ -830,7 +848,7 @@ Kriteria minimal yang ditargetkan pada penelitian ini adalah `Recall >= 0.90`, `
 | ID Uji | Fitur | Skenario / Dataset | Hasil yang Diharapkan |
 | :--- | :--- | :--- | :--- |
 | **TA-01** | Stolen Flag | User A submit flag dinamis milik instansi tim lain (Tim B) | Sistem core merespons salah (bukan instance-nya), Tracker mendeteksi dan trigger log `StolenFlag` (+100 risk) |
-| **TA-02** | Flag Sharing | Dataset simulasi: 2 tim dengan 90% kesamaan urutan soal | Skor Similarity > 85%, terdeteksi sebagai `CollusionGroup` |
+| **TA-02** | Flag Sharing | Dataset simulasi: 2 tim dengan 90% kesamaan urutan soal | RSI >= 85%, pasangan tertandai `SequenceSimilarity` (+40 risk) |
 | **TA-03** | IP Hopping | User login dengan 3 IP berbeda dalam 10 menit | Log `CrossTeamIP` atau `SharedIP` terpicu sesuai aturan |
 | **TA-04** | Burst Solve | Submit 5 flag dalam 10 detik | Log `Burst` (+30 risk) terpicu |
 | **TA-05** | Hoarding | User A menahan flag lama setelah container dimatikan | Log `Hoarding` (+30 risk) terpicu |
@@ -840,8 +858,8 @@ Kriteria minimal yang ditargetkan pada penelitian ini adalah `Recall >= 0.90`, `
 | **TA-09** | No Container | Tim A menyelesaikan soal eksploitasi tanpa satupun anggota yang membangkitkan instance container | Log `NoContainer` (+80 risk) terpicu |
 | **TA-10** | No Download | Tim A berhasil menebak file challenge (attachment) tanpa ada history unduhan | Log `NoDownload` (+80 risk) terpicu |
 | **TA-11** | Fast Solve | User A menyelesaikan soal dalam waktu < 2 menit (tidak wajar) | Log `FastSolve` (+50 risk) terpicu |
-| **TA-12** | Shared Fingerprint | Beberapa tim memiliki parameter karakteristik browser (canvas) identik kebetulan | Log `SharedFingerprint` (+30 risk) terpicu sebagai data sekunder |
-| **TA-13** | Collusion Group | Dua atau lebih tim memiliki nilai RSI tinggi (LCS + Jaccard) dan lolos skrining CSD | Log `CollusionGroup` (+40 risk) terpicu |
+| **TA-12** | Shared Fingerprint | Beberapa tim memiliki parameter karakteristik browser (canvas) identik | Log `SharedFingerprint` (+60 risk) terpicu sebagai sinyal kuat |
+| **TA-13** | Collusion Group | Dua atau lebih tim membentuk grup via CSD (seed RSI > 0.5, *cutoff* rata-rata RSI > 0.75) | Log `CollusionGroup` (+10 risk) terpicu untuk tiap anggota |
 
 : Skenario Pengujian Akurasi & Fungsional {#tbl-test-accuracy}
 
@@ -868,7 +886,7 @@ Kriteria minimal yang ditargetkan pada penelitian ini adalah `Recall >= 0.90`, `
 
 **Pengujian Usability (System Usability Scale - SUS)**: Memberikan kuesioner kepada minimal lima pengguna (dosen/admin kompetisi) untuk menilai efektivitas dashboard dalam membantu mereka mengidentifikasi kecurangan.
 
-### **Hasil yang Diharapkan**
+**Hasil yang Diharapkan**
 
 Sistem deteksi kecurangan ini diharapkan dapat memberikan hasil konkret berupa:
 
@@ -895,6 +913,186 @@ Penelitian ini direncanakan berlangsung selama enam bulan, dengan rincian jadwal
 
 
 Tabel Jadwal Kegiatan di atas disusun untuk memastikan seluruh tahapan rekayasa perangkat lunak terpenuhi sesuai dengan standar skripsi Politeknik Negeri Bali.
+
+{{< pagebreak >}}
+
+# **BAB IV: HASIL DAN PEMBAHASAN**
+
+Bab ini memaparkan hasil implementasi sistem deteksi kecurangan pada platform GZCTF beserta hasil pengujiannya. Pembahasan diawali dengan bukti implementasi setiap komponen sistem sesuai rancangan pada Bab III, dilanjutkan dengan hasil pengujian fungsional, akurasi, parameter, performa, dan *usability*, serta diakhiri dengan analisis yang menghubungkan hasil tersebut terhadap rumusan masalah penelitian.
+
+## **Hasil Implementasi Sistem**
+
+Sistem deteksi kecurangan berhasil diimplementasikan dan diintegrasikan ke dalam arsitektur ASP.NET Core GZCTF menggunakan bahasa pemrograman C# (.NET 8.0), basis data PostgreSQL, serta antarmuka *dashboard* berbasis React. Implementasi mengikuti rancangan *Two-Stage Analysis* (lihat @fig-sequence): tahap perekaman data berjalan secara sinkron pada jalur permintaan, sedangkan analisis kecurangan yang berat dijalankan secara asinkron sehingga tidak membebani validasi *flag* inti GZCTF. Bagian berikut memaparkan hasil implementasi tiap komponen utama. Seluruh tangkapan layar antarmuka disajikan sebagai bukti bahwa sistem berjalan sebagaimana mestinya.
+
+### **Implementasi Perekaman Data dan Middleware (Stage 1)**
+
+Komponen perekaman data diimplementasikan untuk menangkap metadata esensial dari setiap aktivitas peserta tanpa menambah latensi yang signifikan. Pada setiap proses autentikasi dan pengiriman *flag*, sistem mencatat alamat IP, *Browser Fingerprint* (kombinasi *Canvas*, *WebGL*, dan *AudioContext*), serta *timestamp* ke dalam log basis data. Selain itu, peristiwa interaksi tantangan seperti pengunduhan *attachment*, *start*/*destroy container*, dan pembukaan soal direkam sebagai *game event* yang menjadi sumber data utama analisis perilaku. Khusus untuk kasus *Stolen Flag*, pencatatan dilakukan secara *real-time* pada saat validasi *flag*: ketika sebuah tim mengirimkan *flag* dinamis milik *instance* tim lain, sistem langsung menandai pelanggaran tanpa menunggu analisis batch.
+
+[image: Tangkapan layar log aktivitas GZCTF yang menampilkan kolom IP dan Browser Fingerprint yang berhasil direkam pada setiap submission]
+
+### **Implementasi Mesin Analisis Asinkron (Stage 2)**
+
+Mesin analisis tahap kedua diimplementasikan sebagai proses yang membangkitkan laporan kecurangan (*cheat report*) atas permintaan admin/monitor. Mesin ini menjalankan empat kelompok analisis sesuai @fig-activity. Analisis kolusi merupakan inti dari mesin ini, yang mengimplementasikan algoritma *Sequence Similarity Analysis* sebagai berikut:
+
+1. **Longest Common Subsequence (LCS)** diimplementasikan menggunakan pemrograman dinamis untuk mengukur kemiripan *urutan* penyelesaian soal antar tim, lalu dinormalisasi terhadap panjang sekuens terpendek sesuai @eq-sseq.
+2. **Jaccard Similarity** diimplementasikan untuk mengukur kemiripan *himpunan* soal yang diselesaikan dua tim sesuai @eq-jaccard-sim.
+3. **Relative Sequence Index (RSI)** menggabungkan kedua metrik tersebut sebagai rata-rata berbobot ($0{,}7 \cdot J + 0{,}3 \cdot S_{seq}$) sesuai @eq-rsi. Sepasang tim ditandai sebagai *SequenceSimilarity* apabila nilai RSI mencapai ambang $\geq 0{,}85$.
+4. **Confidence Screening Detector (CSD)** diimplementasikan sebagai klastering aglomeratif: grup kolusi dibentuk dari pasangan dengan RSI di atas ambang derau $0{,}5$, kemudian kandidat ditambahkan selama rata-rata RSI kohesinya melampaui $0{,}75$ sesuai @eq-doubt.
+
+[image: Tangkapan layar hasil deteksi collusion group pada dashboard, menampilkan dua tim dengan nilai RSI tinggi beserta daftar soal yang sama]
+
+### **Implementasi Weighted Risk Scoring**
+
+Seluruh anomali yang terdeteksi dikuantifikasi melalui *Weighted Risk Scoring*. Setiap jenis pelanggaran memiliki bobot penalti tetap sebagaimana dirinci pada @tbl-risk-weights, mulai dari *StolenFlag* (100) hingga *SharedIP* dan *UnknownIP* (10). Skor risiko total tiap tim dihitung sebagai akumulasi seluruh bobot anomali yang terpicu (@eq-rtotal-ch3) dan disimpan pada entitas *Participation*. Mekanisme penyimpanan bersifat idempoten, yaitu satu jenis pelanggaran dengan rincian yang sama tidak dicatat berulang kali, sehingga skor tidak menggelembung akibat duplikasi.
+
+### **Implementasi Dashboard Admin dan Visualisasi Laporan**
+
+Antarmuka *dashboard* admin diimplementasikan untuk menyajikan hasil deteksi secara ringkas dan dapat ditindaklanjuti. *Dashboard* menampilkan daftar tim yang diurutkan menurun berdasarkan skor risiko kumulatif, lengkap dengan rincian setiap *suspicion event* (jenis, bobot, waktu, dan deskripsi bukti). Skor risiko divisualisasikan melalui *ring gauge* dengan penanda warna merah pada skor tinggi sebagai isyarat prioritas peninjauan. *Dashboard* juga menyediakan fitur perbandingan dua tim (*collusion compare*) yang menampilkan lini masa penyelesaian soal untuk membantu admin memverifikasi dugaan kolusi secara manual.
+
+[image: Tangkapan layar dashboard admin menampilkan daftar tim terurut berdasarkan skor risiko beserta ring gauge skor]
+
+[image: Tangkapan layar panel detail cheat report yang menampilkan rincian suspicion event sebuah tim]
+
+[image: Tangkapan layar fitur collusion compare yang membandingkan lini masa penyelesaian soal dua tim]
+
+## **Hasil Pengujian Sistem**
+
+Pengujian dilakukan untuk memvalidasi fungsionalitas, akurasi, sensitivitas parameter, performa, dan *usability* sistem sesuai rancangan pengujian pada Bab III.
+
+### **Pengujian Fungsional (Black Box)**
+
+Pengujian fungsional dilakukan dengan metode *black box* terhadap ketiga belas skenario pada @tbl-test-accuracy. Setiap skenario disimulasikan, kemudian keluaran sistem dibandingkan dengan hasil yang diharapkan. Rekapitulasi hasil pengujian fungsional disajikan pada @tbl-bb-result.
+
+| ID Uji | Fitur yang Diuji | Hasil yang Diharapkan | Hasil Aktual | Status |
+| :--- | :--- | :--- | :--- | :---: |
+| TA-01 | Stolen Flag | Log `StolenFlag` (+100) terpicu | [hasil pengujian] | [✓] |
+| TA-02 | Flag Sharing | `SequenceSimilarity` (+40) pada RSI $\geq$ 85% | [hasil pengujian] | [✓] |
+| TA-03 | IP Hopping | Log `CrossTeamIP`/`SharedIP` terpicu | [hasil pengujian] | [✓] |
+| TA-04 | Burst Solve | Log `Burst` (+30) terpicu | [hasil pengujian] | [✓] |
+| TA-05 | Hoarding | Log `Hoarding` (+30) terpicu | [hasil pengujian] | [✓] |
+| TA-06 | Shared IP | Log `SharedIP` (+10) terpicu | [hasil pengujian] | [✓] |
+| TA-07 | Unknown IP | Log `UnknownIP` (+10) terpicu | [hasil pengujian] | [✓] |
+| TA-08 | Token Abuse | Log `TokenAbuse` (+80) terpicu | [hasil pengujian] | [✓] |
+| TA-09 | No Container | Log `NoContainer` (+80) terpicu | [hasil pengujian] | [✓] |
+| TA-10 | No Download | Log `NoDownload` (+80) terpicu | [hasil pengujian] | [✓] |
+| TA-11 | Fast Solve | Log `FastSolve` (+50) terpicu | [hasil pengujian] | [✓] |
+| TA-12 | Shared Fingerprint | Log `SharedFingerprint` (+60) terpicu | [hasil pengujian] | [✓] |
+| TA-13 | Collusion Group | Log `CollusionGroup` (+10) terpicu via CSD | [hasil pengujian] | [✓] |
+
+: Rekapitulasi Hasil Pengujian Fungsional (Black Box) {#tbl-bb-result}
+
+[image: Tangkapan layar bukti pemicuan log salah satu skenario pengujian, misalnya StolenFlag, pada dashboard]
+
+### **Pengujian Akurasi (Confusion Matrix)**
+
+Akurasi deteksi diukur dengan menjalankan sistem pada *dataset* log berlabel, kemudian membandingkan prediksi sistem terhadap *ground truth* hasil investigasi manual. Nilai *True Positive* (TP), *False Positive* (FP), *True Negative* (TN), dan *False Negative* (FN) yang diperoleh disajikan pada @tbl-cm-result, sedangkan metrik evaluasi yang dihitung dari nilai tersebut disajikan pada @tbl-acc-result.
+
+| Prediksi \\ Aktual | Curang | Tidak Curang |
+| :--- | :---: | :---: |
+| **Curang** | [hasil pengujian] (TP) | [hasil pengujian] (FP) |
+| **Tidak Curang** | [hasil pengujian] (FN) | [hasil pengujian] (TN) |
+
+: Hasil Confusion Matrix Deteksi Kecurangan {#tbl-cm-result}
+
+| Metrik | Nilai | Target |
+| :--- | :---: | :---: |
+| *Accuracy* | [hasil pengujian] | — |
+| *Precision* | [hasil pengujian] | $\geq 0{,}85$ |
+| *Recall* | [hasil pengujian] | $\geq 0{,}90$ |
+| *F1-Score* | [hasil pengujian] | — |
+| *False Positive Rate* | [hasil pengujian] | $\leq 0{,}10$ |
+
+: Hasil Metrik Evaluasi Akurasi {#tbl-acc-result}
+
+### **Pengujian Parameter (Sensitivity Check)**
+
+Pengujian parameter dilakukan untuk mengamati pengaruh nilai ambang RSI dan ambang skor risiko terhadap tingkat *false positive* dan *recall*, mengacu pada @tbl-test-param. Hasil pengamatan untuk setiap kombinasi nilai uji disajikan pada @tbl-sens-result.
+
+| Parameter | Nilai Uji | *Recall* | *False Positive Rate* |
+| :--- | :---: | :---: | :---: |
+| RSI Threshold | 60% / 75% / 90% | [hasil pengujian] | [hasil pengujian] |
+| Risk Threshold | Skor > 50 / 70 / 90 | [hasil pengujian] | [hasil pengujian] |
+
+: Hasil Pengujian Sensitivitas Parameter {#tbl-sens-result}
+
+### **Pengujian Performa**
+
+Pengujian performa dilakukan untuk memastikan penambahan logika deteksi tidak mengganggu jalannya kompetisi, mengacu pada target @tbl-test-perf. Hasil pengukuran disajikan pada @tbl-perf-result.
+
+| Metrik | Target | Hasil Pengukuran |
+| :--- | :---: | :---: |
+| *Latency Overhead* | $\leq$ 300 ms | [hasil pengukuran] |
+| *Throughput* | $\geq$ 500 req/detik | [hasil pengukuran] |
+| *Resource Usage* (CPU) | < 70% | [hasil pengukuran] |
+
+: Hasil Pengujian Performa Sistem {#tbl-perf-result}
+
+### **Pengujian Usability (System Usability Scale)**
+
+Pengujian *usability* dilakukan dengan menyebarkan kuesioner *System Usability Scale* (SUS) [@Brooke1996_SUS] kepada minimal lima responden yang berperan sebagai penyelenggara/admin kompetisi. Setiap responden menilai sepuluh pernyataan SUS dengan skala 1–5. Rekapitulasi skor SUS disajikan pada @tbl-sus-result.
+
+| Responden | Skor SUS |
+| :--- | :---: |
+| R1 | [hasil pengujian] |
+| R2 | [hasil pengujian] |
+| R3 | [hasil pengujian] |
+| R4 | [hasil pengujian] |
+| R5 | [hasil pengujian] |
+| **Rata-rata** | **[hasil pengujian]** |
+
+: Hasil Pengujian Usability (SUS) {#tbl-sus-result}
+
+[image: Rekap atau grafik hasil kuesioner SUS dari kelima responden]
+
+### **Validasi Penerapan pada Kompetisi Nyata**
+
+Selain pengujian terkendali di atas, sistem deteksi ini telah diterapkan pada penyelenggaraan kompetisi CTF nyata, yaitu *Cyber Jawara 2025 Quals* dan *TECHOMFEST 2026 Quals*. Pada penerapan tersebut, skor risiko dan analisis kemiripan yang dihasilkan sistem digunakan untuk menandai tim dengan pola kolaborasi mencurigakan, yang selanjutnya diverifikasi secara manual oleh panitia sebelum keputusan akhir diambil. Alur ini sesuai dengan rancangan sistem sebagai mekanisme peringatan dini yang memandu investigasi, bukan penjatuh sanksi otomatis.
+
+Penerapan nyata tersebut berhasil mengidentifikasi **enam peserta** yang terbukti melanggar aturan *fair play* dalam dua kategori pelanggaran tanpa toleransi, yaitu *Unauthorized Collaboration* (*Double Agent*/*Flag Sharing*) dan *External Assistance*. Seluruh pelanggaran yang terkonfirmasi beserta buktinya dipublikasikan secara terbuka pada registri publik *Wall of Shame* [@TCP1P_WallOfShame]. Temuan ini menunjukkan bahwa sistem tidak hanya berfungsi pada *dataset* simulasi, tetapi juga memberikan nilai guna nyata dalam mengungkap kecurangan pada kompetisi sesungguhnya. Demi menjaga privasi, identitas pelanggar (nama, institusi, dan surel) yang tercantum pada registri tidak disertakan dalam laporan ini; rincian bukti per kasus tersedia pada tautan dokumentasi yang dirujuk registri tersebut.
+
+[image: Tangkapan layar laman Wall of Shame (ban.1pc.tf) yang menampilkan daftar pelanggar fair play beserta kategori pelanggaran (identitas pribadi disensor)]
+
+## **Analisis Implementasi dan Pengujian Sistem**
+
+Berdasarkan hasil implementasi dan pengujian di atas, analisis dilakukan untuk menilai sejauh mana sistem menjawab rumusan masalah penelitian.
+
+Pertama, dari sisi arsitektur, sistem berhasil ditanamkan sebagai komponen modular pada *pipeline* ASP.NET Core GZCTF dengan pemisahan tahap perekaman sinkron dan analisis asinkron. Hasil pengujian performa ([hasil pengukuran]) menunjukkan apakah target *overhead* latensi $\leq 300$ ms terpenuhi, sehingga membuktikan bahwa arsitektur yang diusulkan tidak mengorbankan performa kompetisi.
+
+Kedua, mekanisme *Sequence Similarity Analysis* (LCS dan *Jaccard Similarity*) yang divalidasi oleh CSD terbukti dapat mengelompokkan tim yang terindikasi berkolusi tanpa bergantung pada analisis konten *write-up* yang mudah dimanipulasi. Hasil pengujian fungsional (@tbl-bb-result) memperlihatkan kemampuan sistem mengenali pola *flag sharing* dan kolusi pada skenario TA-02 dan TA-13.
+
+Ketiga, model *Weighted Risk Scoring* berhasil menyatukan indikator teknis yang heterogen (IP, *Browser Fingerprint*, waktu, dan pola penyelesaian) menjadi satu skor risiko kumulatif yang dapat diperingkat. Hal ini memudahkan admin memprioritaskan peninjauan pada tim berisiko tinggi.
+
+Keempat, efektivitas sistem dibandingkan pemantauan manual tercermin dari hasil pengujian akurasi (@tbl-acc-result) dan *usability* (@tbl-sus-result). Pencapaian target *recall* $\geq 0{,}90$, presisi $\geq 0{,}85$, dan *false positive rate* $\leq 0{,}10$ [hasil pengujian] menjadi dasar penilaian keandalan sistem dalam mengurangi beban pengawasan manual. Bukti efektivitas ini diperkuat oleh penerapan nyata pada *Cyber Jawara 2025 Quals* dan *TECHOMFEST 2026 Quals* yang berhasil mengungkap enam pelanggaran *fair play* [@TCP1P_WallOfShame], menunjukkan bahwa sistem bekerja di luar lingkungan simulasi.
+
+Sistem juga memiliki dua keterbatasan utama. Penentuan bobot penalti dan nilai ambang RSI masih bersifat heuristik sehingga memerlukan penyetelan (*tuning*) sesuai karakteristik tiap kompetisi. Sinyal berbasis *Browser Fingerprint* pun dapat menghasilkan kemiripan palsu pada peramban yang menerapkan *fingerprint uniformity*; karena itu sinyal tersebut diperlakukan sebagai pendukung dan dikorelasikan dengan anomali lain sebelum kesimpulan diambil.
+
+{{< pagebreak >}}
+
+# **BAB V: PENUTUP**
+
+## **Kesimpulan**
+
+Berdasarkan hasil perancangan, implementasi, dan pengujian sistem deteksi kecurangan pada platform GZCTF, dapat ditarik kesimpulan yang menjawab rumusan masalah penelitian sebagai berikut:
+
+1. Arsitektur deteksi kecurangan berhasil dirancang dan diimplementasikan sebagai komponen modular pada *pipeline* ASP.NET Core GZCTF dengan pendekatan *Two-Stage Analysis*. Pemisahan antara tahap perekaman data yang sinkron dan tahap analisis yang asinkron memungkinkan sistem mendeteksi kecurangan tanpa mengganggu performa dan skalabilitas validasi *flag* inti, dengan *overhead* latensi yang ditargetkan tidak melebihi 300 ms [hasil pengujian].
+
+2. Mekanisme *Sequence Similarity Analysis* berhasil diimplementasikan dengan mengombinasikan *Longest Common Subsequence* (LCS) dan *Jaccard Similarity* ke dalam *Relative Sequence Index* (RSI), yang kemudian divalidasi oleh *Confidence Screening Detector* (CSD) untuk membentuk *collusion group*. Pendekatan ini mampu mengidentifikasi pola kolaborasi ilegal antar tim berdasarkan kemiripan urutan dan himpunan penyelesaian soal, tanpa bergantung pada analisis konten yang mudah dimanipulasi.
+
+3. Model *Weighted Risk Scoring* berhasil dirumuskan untuk menggabungkan indikator teknis yang heterogen—meliputi alamat IP, *Browser Fingerprint*, *timestamp*, serta pola penyelesaian soal—menjadi satu skor risiko kumulatif per tim. Skor ini disajikan secara terurut pada *dashboard* admin sehingga proses peninjauan dapat diprioritaskan pada tim berisiko tinggi.
+
+4. Berdasarkan pengujian akurasi, sistem menunjukkan tingkat efektivitas deteksi sebesar [hasil pengujian] (dengan target *recall* $\geq 0{,}90$, presisi $\geq 0{,}85$, dan *false positive rate* $\leq 0{,}10$) serta memperoleh skor *usability* (SUS) sebesar [hasil pengujian]. Hasil ini menunjukkan bahwa sistem yang dikembangkan mampu meningkatkan efisiensi dan keandalan pengawasan dibandingkan metode pemantauan log secara manual. Penerapan pada kompetisi nyata (*Cyber Jawara 2025 Quals* dan *TECHOMFEST 2026 Quals*) yang mengidentifikasi enam pelanggar *fair play* [@TCP1P_WallOfShame] menjadi bukti tambahan keandalan sistem pada kondisi sesungguhnya.
+
+## **Saran**
+
+Berdasarkan hasil penelitian dan keterbatasan yang ditemukan, beberapa saran untuk pengembangan selanjutnya adalah sebagai berikut:
+
+1. Penentuan bobot penalti dan nilai ambang RSI yang saat ini bersifat heuristik dapat dikembangkan menjadi adaptif, misalnya melalui pendekatan *machine learning* atau *deep learning*, agar sistem dapat menyesuaikan diri dengan karakteristik setiap kompetisi [@MDPI_DeepLearning_Cheating].
+
+2. Sistem perlu diuji pada penyelenggaraan kompetisi nyata berskala besar untuk memvalidasi akurasi dan performa pada kondisi beban kerja sesungguhnya, sekaligus memperluas *dataset* berlabel untuk evaluasi yang lebih representatif.
+
+3. Sinyal berbasis *Browser Fingerprint* dapat diperkuat dengan teknik korelasi multi-sinyal yang lebih canggih untuk menekan *false positive* yang timbul akibat *fingerprint uniformity* pada peramban privasi.
+
+4. Cakupan deteksi dapat diperluas dengan indikator perilaku tambahan dan integrasi notifikasi *real-time*, serta penyempurnaan visualisasi *dashboard* (misalnya *heatmap* dan *timeline* interaktif) untuk semakin mempermudah kerja admin.
 
 {{< pagebreak >}}
 

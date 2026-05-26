@@ -1,0 +1,87 @@
+schema_version: "1.0"
+language: "id-ID"
+encoding: "utf-8"
+
+profile:
+  name: "Standar Skripsi Politeknik Negeri Bali - D4 TRPL"
+  school: "Politeknik Negeri Bali"
+  college: "Jurusan Teknik Informasi"
+  major: "D4 Teknologi Rekayasa Perangkat Lunak"
+  updated_at: "2026-05-25"
+  status: "confirmed"
+
+source_priority:
+  - level: 1
+    name: "Pedoman & Template Skripsi resmi"
+    file_or_url: "Pedoman Skripsi 27 Maret 2026.docx; Template Skripsi Software Engineering.docx"
+    enforce: true
+    confirmation_status: "confirmed"
+    notes: "Font, margin, judul bab, daftar isi, header/footer, gaya pustaka mengikuti dokumen ini. Ekstraksi: paper-context/template-extract/"
+  - level: 2
+    name: "Arahan dosen pembimbing"
+    file_or_url: "belum ada catatan tertulis"
+    enforce: true
+    confirmation_status: "needs_confirmation"
+    notes: "Cakupan bab, fokus diagram, ruang lingkup demonstrasi sistem"
+  - level: 3
+    name: "Aturan default umum"
+    file_or_url: "thesis-standardizer defaults"
+    enforce: false
+    confirmation_status: "fallback"
+    notes: "Hanya dipakai bila Pedoman/template dan pembimbing tidak mengatur"
+
+format_defaults:
+  paper_size: "A4 (21.0 x 29.7 cm)"
+  page_margin: "atas 2.5 cm, bawah 2.5 cm, kiri 3.5 cm, kanan 2.5 cm"
+  body_font: "Times New Roman"
+  body_size: "12 pt"
+  line_spacing: "1.5 (abstrak 1.0)"
+  heading_numbering: "per bab (BAB I; 1.1; 1.1.1)"
+  page_number: "kanan bawah; romawi untuk bagian awal, arab mulai BAB I"
+  footer: "Politeknik Negeri Bali"
+  figure_caption_position: "judul gambar di bawah gambar (Gambar 4.1)"
+  table_caption_position: "judul tabel di atas tabel (Tabel 4.1)"
+  table_style: "tabel tiga garis (three-line table)"
+  reference_style: "IEEE"
+
+content_rules:
+  abstract:
+    required: true
+    languages: ["Indonesia", "Inggris"]
+    max_words: 300
+    spacing: "1.0"
+    notes:
+      - "Memuat latar belakang, tujuan, metode/solusi sistem, hasil, dan kesimpulan"
+      - "Tanpa gambar/tabel/sitasi kecuali template mensyaratkan"
+  keywords:
+    default_count: "3-5"
+  conclusion:
+    notes:
+      - "Merangkum pekerjaan yang telah diselesaikan dan menjawab rumusan masalah"
+      - "Tidak menambah fungsi atau hasil uji baru yang tidak dibahas di BAB IV"
+
+integrity_rules:
+  forbid:
+    - "Mengarang fungsi sistem"
+    - "Mengarang endpoint/API"
+    - "Mengarang field basis data"
+    - "Mengarang hasil pengujian / angka"
+    - "Mengarang pustaka atau DOI"
+    - "Mengarang aturan format kampus"
+    - "Menampilkan proses kolaborasi AI di dalam naskah"
+  require:
+    - "Setiap gambar/tabel memiliki sumber bukti"
+    - "Setiap kesimpulan uji didukung catatan/tangkapan layar"
+    - "Pustaka nyata dan dapat diverifikasi"
+
+review_policy:
+  before_generation:
+    - "Baca berkas ini"
+    - "Baca thesis-ai-spec.yaml"
+    - "Baca figure-registry.yaml"
+    - "Baca paper-context/evidence/"
+  before_delivery:
+    - "Cek struktur bab"
+    - "Cek penomoran gambar/tabel"
+    - "Cek rantai bukti (placeholder [hasil pengujian]/[image:])"
+    - "Cek tampilan Word/PDF"

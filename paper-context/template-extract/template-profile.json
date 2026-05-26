@@ -1,0 +1,2679 @@
+{
+  "source_docx": "/root/app/kuliah/proposal-skripsi/Template Skripsi Software Engineering.docx",
+  "sections": [
+    {
+      "index": 1,
+      "page": {
+        "width_cm": 21.0,
+        "height_cm": 29.7,
+        "orientation": "portrait"
+      },
+      "margins_cm": {
+        "top": 2.5,
+        "bottom": 2.5,
+        "left": 3.5,
+        "right": 2.5,
+        "header": 1.27,
+        "footer": 1.27,
+        "gutter": 0.0
+      },
+      "different_first_page": true,
+      "page_number": {
+        "start": null,
+        "format": "lowerRoman",
+        "chapter_style": null,
+        "chapter_separator": null
+      },
+      "headers": [],
+      "footers": [
+        {
+          "type": "default",
+          "target": "footer1.xml",
+          "text": [
+            "2"
+          ]
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "page": {
+        "width_cm": 21.0,
+        "height_cm": 29.7,
+        "orientation": "portrait"
+      },
+      "margins_cm": {
+        "top": 2.5,
+        "bottom": 2.5,
+        "left": 3.5,
+        "right": 2.5,
+        "header": 1.27,
+        "footer": 1.27,
+        "gutter": 0.0
+      },
+      "different_first_page": false,
+      "page_number": {
+        "start": 1,
+        "format": null,
+        "chapter_style": null,
+        "chapter_separator": null
+      },
+      "headers": [],
+      "footers": [
+        {
+          "type": "default",
+          "target": "footer2.xml",
+          "text": [
+            "2"
+          ]
+        }
+      ]
+    }
+  ],
+  "styles": [
+    {
+      "style_id": "Normal",
+      "name": "Normal",
+      "style_type": "paragraph",
+      "based_on": null,
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": "both",
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": 18.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading1",
+      "name": "heading 1",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": 18.0,
+      "spacing_after_pt": 4.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading2",
+      "name": "heading 2",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": 8.0,
+      "spacing_after_pt": 4.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading3",
+      "name": "heading 3",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": 8.0,
+      "spacing_after_pt": 4.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading4",
+      "name": "heading 4",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": 4.0,
+      "spacing_after_pt": 2.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading5",
+      "name": "heading 5",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": 4.0,
+      "spacing_after_pt": 2.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading6",
+      "name": "heading 6",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": 2.0,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading7",
+      "name": "heading 7",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": 2.0,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading8",
+      "name": "heading 8",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading9",
+      "name": "heading 9",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "DefaultParagraphFont",
+      "name": "Default Paragraph Font",
+      "style_type": "character",
+      "based_on": null,
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TableNormal",
+      "name": "Normal Table",
+      "style_type": "table",
+      "based_on": null,
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "NoList",
+      "name": "No List",
+      "style_type": "numbering",
+      "based_on": null,
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading1Char",
+      "name": "Heading 1 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading2Char",
+      "name": "Heading 2 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading3Char",
+      "name": "Heading 3 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading4Char",
+      "name": "Heading 4 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading5Char",
+      "name": "Heading 5 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading6Char",
+      "name": "Heading 6 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading7Char",
+      "name": "Heading 7 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading8Char",
+      "name": "Heading 8 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Heading9Char",
+      "name": "Heading 9 Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Title",
+      "name": "Title",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 28.0,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 4.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TitleChar",
+      "name": "Title Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 28.0,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Subtitle",
+      "name": "Subtitle",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 14.0,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "SubtitleChar",
+      "name": "Subtitle Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 14.0,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Quote",
+      "name": "Quote",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": "center",
+      "spacing_before_pt": 8.0,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "QuoteChar",
+      "name": "Quote Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "ListParagraph",
+      "name": "List Paragraph",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": 1.27,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "IntenseEmphasis",
+      "name": "Intense Emphasis",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "IntenseQuote",
+      "name": "Intense Quote",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": "center",
+      "spacing_before_pt": 18.0,
+      "spacing_after_pt": 18.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": 1.52,
+      "right_indent_cm": 1.52,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "IntenseQuoteChar",
+      "name": "Intense Quote Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "IntenseReference",
+      "name": "Intense Reference",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": true,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Header",
+      "name": "header",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "HeaderChar",
+      "name": "Header Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Footer",
+      "name": "footer",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "FooterChar",
+      "name": "Footer Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TableParagraph",
+      "name": "Table Paragraph",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": "Times New Roman",
+      "font_size_pt": 11.0,
+      "bold": false,
+      "italic": false,
+      "alignment": "left",
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "PlaceholderText",
+      "name": "Placeholder Text",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "CommentReference",
+      "name": "annotation reference",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 8.0,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Hyperlink",
+      "name": "Hyperlink",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "UnresolvedMention",
+      "name": "Unresolved Mention",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "NormalWeb",
+      "name": "Normal (Web)",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": "Times New Roman",
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": "left",
+      "spacing_before_pt": 5.0,
+      "spacing_after_pt": 5.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "BodyText",
+      "name": "Body Text",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": "Times New Roman",
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": "left",
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "BodyTextChar",
+      "name": "Body Text Char",
+      "style_type": "character",
+      "based_on": "DefaultParagraphFont",
+      "font_ascii": "Times New Roman",
+      "font_east_asia": "Times New Roman",
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": null,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "Caption",
+      "name": "caption",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 9.0,
+      "bold": false,
+      "italic": true,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 10.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TOCHeading",
+      "name": "TOC Heading",
+      "style_type": "paragraph",
+      "based_on": "Heading1",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": 16.0,
+      "bold": false,
+      "italic": false,
+      "alignment": "left",
+      "spacing_before_pt": 12.0,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.9,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TOC1",
+      "name": "toc 1",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 5.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TOC2",
+      "name": "toc 2",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 5.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": 0.42,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TOC3",
+      "name": "toc 3",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 5.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": 0.85,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TableofFigures",
+      "name": "table of figures",
+      "style_type": "paragraph",
+      "based_on": "Normal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": null,
+      "line_spacing_rule": null,
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    },
+    {
+      "style_id": "TableGrid",
+      "name": "Table Grid",
+      "style_type": "table",
+      "based_on": "TableNormal",
+      "font_ascii": null,
+      "font_east_asia": null,
+      "font_size_pt": null,
+      "bold": false,
+      "italic": false,
+      "alignment": null,
+      "spacing_before_pt": null,
+      "spacing_after_pt": 0.0,
+      "line_spacing_pt": 12.0,
+      "line_spacing_rule": "auto",
+      "left_indent_cm": null,
+      "right_indent_cm": null,
+      "first_line_indent_cm": null,
+      "hanging_indent_cm": null
+    }
+  ],
+  "style_defaults": {
+    "font_ascii": null,
+    "font_east_asia": null,
+    "font_size_pt": 12.0
+  },
+  "paragraph_usage": {
+    "style_counts": [
+      {
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "count": 158
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "count": 18
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "count": 17
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "count": 7
+      },
+      {
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "count": 4
+      },
+      {
+        "style_id": "Caption",
+        "style_name": "caption",
+        "count": 4
+      }
+    ],
+    "heading_candidates": [
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "HALAMAN SAMPUL"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "LEMBAR PERSETUJUAN UJIAN SKRIPSI"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "LEMBAR PENGESAHAN SKRIPSI"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "HALAMAN PERNYATAAN KEASLIAN KARYA SKRIPSI"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "ABSTRAK"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "ABSTRACT"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "KATA PENGANTAR"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR ISI"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR TABEL"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR GAMBAR"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR LAMPIRAN"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB I PENDAHULUAN"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Latar Belakang"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Perumusan Masalah"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Batasan Masalah"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Tujuan Penelitian"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Manfaat Penelitian"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Sistematika Penulisan"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB II TINJAUAN PUSTAKA"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Penelitian Sebelumnya"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Landasan Teori"
+      },
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB III METODE PENELITIAN"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Objek dan Metode Penelitian"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Analisis Kondisi Eksisting"
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Rancangan Penelitian"
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Pendekatan dan Metode Pengembangan Sistem"
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Perancangan Arsitektur Sistem"
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Desain Fungsional dan Nonfungsional"
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Desain Sistem (UML dan Basis Data)"
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Teknologi tambahan yang digunakan"
+      }
+    ],
+    "toc_detected": true,
+    "style_format_samples": [
+      {
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "HALAMAN SAMPUL",
+        "paragraph_properties": {
+          "alignment": null,
+          "spacing_before_pt": 0.0,
+          "spacing_after_pt": 0.0,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": null
+        },
+        "run_properties": {
+          "font_ascii": null,
+          "font_east_asia": null,
+          "font_size_pt": 2.0,
+          "bold": false,
+          "italic": false
+        }
+      },
+      {
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "SKRIPSI",
+        "paragraph_properties": {
+          "alignment": "center",
+          "spacing_before_pt": null,
+          "spacing_after_pt": 0.0,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": null
+        },
+        "run_properties": {
+          "font_ascii": null,
+          "font_east_asia": null,
+          "font_size_pt": null,
+          "bold": true,
+          "italic": false
+        }
+      },
+      {
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "text": "Tabel 4.1 Skenario Pengujian UAT 10",
+        "paragraph_properties": {
+          "alignment": null,
+          "spacing_before_pt": null,
+          "spacing_after_pt": null,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": null
+        },
+        "run_properties": {}
+      },
+      {
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Latar Belakang",
+        "paragraph_properties": {
+          "alignment": null,
+          "spacing_before_pt": 0.0,
+          "spacing_after_pt": 0.0,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": 1.27
+        },
+        "run_properties": {}
+      },
+      {
+        "style_id": "Caption",
+        "style_name": "caption",
+        "text": "Gambar 3. 1 Arsitektur Aplikasi Web",
+        "paragraph_properties": {
+          "alignment": "center",
+          "spacing_before_pt": null,
+          "spacing_after_pt": null,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": null
+        },
+        "run_properties": {
+          "font_ascii": null,
+          "font_east_asia": null,
+          "font_size_pt": 12.0,
+          "bold": true,
+          "italic": false
+        }
+      },
+      {
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Pendekatan dan Metode Pengembangan Sistem",
+        "paragraph_properties": {
+          "alignment": null,
+          "spacing_before_pt": null,
+          "spacing_after_pt": null,
+          "line_spacing_pt": null,
+          "line_spacing_rule": null,
+          "left_indent_cm": null,
+          "right_indent_cm": null,
+          "first_line_indent_cm": null,
+          "hanging_indent_cm": 1.27
+        },
+        "run_properties": {}
+      }
+    ],
+    "ordered_paragraph_samples": [
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "HALAMAN SAMPUL"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "PENGEMBANGAN SISTEM INFORMASI MANAJEMEN"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "RUMAH SAKIT DENGAN CHATBOT"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Oleh :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Nama Mahasiswa"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIM. ...................."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "{"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "PROGRAM STUDI SARJANA TERAPAN"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "TEKNOLOGI REKAYASA PERANGKAT LUNAK"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "JURUSAN TEKNOLOGI INFORMASI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "POLITEKNIK NEGERI BALI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "202 6"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "LEMBAR PERSETUJUAN UJIAN SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "JUDUL SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Oleh :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Nama Mahasiswa"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIM. ………….."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Skripsi ini telah Melalui Bimbingan dan Pengujian Hasil, disetujui untuk"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "diujikan pada Ujian Skripsi"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "di"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Program Studi Sarjana Terapan"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Teknologi Rekayasa Perangkat Lunak"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Jurusan Teknologi Informasi - Politeknik Negeri Bali"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bukit Jimbaran, 202 6"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Disetujui Oleh :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Dosen Pembimbing 1: Dosen Pembimbing 2:"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "…......................................... ............................................"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIP. NIP."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "LEMBAR PENGESAHAN SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "JUDUL SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Oleh :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Nama Mahasiswa"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIM. ………….."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Skripsi ini sudah melalui Ujian Skripsi pada tanggal ................ ,"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "dan sudah dilakukan Perbaikan untuk kemudian disahkan sebagai Skripsi"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "di"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Program Studi Sarjana Terapan"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Teknologi Rekayasa Perangkat Lunak"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Jurusan Teknologi Informasi - Politeknik Negeri Bali"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bukit Jimbaran, 202 6"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Disetujui Oleh :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Tim Penguji : Dosen Pembimbing :"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "......................................... 1. ........................................."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIP. NIP."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "......................................... 2. ........................................."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIP. NIP."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Di sahkan Oleh:"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Ketua Jurusan Teknologi Informasi"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Prof. Dr. I Nyoman Gede Arya Astawa, ST,M.Kom"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIP. 196902121995121001"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "HALAMAN PERNYATAAN KEASLIAN KARYA SKRIPSI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Saya yang bertanda tangan di bawah ini, menyatakan bahwa Skripsi dengan judul:"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "……………………………………………………………………………………..……"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "……………………………………………………………………………………. ..….."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "adalah asli hasil karya saya sendiri ."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Dengan ini saya menyatakan bahwa dalam naskah Skripsi ini tidak terdapat karya orang lain yang pernah diajukan untuk mem"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Apabila saya melakukan hal tersebut di atas, dengan ini saya menyatakan menarik Skripsi yang saya ajukan sebagai hasil k"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bukit Jimbaran, …………..………"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Yang menyatakan"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Materai 10 ribu Materai 10 ribu"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Nama Mahasiswa"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NIM."
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "ABSTRAK"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Abstrak adalah suatu ringkasan isi dari Skripsi yang berfungsi sebagai alat bantu untuk memberikan potret informasi Skri"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Kata Kunci: buatlah tiga sampai lima kata kunci yang terdapat dalam abstrak"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "ABSTRACT"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "An abstract is a summary of the contents of a thesis. It serves as a tool to provide readers with a snapshot of the info"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Keywords: put three to five keywords"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "KATA PENGANTAR"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Kata pengantar adalah halaman ucapan terimakasih dan rasa syukur yang ditulis oleh penulis atas selesainya penulisan skr"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bukit Jimbaran,……………………"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Penulis"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR ISI"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR TABEL"
+      },
+      {
+        "section_index": 1,
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "text": "Tabel 4.1 Skenario Pengujian UAT 10"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR GAMBAR"
+      },
+      {
+        "section_index": 1,
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "text": "Gambar 3.1 Arsitektur Aplikasi Web 5"
+      },
+      {
+        "section_index": 1,
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "text": "Gambar 3.2 (a) metode waterfall, (b) wireframe landingpage 6"
+      },
+      {
+        "section_index": 1,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR LAMPIRAN"
+      },
+      {
+        "section_index": 1,
+        "style_id": "TableofFigures",
+        "style_name": "table of figures",
+        "text": "Lampiran 1 Dokumentasi Hasil Wawancara 13"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB I PENDAHULUAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Latar Belakang"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Latar belakang berisikan uraian tentang apa yang menjadi motivasi dan masalah penelitian serta mengapa masalah tersebut "
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Perumusan Masalah"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Rumusan masalah adalah perumusan nyata dari masalah yang diuraikan di latar belakang dalam bentuk pernyataan penelitian "
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Batasan Masalah"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Batasan masalah adalah ruang lingkup permasalahan yang bertujuan membatasi masalah yang terlalu luas atau lebar sehingga"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Tujuan Penelitian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bagian ini berisi sasaran yang akan dicapai dari penelitian ini sehingga tujuan penelitian harus dituliskan secara logis"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Manfaat Penelitian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bagian ini berisikan uraian tentang manfaat penelitian bagi perkembangan ilmu pengetahuan yang dapat dimanfaatkan oleh i"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Sistematika Penulisan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Adapun sistematika penulisan dalam laporan skripsi ini dapat dijelaskan sebagai berikut:"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "BAB I PENDAHULUAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bab ini membuat latar belakang , rumusan masalah, batasan masalah, tujuan dan manfaat serta sistematika penulisan lapora"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "BAB II TINJAUAN PUSTAKA"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bab ini memuat tentang uraian dari kutipan buku-buku, teori-teori atau bahan pustaka yang berkaitan dengan penelitian ya"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "BAB III METODE PENELITIAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bab ini menjelaskan rencana, tempat, waktu, pengambilan sampel , penentuan unit analisis , cara dan instrumen pengumpula"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "BAB IV HASIL DAN PEMBAHASAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bab ini menjelaskan tentang hasil implementasi sistem dan hasil pengujian sistem disertai dengan analisis terhadap imple"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "BAB V KESIMPULAN DAN SARAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bab ini memuat tentang uraian mengenai kesimpulan dam saran yang perlu disampaikan mengenai skripsi yang telah dikerjaka"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB II TINJAUAN PUSTAKA"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Penelitian Sebelumnya"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Pada hakikatnya , hasil penelitian seorang peneliti bukanlah satu penemuan baru yang berdiri sendiri melainkan sesuatu y"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Landasan Teori"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Landasan teori memuat teori-teori dan hasil-hasil penelitian yang berasal dari studi kepustakaan yang memiliki fungsi se"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB III METODE PENELITIAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Objek dan Metode Penelitian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab ini berisi uraian rencana objek , waktu dan tempat penelitian, serta langkah cara atau langkah yang dilakukan un"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Analisis Kondisi Eksisting"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab Analisa Kondisi Eksisting berisi penjelasan mengenai bagaimana sistem , proses bisnis , atau kegiatan yang sedan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Uraian dapat menyertakan gambar , tabel , foto, rumus , maupun blok diagram terkait topik agar dapat lebih jelas dan mud"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Contoh penempatan dan penulisan caption untuk 1 gambar :"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Caption",
+        "style_name": "caption",
+        "text": "Gambar 3. 1 Arsitektur Aplikasi Web"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Contoh penempatan dan penulisan caption untuk lebih dari 1 gambar :"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "(a) (b)"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Caption",
+        "style_name": "caption",
+        "text": "Gambar 3. 2 (a) metode waterfall, (b) wireframe landingpage"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Cara penulisan rumus untuk persamaan – persamaan yang digunakan disusun pada baris terpisah dan diberi nomor secara beru"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "(3.1)"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "(3.2)"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Dimana:"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "TP = True Positive"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "FN = False Negative"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "FP = False Positive"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "TN=True Negative"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Rancangan Penelitian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab Rancangan Penelitian menjelaskan bagaimana solusi yang diusulkan akan dirancang untuk mengatasi permasalahan yan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Pendekatan dan Metode Pengembangan Sistem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Buat metode serta jelaskan metode yang digunakan , seperti Waterfall, Prototype, Agile, atau Spiral. Sertakan alasan pem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Perancangan Arsitektur Sistem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Uraikan struktur umum sistem yang akan dikembangkan , misalnya arsitektur client-server, web-based, mobile-based, atau h"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Desain Fungsional dan Nonfungsional"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Jelaskan kebutuhan fungsional ( fitur utama sistem ) dan kebutuhan nonfungsional ( keamanan , kecepatan , keandalan , an"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Desain Sistem (UML dan Basis Data)"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sajikan rancangan dalam bentuk Use Case Diagram untuk memberikan gambaran umum sistem yang akan dikerjakan dan Entity Re"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Teknologi tambahan yang digunakan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Jelaskan apabila terdapat teknologi tambahan (misalnya kecerdasan buatan ) yang digunakan pada sistem yang akan dikemban"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Rancangan Implementasi dan Pengujian Penelitian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab Rancangan Implementasi dan Pengujian menjelaskan bagaimana sistem yang telah dirancang akan direalisasikan menja"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Rancangan Implementasi"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Pada bagian ini mahasiswa harus menguraikan :"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Lingkungan pengembangan yang digunakan , seperti bahasa pemrograman , framework, basis data, dan tools pendukung (misaln"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Tahapan implementasi yang akan dilakukan, meliputi pembuatan antarmuka pengguna , penerapan logika program, pengelolaan "
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading3",
+        "style_name": "heading 3",
+        "text": "Rancangan Pengujian"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab ini harus menjelaskan bagaimana sistem akan diuji untuk memastikan bahwa seluruh fungsi berjalan dengan benar da"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB IV HASIL DAN PEMBAHASAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Hasil Implementasi Sistem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab ini berisi uraian mengenai bukti nyata dari implementasi sistem yang telah dikembangkan berdasarkan rancangan pa"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Hasil penelitian dapat disajikan dalam bentuk tangkapan layar (screenshot) antarmuka pengguna , diagram atau tabel hasil"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Hasil Pengujian Sistem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Subbab ini menyajikan hasil dari proses pengujian sistem yang telah dilakukan untuk memastikan bahwa sistem berfungsi se"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Caption",
+        "style_name": "caption",
+        "text": "Tabel 4. 1 Skenario Pengujian UAT"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "NO"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "FITUR YANG DIUJI"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "SKENARIO"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "HASIL YANG DIHARAPKAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "HASIL AKTUAL"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "STATUS"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "1"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Login / Autentikasi Pengguna"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Memastikan hanya pengguna terdaftar (Admin, Operator, Peneliti ) yang dapat mengakses sistem ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Pengguna berhasil masuk ke sistem dengan hak akses sesuai perannya ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Berhasil Login"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "√"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "2"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Data citra kendaraan dari kamera CCTV"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "1.Operator memilih mode input (real-time atau upload)."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "2.Kamera mengirim citra kendaraan ke sistem ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "3.Sistem menyimpan data ke penyimpanan sementara ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "4.Sistem menampilkan pratinjau citra ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Citra/video kendaraan berhasil direkam dan disimpan ."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Dataset Citra/Video"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "√"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "3"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "dst … ….."
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Analisis Implementasi dan Pengujian Sistem"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Bagian pembahasan berisi analisis dan interpretasi terhadap hasil penelitian atau implementasi sistem yang telah dipapar"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "BAB V PENUTUP"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Kesimpulan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Subbab kesimpulan berisi pernyataan singkat dan padat mengenai hasil utama penelitian atau pengembangan sistem yang tela"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading2",
+        "style_name": "heading 2",
+        "text": "Saran"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Sub bab saran berisi rekomendasi atau usulan pengembangan yang didasarkan pada hasil penelitian dan keterbatasan sistem "
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "DAFTAR PUSTAKA"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "Berisi informasi publikasi dari referensi (buku, jurnal , prosiding ) yang digunakan dalam penulisan proposal. Penulisan"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "[1] Pawar, G., Pisal, A., Jakhad , G., Koithodathu , G. and Kale, P. G., 2018, Raspberry Pi Based Automated Waste Segreg"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "[2] Sanjai, J., Balaji, V., Pranav, K. K. and Aravimdam , B., 2019, Automated Domestic Waste Segregator Using Image Proc"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "[3] Abimayu , K. dan Rohman, S., 2019, Robot Perahu Pengangkut Sampah Berbasis Pengolahan Citra, TELEKONTRAN, vol. 7, no"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Normal",
+        "style_name": "Normal",
+        "text": "[4] Pasaribu , F.I. dan Marcopolo, 2019, Perancangan Prototype Alat Pemilah Sampah Otomatis, RELE ( Rekayasa Elektrikal "
+      },
+      {
+        "section_index": 2,
+        "style_id": "Heading1",
+        "style_name": "heading 1",
+        "text": "LAMPIRAN"
+      },
+      {
+        "section_index": 2,
+        "style_id": "Caption",
+        "style_name": "caption",
+        "text": "Lampiran 1 Dokumentasi Hasil Wawancara"
+      }
+    ]
+  }
+}

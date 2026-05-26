@@ -1,0 +1,123 @@
+{
+  "diagramType": "overview",
+  "title": "系统总体E-R图",
+  "limits": {
+    "maxEntities": 8,
+    "maxAttributesPerEntity": 3,
+    "maxRelationships": 8
+  },
+  "entities": [
+    {
+      "id": "suspicionevents",
+      "name": "SuspicionEvent",
+      "table": "SuspicionEvents",
+      "priority": 0,
+      "attributes": [
+        {
+          "name": "Primary key",
+          "key": true,
+          "priority": 100
+        },
+        {
+          "name": "FK ke Participation",
+          "key": false,
+          "priority": 19
+        },
+        {
+          "name": "Kode aturan (StolenFlag, dst.)",
+          "key": false,
+          "priority": 18
+        },
+        {
+          "name": "Bobot yang ditambahkan",
+          "key": false,
+          "priority": 17
+        },
+        {
+          "name": "Deskripsi bukti",
+          "key": false,
+          "priority": 16
+        },
+        {
+          "name": "Waktu kejadian",
+          "key": false,
+          "priority": 15
+        },
+        {
+          "name": "FK ke Game",
+          "key": false,
+          "priority": 14
+        },
+        {
+          "name": "Partisipasi terkait (opsional)",
+          "key": false,
+          "priority": 13
+        }
+      ]
+    },
+    {
+      "id": "suspicionrules",
+      "name": "SuspicionRule",
+      "table": "SuspicionRules",
+      "priority": 1,
+      "attributes": [
+        {
+          "name": "Kode aturan unik",
+          "key": true,
+          "priority": 100
+        },
+        {
+          "name": "Bobot risiko",
+          "key": false,
+          "priority": 19
+        },
+        {
+          "name": "Keterangan aturan",
+          "key": false,
+          "priority": 18
+        }
+      ]
+    },
+    {
+      "id": "participations",
+      "name": "Participation",
+      "table": "Participations",
+      "priority": 2,
+      "attributes": [
+        {
+          "name": "Primary key",
+          "key": true,
+          "priority": 100
+        },
+        {
+          "name": "Akumulasi skor risiko (mentah, tak ternormalisasi)",
+          "key": false,
+          "priority": 19
+        },
+        {
+          "name": "Status kepesertaan",
+          "key": false,
+          "priority": 18
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "Participation memiliki banyak SuspicionEvent",
+      "from": "Participation",
+      "to": "SuspicionEvent",
+      "fromCardinality": "1",
+      "toCardinality": "m",
+      "priority": 0
+    },
+    {
+      "name": "SuspicionEvent merujuk SuspicionRule via kode",
+      "from": "SuspicionEvent",
+      "to": "SuspicionRule",
+      "fromCardinality": "m",
+      "toCardinality": "1",
+      "priority": 1
+    }
+  ]
+}

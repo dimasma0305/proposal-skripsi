@@ -1,4 +1,4 @@
-::: {.content-visible when-format="html"}
+::: {.content-hidden when-format="pdf"}
 <br><br><br>
 
 ::: {style="text-align: center"}
@@ -7,7 +7,7 @@
 
 <br>
 
-**PROPOSAL SKRIPSI**
+**SKRIPSI**
 
 <br>
 

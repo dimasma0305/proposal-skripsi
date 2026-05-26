@@ -1,0 +1,27 @@
+{
+  "diagramType": "single_entity",
+  "title": "ParticipationE-R图",
+  "entity": {
+    "name": "Participation",
+    "attributes": [
+      {
+        "name": "Primary key",
+        "key": true,
+        "field": "Id",
+        "type": "int"
+      },
+      {
+        "name": "Akumulasi skor risiko (mentah, tak ternormalisasi)",
+        "key": false,
+        "field": "SuspicionScore",
+        "type": "int"
+      },
+      {
+        "name": "Status kepesertaan",
+        "key": false,
+        "field": "Status",
+        "type": "ParticipationStatus"
+      }
+    ]
+  }
+}

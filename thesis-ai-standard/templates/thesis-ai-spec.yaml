@@ -1,0 +1,160 @@
+schema_version: "2.0"
+language: "id-ID"
+encoding: "utf-8"
+
+paper:
+  title: "Perancangan Sistem Pendeteksi Kecurangan pada Platform GZCTF Menggunakan Algoritma Two-Stage Similarity Analysis dan Weighted Risk Scoring"
+  type: "Skripsi (Sarjana Terapan)"
+  type_profile: "system_design"
+  school: "Politeknik Negeri Bali"
+  college: "Jurusan Teknik Informasi"
+  major: "D4 Teknologi Rekayasa Perangkat Lunak"
+  author: "Dimas Maulana"
+  author_id: "2215354026"
+  advisor: "Dosen Pembimbing I & II (nama belum diisi)"
+  submission_date: "2026"
+
+project:
+  name: "Sistem Deteksi Kecurangan GZCTF (Anti-Cheat Middleware)"
+  domain: "Keamanan siber / integritas kompetisi Capture The Flag (CTF)"
+  problem_statement: "GZCTF hanya menyediakan pemantauan log reaktif sehingga deteksi kecurangan (flag sharing, kolusi) bergantung pada pemeriksaan manual yang tidak efisien dan rentan human error."
+  objectives:
+    - "Membangun modul deteksi kecurangan modular berbasis middleware ASP.NET Core pada GZCTF"
+    - "Mengimplementasikan Sequence Similarity Analysis (LCS + Jaccard) dengan validasi CSD"
+    - "Mengembangkan Weighted Risk Scoring untuk melabeli tingkat kecurigaan tim"
+    - "Mengevaluasi performa sistem dengan presisi, recall, dan F1-score"
+  scope:
+    included:
+      - "Analisis Jaringan (Cross-Team IP, Token Abuse, Shared IP, Shared Fingerprint, Unknown IP)"
+      - "Analisis Perilaku (Fast Solve, Burst, Hoarding, No Download/Container)"
+      - "Deteksi Kolusi (RSI = LCS+Jaccard, CSD, SequenceSimilarity, CollusionGroup)"
+      - "Weighted Risk Scoring dan dashboard admin"
+    excluded:
+      - "Sinyal tambahan di luar lingkup proposal (honeypot, container-access) tidak didokumentasikan"
+      - "Deteksi berbasis machine learning (masuk saran/future work)"
+
+implementation_sources:
+  code_repository: "/root/homelab/GZCTF (branch develop)"
+  database_schema: "/root/homelab/GZCTF/src/GZCTF/Migrations (AddSuspicionSystem, OptimizeSuspicionModel, dst.)"
+  api_docs: "/root/homelab/GZCTF/src/GZCTF/Controllers/CheatReportController.cs (GET /api/game/{id}/cheatreport, /compare)"
+  screenshots: "belum ada (placeholder [image: ...] di BAB IV)"
+  test_reports: "belum ada (placeholder [hasil pengujian] di BAB IV)"
+
+roles:
+  - name: "Admin / Monitor"
+    description: "Meninjau laporan kecurangan, menelaah skor risiko tim, memvalidasi/memblokir peserta"
+    evidence: "CheatReportController [RequireMonitor]; AdminController AntiCheatBlocks"
+  - name: "Peserta (Tim)"
+    description: "Mengirim flag; aktivitasnya direkam dan dianalisis sistem"
+    evidence: "GameInstanceRepository.VerifyAnswer; AccountController login logging"
+
+technology_stack:
+  frontend: ["React (ClientApp GZCTF)"]
+  backend: ["C# .NET 8.0", "ASP.NET Core middleware/pipeline"]
+  database: ["PostgreSQL 15", "Redis (cache)"]
+  tools: ["Docker", "Git", "JMeter (rencana uji performa)"]
+  external_services: []
+  notes: "Konsisten dengan ekosistem GZCTF; bukti di paper-context/evidence/tech-stack.md"
+
+functional_modules:
+  - name: "Middleware Interceptor (Stage 1)"
+    description: "Merekam IP, Browser Fingerprint, timestamp, dan metadata interaksi secara sinkron"
+    evidence: ["AccountController.cs", "ContainerAccessLogger.cs", "GameEvent logging"]
+  - name: "Asynchronous Analysis Engine (Stage 2)"
+    description: "Stolen flag, analisis IP/jaringan, analisis perilaku, dan deteksi kolusi (LCS/Jaccard/RSI/CSD)"
+    evidence: ["CheatReportController.cs", "GameInstanceRepository.cs (StolenFlag)"]
+  - name: "Weighted Risk Scoring"
+    description: "Akumulasi bobot anomali per tim (idempoten) ke entitas Participation"
+    evidence: ["SuspicionService.cs", "SuspicionType.cs (Defaults weight table)"]
+  - name: "Admin Risk Dashboard"
+    description: "Daftar tim terurut skor, ring gauge, rincian suspicion event, collusion compare"
+    evidence: ["ClientApp/src/components/monitor/CheatInfo.tsx", "pages/.../CheatCheck.tsx"]
+
+database_design:
+  evidence_status: "partial"
+  source_files:
+    - "/root/homelab/GZCTF/src/GZCTF/Models/Data/SuspicionEvent.cs"
+    - "/root/homelab/GZCTF/src/GZCTF/Models/Data/SuspicionRule.cs"
+    - "/root/homelab/GZCTF/src/GZCTF/Models/Data/Participation.cs"
+    - "/root/homelab/GZCTF/src/GZCTF/Migrations (AddSuspicionSystem, OptimizeSuspicionModel)"
+  entities:
+    - name: "SuspicionEvent"
+      table: "SuspicionEvents"
+      purpose: "Log satu peristiwa anomali (jenis, bobot, waktu, detail) per partisipasi"
+      evidence: "Models/Data/SuspicionEvent.cs"
+      fields:
+        - { name: "Id", type: "int", key: true, nullable: "false", description: "Primary key", evidence: "SuspicionEvent.cs" }
+        - { name: "ParticipationId", type: "int", key: false, nullable: "false", description: "FK ke Participation", evidence: "SuspicionEvent.cs" }
+        - { name: "Type", type: "string", key: false, nullable: "false", description: "Kode aturan (StolenFlag, dst.)", evidence: "SuspicionEvent.cs" }
+        - { name: "ScoreDelta", type: "int", key: false, nullable: "false", description: "Bobot yang ditambahkan", evidence: "SuspicionEvent.cs" }
+        - { name: "Details", type: "string", key: false, nullable: "false", description: "Deskripsi bukti", evidence: "SuspicionEvent.cs" }
+        - { name: "TimeUtc", type: "DateTimeOffset", key: false, nullable: "false", description: "Waktu kejadian", evidence: "SuspicionEvent.cs" }
+        - { name: "GameId", type: "int", key: false, nullable: "false", description: "FK ke Game", evidence: "SuspicionEvent.cs" }
+        - { name: "RelatedParticipationId", type: "int", key: false, nullable: "true", description: "Partisipasi terkait (opsional)", evidence: "SuspicionEvent.cs" }
+    - name: "SuspicionRule"
+      table: "SuspicionRules"
+      purpose: "Definisi aturan deteksi dan bobot penalti (dapat dikonfigurasi)"
+      evidence: "Models/Data/SuspicionRule.cs; SuspicionType.Defaults"
+      fields:
+        - { name: "RuleCode", type: "string", key: true, nullable: "false", description: "Kode aturan unik", evidence: "SuspicionRule.cs" }
+        - { name: "Weight", type: "int", key: false, nullable: "false", description: "Bobot risiko", evidence: "SuspicionRule.cs" }
+        - { name: "Description", type: "string", key: false, nullable: "false", description: "Keterangan aturan", evidence: "SuspicionRule.cs" }
+    - name: "Participation"
+      table: "Participations"
+      purpose: "Partisipasi tim pada suatu game; menyimpan skor kecurigaan kumulatif"
+      evidence: "Models/Data/Participation.cs:98 (SuspicionScore)"
+      fields:
+        - { name: "Id", type: "int", key: true, nullable: "false", description: "Primary key", evidence: "Participation.cs" }
+        - { name: "SuspicionScore", type: "int", key: false, nullable: "false", description: "Akumulasi skor risiko (mentah, tak ternormalisasi)", evidence: "Participation.cs:98" }
+        - { name: "Status", type: "ParticipationStatus", key: false, nullable: "false", description: "Status kepesertaan", evidence: "Participation.cs" }
+  relationships:
+    - { name: "Participation memiliki banyak SuspicionEvent", from: "Participation", to: "SuspicionEvent", fromCardinality: "1", toCardinality: "m", evidence: "SuspicionEvent.ParticipationId" }
+    - { name: "SuspicionEvent merujuk SuspicionRule via kode", from: "SuspicionEvent", to: "SuspicionRule", fromCardinality: "m", toCardinality: "1", evidence: "SuspicionEvent.Type == SuspicionRule.RuleCode" }
+
+chapters:
+  - id: "bab-1"
+    title: "BAB I PENDAHULUAN"
+    purpose: "Latar belakang, rumusan masalah, batasan, tujuan, manfaat, sistematika."
+    status: "selesai (proposal)"
+  - id: "bab-2"
+    title: "BAB II TINJAUAN PUSTAKA"
+    purpose: "Penelitian sebelumnya dan landasan teori (GZCTF, LCS, Jaccard, RSI, CSD, WRS, Confusion Matrix, XSS)."
+    status: "selesai (proposal)"
+  - id: "bab-3"
+    title: "BAB III METODE PENELITIAN"
+    purpose: "Objek/metode, analisis kondisi eksisting, rancangan penelitian (arsitektur, fungsional/nonfungsional, UML, algoritma, ERD), rancangan implementasi & pengujian."
+    status: "selesai (sudah diselaraskan ke template SE)"
+  - id: "bab-4"
+    title: "BAB IV HASIL DAN PEMBAHASAN"
+    purpose: "Hasil implementasi (dari kode nyata), hasil pengujian (black box, confusion matrix, sensitivity, performa, SUS), analisis."
+    status: "kerangka + narasi implementasi selesai; angka & screenshot menunggu pengisian ([hasil pengujian]/[image:])"
+  - id: "bab-5"
+    title: "BAB V PENUTUP"
+    purpose: "Kesimpulan (menjawab 4 rumusan masalah) dan saran."
+    status: "draf selesai; klaim numerik menunggu hasil uji"
+
+evidence_index:
+  template_profile: "paper-context/template-extract/template-profile.json"
+  template_rule_overrides: "paper-context/template-extract/template-rule-overrides.yaml"
+  project_evidence: "paper-context/evidence/project-evidence.json"
+  code_structure: "paper-context/evidence/code-structure.md"
+  tech_stack: "paper-context/evidence/tech-stack.md"
+  database_schema: "paper-context/evidence/database-schema.md"
+  api_list: "paper-context/evidence/api-list.md"
+  test_results: "paper-context/evidence/test-results.md"
+
+rules:
+  must_not_fabricate:
+    - "Fungsi sistem"
+    - "Endpoint/API"
+    - "Field basis data"
+    - "Hasil/angka pengujian"
+    - "Sumber tangkapan layar"
+    - "Pustaka"
+    - "Aturan kampus"
+  must_check:
+    - "Prioritas template kampus"
+    - "Hierarki bab"
+    - "Penomoran gambar/tabel"
+    - "Konsistensi istilah"
+    - "Kelengkapan rantai bukti"

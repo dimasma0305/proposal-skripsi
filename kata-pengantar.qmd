@@ -1,0 +1,40 @@
+# KATA PENGANTAR {.unnumbered}
+
+Puji syukur penulis panjatkan ke hadirat Tuhan Yang Maha Esa atas segala rahmat dan karunia-Nya,
+sehingga penulis dapat menyelesaikan skripsi yang berjudul **"Perancangan Sistem Pendeteksi
+Kecurangan pada Platform GZCTF Menggunakan Algoritma Two-Stage Similarity Analysis dan Weighted
+Risk Scoring"**. Skripsi ini disusun sebagai salah satu syarat untuk menyelesaikan Program Studi
+Sarjana Terapan Teknologi Rekayasa Perangkat Lunak, Jurusan Teknik Informasi, Politeknik Negeri Bali.
+
+Penulis menyadari bahwa penyusunan skripsi ini tidak terlepas dari bantuan, bimbingan, dan dukungan
+berbagai pihak. Oleh karena itu, pada kesempatan ini penulis menyampaikan terima kasih yang
+sebesar-besarnya kepada:
+
+1. Direktur Politeknik Negeri Bali beserta jajarannya.
+2. Ketua Jurusan Teknik Informasi, Politeknik Negeri Bali.
+3. Ibu Ni Gusti Ayu Putu Harry Saptarini, S.Kom., M.Cs., selaku Koordinator Program Studi Sarjana Terapan Teknologi Rekayasa Perangkat Lunak.
+4. Bapak/Ibu (....................................) selaku Dosen Pembimbing I dan Bapak/Ibu (....................................) selaku Dosen Pembimbing II, atas bimbingan, arahan, dan masukan yang sangat berharga selama penyusunan skripsi ini.
+5. Seluruh dosen dan staf Jurusan Teknik Informasi atas ilmu dan bantuan yang telah diberikan.
+6. Kedua orang tua serta keluarga penulis atas doa dan dukungan yang tiada henti.
+7. Rekan-rekan mahasiswa dan semua pihak yang tidak dapat penulis sebutkan satu per satu, yang telah membantu kelancaran penyusunan skripsi ini.
+
+Penulis menyadari bahwa skripsi ini masih jauh dari sempurna. Oleh karena itu, kritik dan saran
+yang membangun sangat penulis harapkan demi penyempurnaan di masa mendatang. Semoga skripsi ini
+dapat memberikan manfaat bagi para pembaca dan pengembangan ilmu pengetahuan, khususnya di bidang
+keamanan siber dan rekayasa perangkat lunak.
+
+<br>
+
+::: {style="text-align: right"}
+Jimbaran, ............... 2026
+
+Penulis,
+
+<br><br>
+
+**Dimas Maulana**
+
+NIM. 2215354026
+:::
+
+{{< pagebreak >}}

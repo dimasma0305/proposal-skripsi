@@ -1,0 +1,76 @@
+# HALAMAN PENGESAHAN SKRIPSI {.unnumbered}
+
+::: {style="text-align: center"}
+
+**PERANCANGAN SISTEM PENDETEKSI KECURANGAN PADA PLATFORM GZCTF MENGGUNAKAN ALGORITMA TWO-STAGE SIMILARITY ANALYSIS DAN WEIGHTED RISK SCORING**
+
+<br>
+
+Disusun oleh:
+
+**Dimas Maulana**
+
+**NIM: 2215354026**
+
+<br>
+
+Skripsi ini telah diuji dan dipertahankan di hadapan Tim Penguji
+Program Studi Sarjana Terapan Teknologi Rekayasa Perangkat Lunak,
+Jurusan Teknik Informasi, Politeknik Negeri Bali,
+serta dinyatakan **LULUS** pada tanggal ............... 2026.
+
+:::
+
+<br>
+
+**Tim Penguji:**
+
+| No. | Nama | Jabatan | Tanda Tangan |
+|:---:|:-----|:--------|:------------:|
+| 1.  | (....................................)<br>NIP. ............................... | Ketua Penguji   | ............... |
+| 2.  | (....................................)<br>NIP. ............................... | Anggota Penguji | ............... |
+| 3.  | (....................................)<br>NIP. ............................... | Anggota Penguji | ............... |
+
+<br>
+
+::: {style="display: flex; justify-content: space-around; text-align: center;"}
+
+::: {style="width: 45%;"}
+**Dosen Pembimbing I**
+
+<br><br><br><br>
+
+(....................................)
+
+NIP. ...............................
+:::
+
+::: {style="width: 45%;"}
+**Dosen Pembimbing II**
+
+<br><br><br><br>
+
+(....................................)
+
+NIP. ...............................
+:::
+
+:::
+
+<br>
+
+::: {style="text-align: center"}
+
+**Mengetahui,**
+
+**Ketua Jurusan Teknik Informasi**
+
+<br><br><br><br>
+
+(....................................)
+
+NIP. ...............................
+
+:::
+
+{{< pagebreak >}}

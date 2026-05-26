@@ -1,0 +1,29 @@
+# ABSTRAK {.unnumbered}
+
+::: {style="text-align: center"}
+**PERANCANGAN SISTEM PENDETEKSI KECURANGAN PADA PLATFORM GZCTF MENGGUNAKAN ALGORITMA TWO-STAGE SIMILARITY ANALYSIS DAN WEIGHTED RISK SCORING**
+
+Dimas Maulana
+:::
+
+Kompetisi *Capture The Flag* (CTF) telah menjadi metode pembelajaran keamanan siber yang
+banyak digunakan, namun integritasnya terancam oleh praktik kecurangan seperti *flag sharing*
+dan kolaborasi ilegal antar tim. Platform GZCTF hanya menyediakan pemantauan log yang reaktif,
+sehingga deteksi kecurangan masih bergantung pada pemeriksaan manual yang tidak efisien dan
+rentan terhadap *human error*. Penelitian ini bertujuan merancang dan membangun sistem deteksi
+kecurangan yang ditanamkan sebagai *middleware* pada arsitektur ASP.NET Core GZCTF.
+Sistem dibangun menggunakan model pengembangan *Waterfall* dengan pendekatan *Two-Stage Analysis*:
+tahap pertama merekam metadata permintaan secara sinkron, dan tahap kedua menganalisisnya secara
+asinkron. Deteksi kolusi dilakukan melalui *Sequence Similarity Analysis* yang menggabungkan
+*Longest Common Subsequence* (LCS) dan *Jaccard Similarity* ke dalam *Relative Sequence Index* (RSI),
+divalidasi oleh *Confidence Screening Detector* (CSD) untuk membentuk *collusion group*. Seluruh
+indikator anomali dikuantifikasi melalui *Weighted Risk Scoring* (WRS) menjadi skor risiko kumulatif
+per tim. Sistem diuji menggunakan pengujian fungsional (*black box*), pengujian akurasi berbasis
+*confusion matrix*, pengujian performa, serta pengujian *usability* dengan *System Usability Scale*
+(SUS). Hasil pengujian menunjukkan [hasil pengujian], dengan target *recall* ≥ 0,90, presisi ≥ 0,85,
+dan *false positive rate* ≤ 0,10. Sistem yang dikembangkan diharapkan dapat meningkatkan efisiensi
+pengawasan dan menjaga integritas akademik pada kompetisi CTF.
+
+**Kata kunci:** GZCTF, deteksi kecurangan, *Sequence Similarity Analysis*, *Weighted Risk Scoring*, integritas akademik
+
+{{< pagebreak >}}
